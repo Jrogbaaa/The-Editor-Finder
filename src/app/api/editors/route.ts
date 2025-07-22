@@ -3,19 +3,7 @@ import { db } from '@/lib/firebase';
 import { collection, query, where, orderBy, limit, getDocs, startAfter } from 'firebase/firestore';
 import { SearchFilters, Editor, ApiResponse, SearchResult } from '@/types';
 import { realEmmyService } from '@/lib/real-emmy-service';
-
-// Temporarily disable Algolia due to import issues
-// TODO: Re-enable Algolia once import issues are resolved
-// let algoliaSearchEditors: ((filters: SearchFilters) => Promise<SearchResult>) | null = null;
-// let isAlgoliaConfigured: (() => boolean) | null = null;
-
-// try {
-//   const algoliaModule = require('@/lib/algolia');
-//   algoliaSearchEditors = algoliaModule.searchEditors;
-//   isAlgoliaConfigured = algoliaModule.isAlgoliaConfigured;
-// } catch (error) {
-//   console.log('Algolia not available, using Firebase search only');
-// }
+import { searchEditors, isAlgoliaConfigured } from '@/lib/algolia';
 
 export async function GET(request: NextRequest) {
   try {
@@ -43,8 +31,26 @@ export async function GET(request: NextRequest) {
 
     const pageSize = parseInt(searchParams.get('limit') || '20');
     
-    // Use Firebase search for now
-    console.log('🔍 Using Firebase search');
+    // Try Algolia first if configured
+    if (isAlgoliaConfigured()) {
+      console.log('🚀 Using Algolia search');
+      try {
+        const result = await searchEditors(filters);
+        
+        const response: ApiResponse<SearchResult> = {
+          data: result,
+          success: true,
+          timestamp: new Date()
+        };
+        
+        return NextResponse.json(response);
+      } catch (algoliaError) {
+        console.warn('⚠️ Algolia search failed, falling back to Firebase:', algoliaError);
+      }
+    }
+
+    // Fallback to Firebase search
+    console.log('🔍 Using Firebase search (Algolia fallback)');
     const result = await searchWithFirebase(filters, pageSize);
 
     // If no editors found, try to initialize with Emmy data

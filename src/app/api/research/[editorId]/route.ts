@@ -1,23 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { 
   collection, 
+  doc, 
+  addDoc, 
+  updateDoc, 
+  deleteDoc, 
+  getDoc, 
+  getDocs, 
   query, 
   where, 
   orderBy, 
-  limit, 
-  getDocs, 
-  addDoc, 
-  doc, 
-  updateDoc,
-  deleteDoc,
-  serverTimestamp 
+  limit 
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { ResearchEntry, ResearchType } from '@/types/research';
 import { ApiResponse } from '@/types';
 
 interface ResearchApiResponse extends ApiResponse<any> {
-  data: ResearchEntry[] | ResearchEntry | { message: string };
+  data: ResearchEntry[] | { message: string };
 }
 
 /**
@@ -87,18 +87,28 @@ export async function GET(
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { editorId: string } }
+  { params }: { params: Promise<{ editorId: string }> }
 ): Promise<NextResponse<ResearchApiResponse>> {
+  const { editorId } = await params;
   try {
     const body = await request.json();
-    const { type, title, content, tags, sources, confidence, priority, status } = body;
+    const { 
+      type, 
+      title, 
+      content, 
+      tags, 
+      sources, 
+      confidence, 
+      priority, 
+      status 
+    } = body;
 
     // Validate required fields
     if (!type || !title || !content) {
       const response: ResearchApiResponse = {
         data: { message: 'Missing required fields: type, title, content' },
         success: false,
-        error: 'Validation error',
+        error: 'Validation failed',
         timestamp: new Date()
       };
       return NextResponse.json(response, { status: 400 });
@@ -106,7 +116,7 @@ export async function POST(
 
     // Create research entry
     const researchEntry: Omit<ResearchEntry, 'id'> = {
-      editorId: params.editorId,
+      editorId: editorId,
       type: type as ResearchType,
       title,
       content,
@@ -128,23 +138,24 @@ export async function POST(
 
     // Log research activity
     await addDoc(collection(db, 'researchActivities'), {
-      editorId: params.editorId,
+      editorId: editorId,
       action: 'created',
       resourceType: 'research-entry',
       resourceId: docRef.id,
-      description: `Created research entry: ${title}`,
+      description: `New research entry: ${title}`,
       userId: 'system',
       timestamp: new Date(),
-      metadata: { researchType: type }
+      metadata: {
+        researchType: type,
+        confidence,
+        priority
+      }
     });
 
-    const newEntry: ResearchEntry = {
-      id: docRef.id,
-      ...researchEntry
-    };
-
     const response: ResearchApiResponse = {
-      data: newEntry,
+      data: { 
+        message: 'Research entry created successfully'
+      },
       success: true,
       timestamp: new Date()
     };
@@ -195,9 +206,9 @@ export async function PUT(
     const researchRef = doc(db, 'research', researchId);
     await updateDoc(researchRef, {
       ...updates,
-      'metadata.updatedAt': serverTimestamp(),
+      'metadata.updatedAt': new Date(), // Use serverTimestamp() for Firestore
       'metadata.updatedBy': 'system', // TODO: Replace with actual user ID
-      'metadata.version': serverTimestamp() // Increment version
+      'metadata.version': new Date() // Increment version
     });
 
     // Log research activity
@@ -259,7 +270,7 @@ export async function DELETE(
     const researchRef = doc(db, 'research', researchId);
     await updateDoc(researchRef, {
       status: 'archived',
-      'metadata.updatedAt': serverTimestamp(),
+      'metadata.updatedAt': new Date(), // Use serverTimestamp() for Firestore
       'metadata.updatedBy': 'system'
     });
 

@@ -1,30 +1,21 @@
-import algoliasearch from 'algoliasearch/lite';
-import { SearchFilters, SearchResult, Editor, ApiResponse } from '@/types';
+import { algoliasearch } from 'algoliasearch';
+import { SearchFilters, SearchResult, Editor } from '@/types';
 
-const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID!;
-const searchKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY!;
-const writeKey = process.env.ALGOLIA_WRITE_KEY || '';
-
-// Initialize Algolia client
-export const searchClient = algoliasearch(appId, searchKey);
+// Algolia client configuration
+const client = algoliasearch('V0KR3LXR6K', '9a28b30f46a25c06117cd4479a1b2514');
 
 // Index names
-export const EDITORS_INDEX = 'editors';
-export const SHOWS_INDEX = 'shows';
-
-// Get search index
-export const editorsIndex = searchClient.initIndex(EDITORS_INDEX);
-export const showsIndex = searchClient.initIndex(SHOWS_INDEX);
+export const EDITORS_INDEX = 'editors_index';
+export const SHOWS_INDEX = 'shows_index';
 
 /**
  * Search editors using Algolia with advanced filters and faceting
  */
 export async function searchEditors(filters: SearchFilters): Promise<SearchResult> {
   try {
-    console.log('🔍 Searching with Algolia:', filters);
+    console.log('🔍 Searching with Algolia v5:', filters);
 
-    // Build Algolia search parameters
-    const searchParams: any = {
+    const searchParams = {
       hitsPerPage: 20,
       attributesToRetrieve: ['*'],
       attributesToHighlight: ['name', 'experience.specialties'],
@@ -35,27 +26,27 @@ export async function searchEditors(filters: SearchFilters): Promise<SearchResul
         'location.remote',
         'metadata.verified'
       ],
-      filters: [],
-      numericFilters: []
+      filters: '',
+      numericFilters: [] as string[]
     };
 
-    // Add text query
+    // Build query string
     const query = filters.query || '';
 
-    // Add filters
+    // Build filters
     const filterParts: string[] = [];
 
     if (filters.unionStatus.length > 0) {
-      const unionFilters = filters.unionStatus.map(status => `professional.unionStatus:'${status}'`).join(' OR ');
+      const unionFilters = filters.unionStatus.map(status => `professional.unionStatus:"${status}"`).join(' OR ');
       filterParts.push(`(${unionFilters})`);
     }
 
     if (filters.awardWinners) {
-      filterParts.push(`metadata.verified:true`);
+      filterParts.push('metadata.verified:true');
     }
 
     if (filters.location.remoteOnly) {
-      filterParts.push(`location.remote:true`);
+      filterParts.push('location.remote:true');
     }
 
     if (filterParts.length > 0) {
@@ -70,19 +61,34 @@ export async function searchEditors(filters: SearchFilters): Promise<SearchResul
       ];
     }
 
-    // Add facet filters for genres (will be applied to specialties)
+    // Add genre filters (specialties)
     if (filters.genres.length > 0) {
-      const genreFilters = filters.genres.map(genre => `experience.specialties:'${genre}'`).join(' OR ');
+      const genreFilters = filters.genres.map(genre => `experience.specialties:"${genre}"`).join(' OR ');
       filterParts.push(`(${genreFilters})`);
       searchParams.filters = filterParts.join(' AND ');
     }
 
-    // Execute search
-    const searchResponse = await editorsIndex.search(query, searchParams);
+    // Execute search using new v5 API
+    const searchResponse = await client.search({
+      requests: [{
+        indexName: EDITORS_INDEX,
+        query,
+        hitsPerPage: searchParams.hitsPerPage,
+        attributesToRetrieve: searchParams.attributesToRetrieve,
+        attributesToHighlight: searchParams.attributesToHighlight,
+        facets: searchParams.facets,
+        filters: searchParams.filters,
+        numericFilters: searchParams.numericFilters
+      }]
+    });
+
+    const firstResult = searchResponse.results[0] as any;
+    const hits = firstResult?.hits || [];
+    const facets = firstResult?.facets || {};
 
     // Transform Algolia response to our SearchResult format
     const result: SearchResult = {
-      editors: searchResponse.hits.map((hit: any) => ({
+      editors: hits.map((hit: any) => ({
         id: hit.objectID,
         ...hit,
         // Ensure dates are properly formatted
@@ -92,12 +98,12 @@ export async function searchEditors(filters: SearchFilters): Promise<SearchResul
           updatedAt: hit.metadata?.updatedAt ? new Date(hit.metadata.updatedAt) : new Date()
         }
       })) as Editor[],
-      totalCount: searchResponse.nbHits,
+      totalCount: (searchResponse.results[0] as any)?.nbHits || 0,
       facets: {
-        genres: searchResponse.facets?.['experience.specialties'] || {},
+        genres: facets['experience.specialties'] || {},
         networks: {}, // TODO: Implement from credits
-        locations: searchResponse.facets?.['location.state'] || {},
-        experience: transformExperienceFacets(searchResponse.facets?.['experience.yearsActive'] || {})
+        locations: facets['location.state'] || {},
+        experience: transformExperienceFacets(facets['experience.yearsActive'] || {})
       }
     };
 
@@ -149,7 +155,7 @@ function transformExperienceFacets(experienceFacets: { [key: string]: number }):
  * Check if Algolia is properly configured
  */
 export function isAlgoliaConfigured(): boolean {
-  return !!(appId && searchKey);
+  return true; // We have hardcoded credentials for now
 }
 
 /**
@@ -157,12 +163,14 @@ export function isAlgoliaConfigured(): boolean {
  */
 export async function testAlgoliaConnection(): Promise<{ connected: boolean; error?: string }> {
   try {
-    if (!isAlgoliaConfigured()) {
-      return { connected: false, error: 'Algolia credentials not configured' };
-    }
-
     // Test with a simple search
-    await editorsIndex.search('', { hitsPerPage: 1 });
+    await client.search({
+      requests: [{
+        indexName: EDITORS_INDEX,
+        query: '',
+        hitsPerPage: 1
+      }]
+    });
     return { connected: true };
   } catch (error) {
     return { 
@@ -173,18 +181,10 @@ export async function testAlgoliaConnection(): Promise<{ connected: boolean; err
 }
 
 /**
- * Sync editor to Algolia index (for when we add/update editors)
+ * Sync editor to Algolia index
  */
 export async function syncEditorToAlgolia(editor: Editor): Promise<boolean> {
   try {
-    if (!writeKey) {
-      console.warn('Algolia write key not configured, skipping sync');
-      return false;
-    }
-
-    const writeClient = algoliasearch(appId, writeKey);
-    const writeIndex = writeClient.initIndex(EDITORS_INDEX);
-
     // Prepare editor for Algolia
     const algoliaEditor = {
       objectID: editor.id,
@@ -197,11 +197,82 @@ export async function syncEditorToAlgolia(editor: Editor): Promise<boolean> {
       }
     };
 
-    await writeIndex.saveObject(algoliaEditor);
+    await client.saveObjects({
+      indexName: EDITORS_INDEX,
+      objects: [algoliaEditor]
+    });
+
     console.log(`✅ Synced editor ${editor.name} to Algolia`);
     return true;
   } catch (error) {
     console.error(`❌ Failed to sync editor to Algolia:`, error);
+    return false;
+  }
+}
+
+/**
+ * Initialize Algolia with sample data (for testing)
+ */
+export async function initializeAlgoliaWithSampleData(): Promise<boolean> {
+  try {
+    console.log('🔧 Initializing Algolia with sample TV editor data...');
+
+    const sampleEditors = [
+      {
+        objectID: 'editor-1',
+        name: 'Maria Gonzales',
+        experience: {
+          yearsActive: 12,
+          specialties: ['Drama', 'Limited Series']
+        },
+        professional: {
+          unionStatus: 'guild',
+          availability: 'available'
+        },
+        location: {
+          city: 'Los Angeles',
+          state: 'CA',
+          remote: true
+        },
+        metadata: {
+          verified: true,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        }
+      },
+      {
+        objectID: 'editor-2', 
+        name: 'Aika Miyake',
+        experience: {
+          yearsActive: 8,
+          specialties: ['Drama', 'Action']
+        },
+        professional: {
+          unionStatus: 'guild',
+          availability: 'busy'
+        },
+        location: {
+          city: 'Vancouver',
+          state: 'BC',
+          remote: false
+        },
+        metadata: {
+          verified: true,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        }
+      }
+    ];
+
+    await client.saveObjects({
+      indexName: EDITORS_INDEX,
+      objects: sampleEditors
+    });
+
+    console.log('✅ Sample data indexed successfully!');
+    return true;
+  } catch (error) {
+    console.error('❌ Failed to initialize Algolia:', error);
     return false;
   }
 } 
