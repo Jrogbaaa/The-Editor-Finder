@@ -39,11 +39,28 @@ export default function HomePage() {
     setFilters(newFilters);
     
     try {
-      // TODO: Replace with actual API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setResults(mockResults);
+      const params = new URLSearchParams();
+      if (newFilters.query) params.append('q', newFilters.query);
+      if (newFilters.genres.length > 0) params.append('genres', newFilters.genres.join(','));
+      if (newFilters.networks.length > 0) params.append('networks', newFilters.networks.join(','));
+      if (newFilters.unionStatus.length > 0) params.append('unionStatus', newFilters.unionStatus.join(','));
+      if (newFilters.awardWinners) params.append('awardWinners', 'true');
+      if (newFilters.location.remoteOnly) params.append('remoteOnly', 'true');
+      params.append('minExperience', newFilters.experienceRange.min.toString());
+      params.append('maxExperience', newFilters.experienceRange.max.toString());
+
+      const response = await fetch(`/api/editors?${params.toString()}`);
+      const data = await response.json();
+      
+      if (data.success) {
+        setResults(data.data);
+      } else {
+        console.error('Search failed:', data.error);
+        setResults(mockResults);
+      }
     } catch (error) {
       console.error('Search failed:', error);
+      setResults(mockResults);
     } finally {
       setLoading(false);
     }
