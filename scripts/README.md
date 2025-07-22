@@ -15,17 +15,20 @@ This directory contains import scripts to populate your TV Editor Finder databas
 
 ## 🌍 **COMPLETE DATABASE SETUP**
 
-### **Recommended: Import Full Global Database (65+ Editors)**
+### **Recommended: Import Full Global Database (75+ Editors)**
 
 ```bash
 # Step 1: Import original prominent editors (32 editors)
 npx tsx scripts/import-prominent-editors-simple.ts
 
-# Step 2: Import new global research (35 editors) 
+# Step 2: Import new global research (35 editors)
 npx tsx scripts/import-global-editors.ts
+
+# Step 3: Import Canadesk IMDb editors (9 editors) - NEW
+npx tsx scripts/import-canadesk-editors.ts
 ```
 
-**Total Result: 65+ professional TV editors with verified credentials**
+**Total Result: 75+ professional TV editors with verified credentials**
 
 ## 🎯 **What You'll Get**
 
@@ -58,6 +61,22 @@ npx tsx scripts/import-global-editors.ts
 - **Nordic Noir Pioneer**: Borgen, The Killing, Unit One
 - **Danish Broadcasting**: DR1 productions
 - **International Influence**: Nordic TV model
+
+### **🇦🇺 Australia** (1 Editor)
+- 📺 **Neighbours** - Soap opera pioneer Gerard Simmons
+
+### **🇩🇰 Denmark** (1 Editor)  
+- 🏛️ **Borgen, The Killing** - Nordic Noir specialist
+
+### **🇯🇵 Japan/International** (1 Editor)
+- ⚔️ **Shogun** - International co-productions
+
+### **🎬 Canadesk IMDb Discovery** (9 Editors - NEW)
+- 🇺🇸 **Emmy Content**: Shōgun (2024) with Maria Gonzales
+- 🇬🇧 **BBC Classics**: Bergerac (Lois Drinkwater), The Crow Road (Angus Newton)  
+- 🇦🇺 **Daily Television**: Neighbours soap opera (Gerard Simmons)
+- 📺 **Historical Range**: 1966-2024 (58 years of TV editing)
+- 🏆 **Network Coverage**: BBC, NBC, FX/Hulu, Discovery, Network Ten
 
 ## 🔥 Firebase Setup
 

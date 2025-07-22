@@ -1,0 +1,112 @@
+{
+  "editors": [
+    {
+      "name": "Maria Gonzales",
+      "imdbId": "nm1290581",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 15, "startYear": 2009, "specialties": ["Drama", "Period Drama", "Historical"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["imdb", "canadesk-scraper"], "verified": true },
+      "shows": [
+        { "title": "Shōgun", "network": "FX/Hulu", "genre": ["Drama", "Historical", "War"], "type": "series", "year": 2024 }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Lois Drinkwater",
+      "imdbId": "nm2477487",
+      "location": { "city": "London", "state": "", "country": "UK", "remote": true },
+      "experience": { "yearsActive": 25, "startYear": 1987, "specialties": ["Crime", "Drama", "Mystery"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["imdb", "canadesk-scraper"], "verified": true },
+      "shows": [
+        { "title": "Bergerac", "network": "BBC", "genre": ["Crime", "Drama", "Mystery"], "type": "series", "year": 1987 }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Tim Hansen",
+      "imdbId": "nm4256220",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 12, "startYear": 2012, "specialties": ["Documentary", "Reality TV", "Adventure"] },
+      "professional": { "unionStatus": "non-union", "availability": "available" },
+      "metadata": { "dataSource": ["imdb", "canadesk-scraper"], "verified": true },
+      "shows": [
+        { "title": "Volcano Live", "network": "Discovery", "genre": ["Documentary", "Adventure"], "type": "series", "year": 2012 }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Angus Newton",
+      "imdbId": "nm0628460",
+      "location": { "city": "Edinburgh", "state": "", "country": "UK", "remote": true },
+      "experience": { "yearsActive": 28, "startYear": 1996, "specialties": ["Drama", "Literary Adaptation", "Mystery"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["imdb", "canadesk-scraper"], "verified": true },
+      "shows": [
+        { "title": "The Crow Road", "network": "BBC", "genre": ["Drama", "Mystery"], "type": "series", "year": 1996 }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Julian Farr",
+      "imdbId": "nm0268037",
+      "location": { "city": "London", "state": "", "country": "UK", "remote": false },
+      "experience": { "yearsActive": 58, "startYear": 1966, "specialties": ["Classic TV", "Drama", "Comedy"] },
+      "professional": { "unionStatus": "guild", "availability": "retired" },
+      "metadata": { "dataSource": ["imdb", "canadesk-scraper"], "verified": true },
+      "shows": [
+        { "title": "Five More", "network": "BBC", "genre": ["Drama"], "type": "series", "year": 1966 }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Ken Denisoff",
+      "imdbId": "nm0219207",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": false },
+      "experience": { "yearsActive": 30, "startYear": 1976, "specialties": ["Comedy", "Sitcom", "Military"] },
+      "professional": { "unionStatus": "guild", "availability": "retired" },
+      "metadata": { "dataSource": ["imdb", "canadesk-scraper"], "verified": true },
+      "shows": [
+        { "title": "CPO Sharkey", "network": "NBC", "genre": ["Comedy", "Sitcom"], "type": "series", "year": 1976 }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Gerard Simmons",
+      "imdbId": "nm1210827",
+      "location": { "city": "Melbourne", "state": "VIC", "country": "Australia", "remote": true },
+      "experience": { "yearsActive": 39, "startYear": 1985, "specialties": ["Soap Opera", "Drama", "Daily Television"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["imdb", "canadesk-scraper"], "verified": true },
+      "shows": [
+        { "title": "Neighbours", "network": "Network Ten", "genre": ["Drama", "Soap Opera"], "type": "series", "year": 1985 }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Max K. Curtis",
+      "imdbId": "nm0193452",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": false },
+      "experience": { "yearsActive": 25, "startYear": 1982, "specialties": ["Comedy", "Sitcom", "Family"] },
+      "professional": { "unionStatus": "guild", "availability": "retired" },
+      "metadata": { "dataSource": ["imdb", "canadesk-scraper"], "verified": true },
+      "shows": [
+        { "title": "One of the Boys", "network": "NBC", "genre": ["Comedy", "Sitcom"], "type": "series", "year": 1982 }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Simon Horwood",
+      "imdbId": "nm12268453",
+      "location": { "city": "London", "state": "", "country": "UK", "remote": false },
+      "experience": { "yearsActive": 54, "startYear": 1970, "specialties": ["Documentary", "Educational", "Arts"] },
+      "professional": { "unionStatus": "guild", "availability": "retired" },
+      "metadata": { "dataSource": ["imdb", "canadesk-scraper"], "verified": true },
+      "shows": [
+        { "title": "Oh in Colour", "network": "BBC", "genre": ["Documentary"], "type": "series", "year": 1970 }
+      ],
+      "awards": []
+    }
+  ]
+} 

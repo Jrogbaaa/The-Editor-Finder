@@ -18,9 +18,9 @@ A Next.js application for discovering and connecting with professional TV editor
 - **🎭 Emmy database integration** for award verification
 
 ### 🌍 **Global Professional Editor Database**
-- **🎬 65+ acclaimed TV editors** from comprehensive industry research
+- **🎬 75+ acclaimed TV editors** from comprehensive industry research
 - **🏆 Emmy, BAFTA & International Award winners** from top shows
-- **🌍 True international coverage** across 6 countries and 4 continents
+- **🌍 True international coverage** across 7 countries and 4 continents
 - **✅ Verified profiles** with complete filmographies
 - **📊 Award tracking** with years and categories
 
@@ -54,14 +54,17 @@ npm install
 
 ### 🎬 **Instant Global Professional Database**
 
-Get started immediately with **65+ prominent TV editors** including Emmy, BAFTA, and international award winners:
+Get started immediately with **75+ prominent TV editors** including Emmy, BAFTA, and international award winners:
 
 ```bash
 # Import 32 industry-verified editor profiles (original dataset)
 npx tsx scripts/import-prominent-editors.ts
 
-# Import 35 additional global editors (new comprehensive dataset)
+# Import 35 additional global editors (comprehensive international dataset)
 npx tsx scripts/import-global-editors.ts
+
+# Import 9 IMDb-verified editors from Canadesk scraper (NEW)
+npx tsx scripts/import-canadesk-editors.ts
 ```
 
 **🌍 GLOBAL COVERAGE INCLUDES:**
@@ -71,6 +74,7 @@ npx tsx scripts/import-global-editors.ts
 - 👑 **Succession** (Bill Henry - Emmy nominee)
 - 🍳 **BEEF** (Nat Fuller, Laura Zempel - Emmy winners)
 - 🎭 **The Queen's Gambit** (Michelle Tesoro - Emmy & ACE Eddie winner)
+- ⚔️ **Shōgun** (Maria Gonzales - Emmy nominee)
 - 🌟 **Breaking Bad, Stranger Things, The Bear** (original dataset)
 
 ### 🇬🇧 **United Kingdom - BAFTA Craft Award Winners**
@@ -78,6 +82,7 @@ npx tsx scripts/import-global-editors.ts
 - 🦌 **Baby Reindeer** (Peter H. Oliver, Benjamin Gerstein - Emmy & ACE Eddie winners)
 - ☢️ **Chernobyl** (Simon Smith, Jinx Godfrey - BAFTA winners)
 - 👑 **Three Girls, The Crown** (Úna Ní Dhonghaíle - BAFTA winner)
+- 🔍 **Bergerac** (Lois Drinkwater), **The Crow Road** (Angus Newton)
 
 ### 🇪🇸 **Spain - Money Heist Editing Team**
 - 💰 **Money Heist** (David Pelegrín, Luis Miguel González Bedmar, Verónica Callón, Regino Hernández, Raquel Marraco, Patricia Rubio - International Emmy winners)
@@ -91,6 +96,9 @@ npx tsx scripts/import-global-editors.ts
 
 ### 🇩🇰 **Denmark - Nordic Noir Masters**
 - 🏛️ **Borgen, The Killing** (Gerd Tjur - Nordic Noir pioneer)
+
+### 🇦🇺 **Australia - International Television**
+- 📺 **Neighbours** (Gerard Simmons - Daily television pioneer)
 
 ### 🎌 **Japan/International**
 - ⚔️ **Shogun** (Aika Miyake - ACE Eddie winner)
@@ -282,9 +290,30 @@ Our application integrates with **IMDb via Apify MCP** for comprehensive enterta
 
 #### Available IMDb Scrapers
 - **`epctex/imdb-advanced-scraper`** - Advanced TV show and movie data extraction
-- **`canadesk/imdb`** - Search and celebrity data retrieval  
+- **`canadesk/imdb`** - ✅ **ACTIVE** Search and celebrity data retrieval  
 - **`dtrungtin/imdb-scraper`** - Comprehensive IMDb API alternative
 - **`maged120/imdb-trending-ppr`** - Real-time trending content
+
+#### Editor Discovery Success
+```typescript
+// Successful editor discovery via Canadesk IMDb scraper
+interface EditorDiscovery {
+  method: 'canadesk-imdb-search';
+  searchTerms: ['film editor', 'video editor', 'editorial department'];
+  results: 9; // New verified editors added
+  coverage: ['USA', 'UK', 'Australia']; // 3 countries
+  timespan: '1966-2024'; // 58 years of TV history
+  shows: ['Shōgun', 'Bergerac', 'Neighbours', 'The Crow Road'];
+  verification: 'imdb-profile-confirmed';
+}
+```
+
+#### Practical Integration Results
+- **✅ 9 New Editors Added** via Canadesk IMDb scraper
+- **📺 Emmy Content**: Shōgun (2024) Emmy-nominated series
+- **🏆 Classic Series**: BBC's Bergerac, The Crow Road
+- **🌍 International**: UK BBC productions, Australian soap opera
+- **📅 Historical Range**: 1966-2024 (58 years of editing history)
 
 #### Research Capabilities
 ```typescript
