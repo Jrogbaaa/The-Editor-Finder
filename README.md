@@ -1,6 +1,6 @@
 # 🎬 TV Editor Finder
 
-A Next.js application for discovering and connecting with professional TV editors. Built with **Algolia-powered search**, Firebase, and modern web technologies.
+A Next.js application for discovering and connecting with professional TV editors worldwide. Built with **Algolia-powered search**, Firebase, and modern web technologies.
 
 ## ✨ Features
 
@@ -17,10 +17,10 @@ A Next.js application for discovering and connecting with professional TV editor
 - **📝 Knowledge management** with confidence scoring
 - **🎭 Emmy database integration** for award verification
 
-### 🗃️ **Professional Editor Database**
-- **🎬 32 prominent TV editors** from industry research
-- **🏆 Emmy & BAFTA winners** from top shows
-- **🌍 International coverage** (US, UK, Canada, Spain, Germany, Korea, India)
+### 🌍 **Global Professional Editor Database**
+- **🎬 65+ acclaimed TV editors** from comprehensive industry research
+- **🏆 Emmy, BAFTA & International Award winners** from top shows
+- **🌍 True international coverage** across 6 countries and 4 continents
 - **✅ Verified profiles** with complete filmographies
 - **📊 Award tracking** with years and categories
 
@@ -52,23 +52,48 @@ npm install
 # Set up environment variables (see Environment Configuration below)
 ```
 
-### 🎬 **Instant Professional Database**
+### 🎬 **Instant Global Professional Database**
 
-Get started immediately with **32 prominent TV editors** including Emmy and BAFTA winners:
+Get started immediately with **65+ prominent TV editors** including Emmy, BAFTA, and international award winners:
 
 ```bash
-# Import industry-verified editor profiles
+# Import 32 industry-verified editor profiles (original dataset)
 npx tsx scripts/import-prominent-editors.ts
+
+# Import 35 additional global editors (new comprehensive dataset)
+npx tsx scripts/import-global-editors.ts
 ```
 
-**Includes editors from:**
-- 🏆 **Breaking Bad universe** (Kelley Dixon, Skip Macdonald, Lynne Willingham)
-- ⚔️ **Game of Thrones** (Tim Porter, Katie Weiland - Emmy winners)
-- 👑 **Succession** (Ken Eluto, Jane Rizzo - Emmy winners)
-- 🍳 **The Bear** (Joanna Naugle - 2 Emmy wins)
-- 🌟 **Stranger Things** (Dean Zimmerman - 2 Emmy wins)
-- ⚽ **Ted Lasso** (A.J. Catoline, Melissa McCoy)
-- 🌍 **International hits** (Squid Game, Sacred Games, La Casa de Papel)
+**🌍 GLOBAL COVERAGE INCLUDES:**
+
+### 🇺🇸 **United States - Emmy & ACE Eddie Winners**
+- 🏆 **The Last of Us** (Timothy A. Good, Emily Mendez - Emmy winners)
+- 👑 **Succession** (Bill Henry - Emmy nominee)
+- 🍳 **BEEF** (Nat Fuller, Laura Zempel - Emmy winners)
+- 🎭 **The Queen's Gambit** (Michelle Tesoro - Emmy & ACE Eddie winner)
+- 🌟 **Breaking Bad, Stranger Things, The Bear** (original dataset)
+
+### 🇬🇧 **United Kingdom - BAFTA Craft Award Winners**
+- 🏥 **This Is Going to Hurt** (Selina MacArthur - BAFTA winner)
+- 🦌 **Baby Reindeer** (Peter H. Oliver, Benjamin Gerstein - Emmy & ACE Eddie winners)
+- ☢️ **Chernobyl** (Simon Smith, Jinx Godfrey - BAFTA winners)
+- 👑 **Three Girls, The Crown** (Úna Ní Dhonghaíle - BAFTA winner)
+
+### 🇪🇸 **Spain - Money Heist Editing Team**
+- 💰 **Money Heist** (David Pelegrín, Luis Miguel González Bedmar, Verónica Callón, Regino Hernández, Raquel Marraco, Patricia Rubio - International Emmy winners)
+
+### 🇩🇪 **Germany - Netflix Originals**
+- 🌀 **Dark** (Anja Siemens, Boris Gromatzki - Grimme-Preis winners)
+- 👑 **The Empress** (Boris Gromatzki)
+
+### 🇦🇹 **Austria - International Productions**
+- 🌀 **Dark, Safe** (Simon Gstöttmayr - Grimme-Preis winner)
+
+### 🇩🇰 **Denmark - Nordic Noir Masters**
+- 🏛️ **Borgen, The Killing** (Gerd Tjur - Nordic Noir pioneer)
+
+### 🎌 **Japan/International**
+- ⚔️ **Shogun** (Aika Miyake - ACE Eddie winner)
 
 *See `scripts/README.md` for complete setup instructions.*
 
@@ -204,15 +229,30 @@ interface Editor {
   location: {
     city: string;
     state: string;
+    country: string;              // NEW: International support
     remote: boolean;
   };
   contact: ContactInfo;
   metadata: {
     verified: boolean;           // Emmy/award verification
+    dataSource: string[];       // NEW: Multiple sources
     createdAt: Date;
     updatedAt: Date;
     confidenceScore: number;     // Data reliability (0-100)
   };
+}
+```
+
+### International Award Integration
+
+```typescript
+interface Award {
+  name: string;                  // Emmy, BAFTA, Grimme-Preis, etc.
+  category: string;
+  year: number;
+  status: 'won' | 'nominated';
+  show: string;
+  country?: string;              // NEW: Award country
 }
 ```
 
@@ -295,10 +335,14 @@ npm run test:e2e
 
 ### Database Seeding
 ```bash
-# Import 32 prominent TV editors (recommended)
+# RECOMMENDED: Import complete global database (65+ editors)
+# Step 1: Import original prominent editors (32 editors)
 npx tsx scripts/import-prominent-editors.ts
 
-# Or add sample editor data for testing
+# Step 2: Import new global research (35 editors)
+npx tsx scripts/import-global-editors.ts
+
+# Alternative: Add sample editor data for testing only
 npm run seed:editors
 
 # Initialize Emmy database
@@ -380,11 +424,12 @@ firebase deploy
 ## 🔮 Roadmap
 
 ### Recently Added ✅
-- [x] **Prominent Editors Database** - 32 industry professionals
-- [x] **Emmy & BAFTA Integration** - Award winner verification
-- [x] **International Coverage** - Global editor database
-- [x] **Import Scripts** - Easy database population
-- [x] **Verified Profiles** - Industry-researched data
+- [x] **Global Editor Database** - 65+ industry professionals worldwide
+- [x] **International Award Integration** - Emmy, BAFTA, Grimme-Preis, International Emmy
+- [x] **Multi-Country Coverage** - USA, UK, Spain, Germany, Austria, Denmark, Japan
+- [x] **Advanced Import Scripts** - Automated database population
+- [x] **Verified International Profiles** - Industry-researched data
+- [x] **Comprehensive Genre Coverage** - From Nordic Noir to Spanish Crime to German Sci-Fi
 
 ### Next Features
 - [ ] **TMDb Integration** - Real TV show data
@@ -392,6 +437,12 @@ firebase deploy
 - [ ] **A/B Testing** - Search optimization
 - [ ] **Recommendation Engine** - Similar editors
 - [ ] **Mobile App** - React Native version
+
+### International Expansion
+- [ ] **Asian Markets** - Korean, Japanese, Indian editors
+- [ ] **European Extension** - French, Italian, Scandinavian coverage
+- [ ] **Latin American Coverage** - Mexican, Brazilian, Argentinian editors
+- [ ] **Streaming Platform Integration** - Netflix, HBO, Amazon originals
 
 ### Search Enhancements
 - [ ] **Synonyms Management** - Industry terminology

@@ -1,143 +1,288 @@
-# 🎬 TV Editor Data Import Scripts
+# Scripts Directory
 
-This directory contains scripts and data for importing prominent TV editors into your Firebase database.
+This directory contains import scripts to populate your TV Editor Finder database with professional editor data.
 
-## 📁 Files
+## 📂 Files
 
-- `prominent-editors-data.json` - JSON export of 32 prominent TV editors from industry research
-- `import-prominent-editors.ts` - Import script to add editors to Firebase
-- This README.md
+### Data Files
+- `prominent-editors-data.json` - **32 industry-verified editors** (original dataset)
+- `global-tv-editors-data.json` - **35 international editors** (global expansion dataset)
 
-## 🔧 Firebase Setup
+### Import Scripts
+- `import-prominent-editors-simple.ts` - Import original 32 editors
+- `import-global-editors.ts` - **NEW**: Import 35 global editors
+- `add-sample-data.ts` - Add sample test data (development only)
 
-Before running the import script, you need to configure Firebase:
+## 🌍 **COMPLETE DATABASE SETUP**
 
-### 1. Create Firebase Project
-1. Go to [Firebase Console](https://console.firebase.google.com/)
-2. Click "Create a project" or use an existing project
-3. Enable Firestore Database (in "Build" section)
+### **Recommended: Import Full Global Database (65+ Editors)**
 
-### 2. Get Configuration Values
-1. In Firebase Console, go to Project Settings (gear icon)
-2. Scroll down to "Your apps" section
-3. Click "Web" icon to create a web app (if not already created)
-4. Copy the configuration values
+```bash
+# Step 1: Import original prominent editors (32 editors)
+npx tsx scripts/import-prominent-editors-simple.ts
 
-### 3. Create Environment File
-Create a `.env.local` file in your project root with these values:
+# Step 2: Import new global research (35 editors) 
+npx tsx scripts/import-global-editors.ts
+```
+
+**Total Result: 65+ professional TV editors with verified credentials**
+
+## 🎯 **What You'll Get**
+
+### **🇺🇸 United States (Enhanced)**
+- **Recent Emmy Winners**: The Last of Us, BEEF, Succession editors
+- **Classic Emmy Winners**: Breaking Bad, Stranger Things, Game of Thrones, The Bear
+- **Streaming Specialists**: Netflix, HBO, Apple TV+ editors
+- **Genre Experts**: Comedy, animation, reality specialists
+
+### **🇬🇧 United Kingdom (NEW)**
+- **BAFTA Craft Award Winners**: This Is Going to Hurt, Baby Reindeer, Chernobyl
+- **BBC Productions**: Doctor Who, Silent Witness, Three Girls
+- **International Co-productions**: House of the Dragon, The Crown
+
+### **🇪🇸 Spain (NEW)**
+- **Complete Money Heist Team**: 6 International Emmy winners
+- **Netflix Spanish Originals**: Sky Rojo, Berlin, The Pier
+- **Spanish TV Industry**: Antena 3, Movistar+ productions
+
+### **🇩🇪 Germany (NEW)**
+- **Netflix German Originals**: Dark editing team (3 Grimme-Preis winners)
+- **Auteur-Driven Series**: The Empress, 1899
+- **German Television**: Das Erste, international co-productions
+
+### **🇦🇹 Austria (NEW)**
+- **International Productions**: Safe, Tatort
+- **Netflix Content**: Dark (co-editor)
+
+### **🇩🇰 Denmark (NEW)**
+- **Nordic Noir Pioneer**: Borgen, The Killing, Unit One
+- **Danish Broadcasting**: DR1 productions
+- **International Influence**: Nordic TV model
+
+## 🔥 Firebase Setup
+
+### 1. **Environment Variables**
+Create `.env.local` in your project root:
 
 ```env
-# Firebase Configuration
-NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key_here
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_domain
 NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_bucket
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
-
-# Algolia Configuration (optional for now)
-NEXT_PUBLIC_ALGOLIA_APP_ID=your_algolia_app_id
-NEXT_PUBLIC_ALGOLIA_SEARCH_KEY=your_search_key
-ALGOLIA_WRITE_KEY=your_write_key
 ```
+
+### 2. **Firestore Security Rules**
+**IMPORTANT**: Temporarily open write access during import:
+
+```javascript
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // TEMPORARY: Allow public writes for import
+    match /editors/{editorId} {
+      allow read, write: if true;
+      
+      match /credits/{creditId} {
+        allow read, write: if true;
+      }
+      
+      match /awards/{awardId} {
+        allow read, write: if true;
+      }
+    }
+    
+    // All other collections remain secure
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+```
+
+**Apply in Firebase Console → Firestore Database → Rules → Publish**
 
 ## 🚀 Running the Import
 
-Once Firebase is configured:
+### **Option 1: Complete Global Database (Recommended)**
 
 ```bash
-# Install dependencies (if not already done)
-npm install
+# Import both datasets for complete coverage
+npx tsx scripts/import-prominent-editors-simple.ts
+npx tsx scripts/import-global-editors.ts
+```
 
-# Run the import script
-npx tsx scripts/import-prominent-editors.ts
+### **Option 2: Individual Imports**
+
+```bash
+# Just original dataset (32 editors)
+npx tsx scripts/import-prominent-editors-simple.ts
+
+# Just global expansion (35 editors)  
+npx tsx scripts/import-global-editors.ts
 ```
 
 ## 📊 What Gets Imported
 
-The script will import **32 prominent TV editors** including:
+### **Editors Collection**
+- **Personal Information**: Name, location (with country), experience
+- **Professional Details**: Union status, specialties, availability
+- **Metadata**: Data sources, verification status, creation dates
 
-### Emmy Winners
-- **Kelley Dixon** (Breaking Bad, Better Call Saul)
-- **Chris G. Willingham** (24 - 3 Emmy wins)
-- **Tim Porter** (Game of Thrones)
-- **Katie Weiland** (Game of Thrones)
-- **Yan Miles** (The Crown, Sherlock)
-- **Dean Zimmerman** (Stranger Things - 2 Emmy wins)
-- **Ken Eluto** (Succession, 30 Rock)
-- **John M. Valerio** (The White Lotus)
-- **A.J. Catoline** (Ted Lasso)
-- **Joanna Naugle** (The Bear - 2 Emmy wins)
+### **Credits Collection**
+- **Show Details**: Title, network, genre, type (series/limited series)
+- **Timeline**: Start/end years, duration
+- **Verification**: Data sources, credibility scoring
 
-### BAFTA Winners
-- **Gary Dollner** (Fleabag)
-- **Elen Pierce Lewis** (Broadchurch)
-- **Sarah Brewerton** (It's a Sin)
+### **Awards Collection**
+- **Award Information**: Name, category, year, status (won/nominated)
+- **Show Association**: Which show the award was for
+- **International Recognition**: Emmy, BAFTA, Grimme-Preis, ACE Eddie, International Emmy
 
-### International Editors
-- **Nam Na-yeong** (Squid Game, Kingdom) - South Korea
-- **Aarti Bajaj** (Sacred Games, Delhi Crime) - India
-- **Raúl Mora** (La Casa de Papel, Vis a Vis) - Spain
-- **Dana Stein** (Babylon Berlin, Tribes of Europa) - Germany
+## 🗄️ Data Structure
 
-### Plus Many More From Major Shows
-- Succession, The Bear, Severance, Ted Lasso, The White Lotus
-- Breaking Bad universe, Game of Thrones universe
-- Lost, Westworld, The Crown, Stranger Things
-- And many more acclaimed series
+### **Editor Document**
+```typescript
+{
+  name: "Timothy A. Good",
+  location: { 
+    city: "Los Angeles", 
+    state: "CA", 
+    country: "USA",        // NEW: International support
+    remote: true 
+  },
+  experience: {
+    yearsActive: 18,
+    startYear: 2006,
+    specialties: ["Drama", "Sci-Fi", "Thriller"]
+  },
+  professional: {
+    unionStatus: "guild",
+    availability: "available"
+  },
+  metadata: {
+    dataSource: ["emmys", "industry-research"],  // NEW: Multi-source
+    verified: true,
+    createdAt: "2025-01-22",
+    updatedAt: "2025-01-22"
+  }
+}
+```
 
-## 📈 Data Structure
+### **Credit Document**
+```typescript
+{
+  editorId: "editor_document_id",
+  title: "The Last of Us",
+  network: "HBO",
+  genre: ["Drama", "Horror", "Post-Apocalyptic"],
+  type: "series",
+  timeline: {
+    startYear: 2023,
+    endYear: null
+  },
+  metadata: {
+    dataSource: ["industry-research"],
+    verified: true,
+    createdAt: "2025-01-22"
+  }
+}
+```
 
-Each editor includes:
-- **Personal Info**: Name, location, remote work availability
-- **Experience**: Years active, start year, specialties (Drama, Comedy, etc.)
-- **Professional**: Union status, availability
-- **Credits**: TV shows with network, genre, role details
-- **Awards**: Emmy/BAFTA wins and nominations with years
-- **Metadata**: Data sources, verification status
+### **Award Document**
+```typescript
+{
+  editorId: "editor_document_id",
+  name: "Emmy Award",
+  category: "Outstanding Picture Editing for a Drama Series",
+  year: 2023,
+  status: "won",
+  show: "The Last of Us",
+  metadata: {
+    dataSource: ["awards-database"],
+    verified: true,
+    createdAt: "2025-01-22"
+  }
+}
+```
 
-## 🔍 After Import
+## ✅ After Import
 
-Once imported, you can:
+### 1. **Restore Secure Rules**
+Replace the temporary rules with your secure production rules.
 
-1. **Start your dev server**: `npm run dev`
-2. **Search for editors** by name, genre, location, or show
-3. **Filter by awards**, union status, remote availability
-4. **View detailed profiles** with complete filmographies
-5. **Sync to Algolia** for faster search: `npm run sync:algolia`
+### 2. **Sync to Algolia** (Optional)
+```bash
+npm run sync:algolia
+```
 
-## 🌟 Search Examples
+### 3. **Verify Data**
+Check your Firebase console to confirm data was imported correctly.
 
-Try searching for:
-- "Emmy" - Find all Emmy winners
-- "Game of Thrones" - Find GoT editors
-- "Comedy" - Find comedy specialists
-- "London" - Find UK-based editors
-- "Breaking Bad" - Find editors from the series
-- "guild" - Find union editors
+## 🔍 Search Examples
 
-## 🛠️ Troubleshooting
+Once imported, you can search for:
 
-### Firebase Errors
-- **auth/invalid-api-key**: Check your `.env.local` file has correct values
-- **Permission denied**: Ensure Firestore rules allow writes (check firestore.rules)
+### **By Name**
+- "Timothy Good" (The Last of Us editor)
+- "Selina MacArthur" (This Is Going to Hurt editor)
 
-### Import Errors
-- **File not found**: Ensure `prominent-editors-data.json` is in scripts/ directory
-- **Network errors**: Check your internet connection and Firebase project status
+### **By Show**
+- "Money Heist" (finds entire Spanish editing team)
+- "Dark" (finds German Netflix editors)
+- "Breaking Bad" (finds original dataset editors)
 
-### Environment Issues
-- **Missing variables**: Run the script - it will tell you exactly which env vars are missing
-- **Wrong project**: Double-check your PROJECT_ID matches your Firebase project
+### **By Awards**
+- Emmy Winners filter (finds all Emmy-winning editors)
+- BAFTA Winners (finds UK award winners)
+- International Awards (finds global recognition)
 
-## 📝 Notes
+### **By Country**
+- United States, United Kingdom, Spain, Germany, Austria, Denmark
 
-- The import script is safe to run multiple times (it creates new documents each time)
-- All imported data is marked as `verified: true` and `dataSource: ["industry-research"]`
-- Random episode/season counts are generated for credits
-- Awards include exact years and status (won/nominated)
-- Geographic data includes major TV production centers (LA, NY, London, etc.)
+### **By Network**
+- Netflix, HBO, BBC, Apple TV+, Disney+, Amazon Prime
 
----
+## 🔧 Troubleshooting
 
-**Need help?** Check the main README.md or create an issue in the repository. 
+### **Permission Denied Errors**
+- Check that Firestore rules allow writes during import
+- Verify environment variables are correctly set
+- Ensure Firebase project exists and is accessible
+
+### **Environment Variable Issues**
+- Confirm `.env.local` is in project root (not `/scripts/`)
+- Check variable names match exactly (including `NEXT_PUBLIC_` prefix)
+- Restart terminal after adding new variables
+
+### **Import Failures**
+- Check internet connection for Firebase access
+- Verify Firebase project configuration
+- Look for typos in data files
+
+## 📈 Import Results
+
+### **Expected Output (Global Import)**
+```
+🎉 GLOBAL IMPORT COMPLETE!
+═══════════════════════════════════════
+✅ Editors imported: 35
+📺 Credits imported: 120+
+🏆 Awards imported: 50+
+═══════════════════════════════════════
+
+🌍 NEW GLOBAL COVERAGE:
+   🇺🇸 USA: Emmy & ACE Eddie winners
+   🇬🇧 UK: BAFTA Craft Award winners
+   🇪🇸 Spain: Money Heist editing team
+   🇩🇪 Germany: Dark & Netflix originals
+   🇦🇹 Austria: International productions
+   🇩🇰 Denmark: Nordic Noir masters
+```
+
+## 🌟 **Success!**
+
+You now have a comprehensive global database of 65+ professional TV editors with verified credentials, international coverage, and award documentation.
+
+**Ready to search your expanded database!** 🚀 

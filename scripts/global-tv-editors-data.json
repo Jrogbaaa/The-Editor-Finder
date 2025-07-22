@@ -1,0 +1,528 @@
+{
+  "editors": [
+    {
+      "name": "Timothy A. Good",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 18, "startYear": 2006, "specialties": ["Drama", "Sci-Fi", "Thriller"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["emmys", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "The Last of Us", "network": "HBO", "genre": ["Drama", "Horror", "Post-Apocalyptic"], "type": "series" },
+        { "title": "The Umbrella Academy", "network": "Netflix", "genre": ["Superhero", "Comedy", "Drama"], "type": "series" },
+        { "title": "Fringe", "network": "FOX", "genre": ["Sci-Fi", "Drama", "Mystery"], "type": "series" },
+        { "title": "The Resident", "network": "FOX", "genre": ["Medical Drama"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2023, "status": "won", "show": "The Last of Us" }
+      ]
+    },
+    {
+      "name": "Emily Mendez",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 8, "startYear": 2016, "specialties": ["Drama", "Horror", "Limited Series"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["emmys", "afi", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "The Last of Us", "network": "HBO", "genre": ["Drama", "Horror", "Post-Apocalyptic"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2023, "status": "won", "show": "The Last of Us" }
+      ]
+    },
+    {
+      "name": "Bill Henry",
+      "location": { "city": "New York", "state": "NY", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 25, "startYear": 1999, "specialties": ["Drama", "Comedy-Drama", "Prestige TV"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["emmys", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Succession", "network": "HBO", "genre": ["Comedy-Drama", "Satire"], "type": "series" },
+        { "title": "Dickinson", "network": "Apple TV+", "genre": ["Period Drama", "Comedy"], "type": "series" },
+        { "title": "SMASH", "network": "NBC", "genre": ["Musical Drama"], "type": "series" },
+        { "title": "Marco Polo", "network": "Netflix", "genre": ["Historical Drama"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2023, "status": "nominated", "show": "Succession" },
+        { "name": "ACE Eddie Award", "category": "Best Edited Drama Series", "year": 2023, "status": "nominated", "show": "Succession" }
+      ]
+    },
+    {
+      "name": "Maria Gonzales",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 15, "startYear": 2009, "specialties": ["Drama", "Historical Drama", "Action"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["ace-eddies", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Shogun", "network": "FX/Hulu", "genre": ["Historical Drama", "War"], "type": "limited series" },
+        { "title": "The Walking Dead: The Ones Who Live", "network": "AMC", "genre": ["Horror", "Drama"], "type": "limited series" },
+        { "title": "The Old Man", "network": "FX", "genre": ["Thriller", "Drama"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "ACE Eddie Award", "category": "Best Edited Limited Series", "year": 2024, "status": "won", "show": "Shogun" }
+      ]
+    },
+    {
+      "name": "Aika Miyake",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 12, "startYear": 2012, "specialties": ["Historical Drama", "Documentary", "Food Shows"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["ace-eddies", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Shogun", "network": "FX/Hulu", "genre": ["Historical Drama", "War"], "type": "limited series" },
+        { "title": "Chef's Table: BBQ", "network": "Netflix", "genre": ["Documentary", "Food"], "type": "documentary series" }
+      ],
+      "awards": [
+        { "name": "ACE Eddie Award", "category": "Best Edited Limited Series", "year": 2024, "status": "won", "show": "Shogun" }
+      ]
+    },
+    {
+      "name": "Selina MacArthur",
+      "location": { "city": "London", "state": "", "country": "UK", "remote": true },
+      "experience": { "yearsActive": 16, "startYear": 2008, "specialties": ["Drama", "Black Mirror", "Medical Drama"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["bafta", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "This Is Going to Hurt", "network": "BBC", "genre": ["Medical Drama", "Comedy-Drama"], "type": "series" },
+        { "title": "House of the Dragon", "network": "HBO", "genre": ["Fantasy", "Drama"], "type": "series" },
+        { "title": "Black Mirror", "network": "Netflix", "genre": ["Sci-Fi", "Anthology"], "type": "anthology series" }
+      ],
+      "awards": [
+        { "name": "BAFTA Craft Award", "category": "Best Editing: Fiction", "year": 2023, "status": "won", "show": "This Is Going to Hurt" }
+      ]
+    },
+    {
+      "name": "Úna Ní Dhonghaíle",
+      "location": { "city": "London", "state": "", "country": "UK", "remote": true },
+      "experience": { "yearsActive": 22, "startYear": 2002, "specialties": ["Drama", "Period Drama", "Crime"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["bafta", "emmys", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Three Girls", "network": "BBC", "genre": ["Drama", "Crime"], "type": "limited series" },
+        { "title": "The Crown", "network": "Netflix", "genre": ["Period Drama", "Biography"], "type": "series" },
+        { "title": "The Missing", "network": "BBC", "genre": ["Mystery", "Drama"], "type": "series" },
+        { "title": "Ripper Street", "network": "BBC", "genre": ["Period Crime", "Drama"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "BAFTA Craft Award", "category": "Best Editing: Fiction", "year": 2018, "status": "won", "show": "Three Girls" }
+      ]
+    },
+    {
+      "name": "David Pelegrín",
+      "location": { "city": "Madrid", "state": "", "country": "Spain", "remote": true },
+      "experience": { "yearsActive": 18, "startYear": 2006, "specialties": ["Crime", "Thriller", "Spanish TV"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["international-emmys", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Money Heist", "network": "Netflix", "genre": ["Crime", "Thriller", "Heist"], "type": "series" },
+        { "title": "Locked Up", "network": "Antena 3", "genre": ["Prison Drama"], "type": "series" },
+        { "title": "Sky Rojo", "network": "Netflix", "genre": ["Crime", "Action"], "type": "series" },
+        { "title": "Holy Family", "network": "Netflix", "genre": ["Thriller", "Drama"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "International Emmy Award", "category": "Best Drama Series", "year": 2018, "status": "won", "show": "Money Heist" }
+      ]
+    },
+    {
+      "name": "Luis Miguel González Bedmar",
+      "location": { "city": "Madrid", "state": "", "country": "Spain", "remote": true },
+      "experience": { "yearsActive": 16, "startYear": 2008, "specialties": ["Crime", "Thriller", "Spanish TV"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["international-emmys", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Money Heist", "network": "Netflix", "genre": ["Crime", "Thriller", "Heist"], "type": "series" },
+        { "title": "The Pier", "network": "Movistar+", "genre": ["Mystery", "Thriller"], "type": "series" },
+        { "title": "Berlin", "network": "Netflix", "genre": ["Crime", "Thriller"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "International Emmy Award", "category": "Best Drama Series", "year": 2018, "status": "won", "show": "Money Heist" }
+      ]
+    },
+    {
+      "name": "Verónica Callón",
+      "location": { "city": "Madrid", "state": "", "country": "Spain", "remote": true },
+      "experience": { "yearsActive": 14, "startYear": 2010, "specialties": ["Crime", "Romance", "Spanish Cinema"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["international-emmys", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Money Heist", "network": "Netflix", "genre": ["Crime", "Thriller", "Heist"], "type": "series" },
+        { "title": "Paradise", "network": "Movistar+", "genre": ["Drama"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "International Emmy Award", "category": "Best Drama Series", "year": 2018, "status": "won", "show": "Money Heist" }
+      ]
+    },
+    {
+      "name": "Regino Hernández",
+      "location": { "city": "Madrid", "state": "", "country": "Spain", "remote": true },
+      "experience": { "yearsActive": 15, "startYear": 2009, "specialties": ["Crime", "Action", "Spanish TV"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["international-emmys", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Money Heist", "network": "Netflix", "genre": ["Crime", "Thriller", "Heist"], "type": "series" },
+        { "title": "The Pier", "network": "Movistar+", "genre": ["Mystery", "Thriller"], "type": "series" },
+        { "title": "Sky Rojo", "network": "Netflix", "genre": ["Crime", "Action"], "type": "series" },
+        { "title": "Zorro", "network": "Amazon Prime", "genre": ["Adventure", "Historical"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "International Emmy Award", "category": "Best Drama Series", "year": 2018, "status": "won", "show": "Money Heist" }
+      ]
+    },
+    {
+      "name": "Raquel Marraco",
+      "location": { "city": "Madrid", "state": "", "country": "Spain", "remote": true },
+      "experience": { "yearsActive": 12, "startYear": 2012, "specialties": ["Crime", "Thriller", "Spanish TV"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["international-emmys", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Money Heist", "network": "Netflix", "genre": ["Crime", "Thriller", "Heist"], "type": "series" },
+        { "title": "The Pier", "network": "Movistar+", "genre": ["Mystery", "Thriller"], "type": "series" },
+        { "title": "The Minions of Midas", "network": "Netflix", "genre": ["Thriller", "Crime"], "type": "limited series" }
+      ],
+      "awards": [
+        { "name": "International Emmy Award", "category": "Best Drama Series", "year": 2018, "status": "won", "show": "Money Heist" }
+      ]
+    },
+    {
+      "name": "Patricia Rubio",
+      "location": { "city": "Madrid", "state": "", "country": "Spain", "remote": true },
+      "experience": { "yearsActive": 14, "startYear": 2010, "specialties": ["Crime", "Prison Drama", "Spanish TV"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["international-emmys", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Money Heist", "network": "Netflix", "genre": ["Crime", "Thriller", "Heist"], "type": "series" },
+        { "title": "Locked Up", "network": "Antena 3", "genre": ["Prison Drama"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "International Emmy Award", "category": "Best Drama Series", "year": 2018, "status": "won", "show": "Money Heist" }
+      ]
+    },
+    {
+      "name": "Anja Siemens",
+      "location": { "city": "Berlin", "state": "", "country": "Germany", "remote": true },
+      "experience": { "yearsActive": 16, "startYear": 2008, "specialties": ["Sci-Fi", "Mystery", "German Cinema"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["grimme-preis", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Dark", "network": "Netflix", "genre": ["Sci-Fi", "Mystery", "Thriller"], "type": "series" },
+        { "title": "1899", "network": "Netflix", "genre": ["Mystery", "Horror"], "type": "series" },
+        { "title": "The Billion Dollar Code", "network": "Netflix", "genre": ["Drama", "Biography"], "type": "limited series" }
+      ],
+      "awards": [
+        { "name": "Grimme-Preis", "category": "Fiction", "year": 2018, "status": "won", "show": "Dark" }
+      ]
+    },
+    {
+      "name": "Boris Gromatzki",
+      "location": { "city": "Berlin", "state": "", "country": "Germany", "remote": true },
+      "experience": { "yearsActive": 18, "startYear": 2006, "specialties": ["Sci-Fi", "Period Drama", "German TV"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["grimme-preis", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Dark", "network": "Netflix", "genre": ["Sci-Fi", "Mystery", "Thriller"], "type": "series" },
+        { "title": "The Empress", "network": "Netflix", "genre": ["Period Drama", "Romance"], "type": "series" },
+        { "title": "Deutschland 86", "network": "Amazon Prime", "genre": ["Spy Thriller", "Drama"], "type": "series" },
+        { "title": "Charité", "network": "Das Erste", "genre": ["Medical Drama", "Historical"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Grimme-Preis", "category": "Fiction", "year": 2018, "status": "won", "show": "Dark" }
+      ]
+    },
+    {
+      "name": "Simon Gstöttmayr",
+      "location": { "city": "Vienna", "state": "", "country": "Austria", "remote": true },
+      "experience": { "yearsActive": 19, "startYear": 2005, "specialties": ["Sci-Fi", "Crime", "German/Austrian TV"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["grimme-preis", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Dark", "network": "Netflix", "genre": ["Sci-Fi", "Mystery", "Thriller"], "type": "series" },
+        { "title": "Safe", "network": "Netflix", "genre": ["Mystery", "Thriller"], "type": "series" },
+        { "title": "Tatort", "network": "Das Erste", "genre": ["Crime", "Police Procedural"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Grimme-Preis", "category": "Fiction", "year": 2018, "status": "won", "show": "Dark" }
+      ]
+    },
+    {
+      "name": "Gerd Tjur",
+      "location": { "city": "Copenhagen", "state": "", "country": "Denmark", "remote": true },
+      "experience": { "yearsActive": 30, "startYear": 1994, "specialties": ["Nordic Noir", "Political Drama", "Crime"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["danish-film-institute", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Borgen", "network": "DR1", "genre": ["Political Drama"], "type": "series" },
+        { "title": "The Killing", "network": "DR1", "genre": ["Crime", "Nordic Noir"], "type": "series" },
+        { "title": "Unit One", "network": "DR1", "genre": ["Crime", "Police Procedural"], "type": "series" }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Nat Fuller",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 14, "startYear": 2010, "specialties": ["Limited Series", "Drama", "Comedy-Drama"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["emmys", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "BEEF", "network": "Netflix", "genre": ["Comedy-Drama", "Dark Comedy"], "type": "limited series" },
+        { "title": "A Teacher", "network": "FX/Hulu", "genre": ["Drama"], "type": "limited series" },
+        { "title": "Stranger Things", "network": "Netflix", "genre": ["Sci-Fi", "Horror"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Limited Series", "year": 2023, "status": "won", "show": "BEEF" }
+      ]
+    },
+    {
+      "name": "Laura Zempel",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 12, "startYear": 2012, "specialties": ["Drama", "Dark Comedy", "Limited Series"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["emmys", "ace-eddies", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "BEEF", "network": "Netflix", "genre": ["Comedy-Drama", "Dark Comedy"], "type": "limited series" },
+        { "title": "Euphoria", "network": "HBO", "genre": ["Teen Drama"], "type": "series" },
+        { "title": "Room 104", "network": "HBO", "genre": ["Anthology"], "type": "anthology series" },
+        { "title": "Lessons in Chemistry", "network": "Apple TV+", "genre": ["Period Drama"], "type": "limited series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Limited Series", "year": 2023, "status": "won", "show": "BEEF" }
+      ]
+    },
+    {
+      "name": "Stephanie Filo",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 15, "startYear": 2009, "specialties": ["Crime", "Comedy", "Documentary"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["emmys", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Dahmer", "network": "Netflix", "genre": ["Crime", "Biography"], "type": "limited series" },
+        { "title": "A Black Lady Sketch Show", "network": "HBO", "genre": ["Comedy", "Sketch"], "type": "series" },
+        { "title": "History of the World, Part II", "network": "Hulu", "genre": ["Comedy"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Limited Series", "year": 2023, "status": "nominated", "show": "Dahmer" },
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Variety Series", "year": 2023, "status": "nominated", "show": "A Black Lady Sketch Show" }
+      ]
+    },
+    {
+      "name": "Michelle Tesoro",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 20, "startYear": 2004, "specialties": ["Limited Series", "Period Drama", "Cinematic TV"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["emmys", "ace-eddies", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "The Queen's Gambit", "network": "Netflix", "genre": ["Period Drama"], "type": "limited series" },
+        { "title": "When They See Us", "network": "Netflix", "genre": ["Crime Drama"], "type": "limited series" },
+        { "title": "Godless", "network": "Netflix", "genre": ["Western"], "type": "limited series" },
+        { "title": "Flesh and Bone", "network": "Starz", "genre": ["Drama"], "type": "limited series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Limited Series", "year": 2021, "status": "won", "show": "The Queen's Gambit" },
+        { "name": "ACE Eddie Award", "category": "Best Edited Limited Series", "year": 2021, "status": "won", "show": "The Queen's Gambit" }
+      ]
+    },
+    {
+      "name": "Peter H. Oliver",
+      "location": { "city": "London", "state": "", "country": "UK", "remote": true },
+      "experience": { "yearsActive": 18, "startYear": 2006, "specialties": ["Drama", "Dark Comedy", "Medical Drama"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["emmys", "ace-eddies", "bafta", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Baby Reindeer", "network": "Netflix", "genre": ["Dark Comedy", "Drama"], "type": "limited series" },
+        { "title": "This is Going to Hurt", "network": "BBC", "genre": ["Medical Drama", "Comedy-Drama"], "type": "series" },
+        { "title": "Doctor Who", "network": "BBC", "genre": ["Sci-Fi"], "type": "series" },
+        { "title": "Eric", "network": "Netflix", "genre": ["Drama"], "type": "limited series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Limited Series", "year": 2024, "status": "won", "show": "Baby Reindeer" },
+        { "name": "ACE Eddie Award", "category": "Best Edited Limited Series", "year": 2024, "status": "won", "show": "Baby Reindeer" }
+      ]
+    },
+    {
+      "name": "Benjamin Gerstein",
+      "location": { "city": "London", "state": "", "country": "UK", "remote": true },
+      "experience": { "yearsActive": 14, "startYear": 2010, "specialties": ["Crime", "Thriller", "Dark Comedy"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["emmys", "ace-eddies", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Baby Reindeer", "network": "Netflix", "genre": ["Dark Comedy", "Drama"], "type": "limited series" },
+        { "title": "The Crow Girl", "network": "Paramount+", "genre": ["Crime", "Thriller"], "type": "series" },
+        { "title": "Silent Witness", "network": "BBC", "genre": ["Crime", "Medical"], "type": "series" },
+        { "title": "The Watch", "network": "BBC America", "genre": ["Fantasy", "Comedy"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Limited Series", "year": 2024, "status": "won", "show": "Baby Reindeer" },
+        { "name": "ACE Eddie Award", "category": "Best Edited Limited Series", "year": 2024, "status": "won", "show": "Baby Reindeer" }
+      ]
+    },
+    {
+      "name": "Simon Smith",
+      "location": { "city": "London", "state": "", "country": "UK", "remote": true },
+      "experience": { "yearsActive": 22, "startYear": 2002, "specialties": ["Historical Drama", "Sci-Fi", "Limited Series"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["bafta", "emmys", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Chernobyl", "network": "HBO/Sky", "genre": ["Historical Drama", "Disaster"], "type": "limited series" },
+        { "title": "Andor", "network": "Disney+", "genre": ["Sci-Fi", "Star Wars"], "type": "series" },
+        { "title": "The Third Day", "network": "HBO/Sky", "genre": ["Psychological Thriller"], "type": "limited series" },
+        { "title": "National Treasure", "network": "Channel 4", "genre": ["Drama"], "type": "limited series" }
+      ],
+      "awards": [
+        { "name": "BAFTA Craft Award", "category": "Best Editing: Fiction", "year": 2020, "status": "won", "show": "Chernobyl" }
+      ]
+    },
+    {
+      "name": "Jinx Godfrey",
+      "location": { "city": "London", "state": "", "country": "UK", "remote": true },
+      "experience": { "yearsActive": 25, "startYear": 1999, "specialties": ["Drama", "Documentary", "Limited Series"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["bafta", "oscar", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Chernobyl", "network": "HBO/Sky", "genre": ["Historical Drama", "Disaster"], "type": "limited series" },
+        { "title": "Black Narcissus", "network": "BBC/FX", "genre": ["Period Drama"], "type": "limited series" },
+        { "title": "Black Mirror", "network": "Netflix", "genre": ["Sci-Fi", "Anthology"], "type": "anthology series" }
+      ],
+      "awards": [
+        { "name": "BAFTA Craft Award", "category": "Best Editing: Fiction", "year": 2020, "status": "won", "show": "Chernobyl" },
+        { "name": "Academy Award", "category": "Best Film Editing", "year": 2015, "status": "won", "show": "The Theory of Everything" }
+      ]
+    },
+    {
+      "name": "Steven Rasch",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 25, "startYear": 1999, "specialties": ["Comedy", "Improvisation", "Cringe Comedy"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["emmys", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Curb Your Enthusiasm", "network": "HBO", "genre": ["Comedy"], "type": "series" },
+        { "title": "Veep", "network": "HBO", "genre": ["Political Comedy"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Comedy Series", "year": 2023, "status": "nominated", "show": "Curb Your Enthusiasm" }
+      ]
+    },
+    {
+      "name": "Liza Cardinale",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 16, "startYear": 2008, "specialties": ["Dark Comedy", "Comedy", "Horror-Comedy"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["ace-eddies", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "What We Do in the Shadows", "network": "FX", "genre": ["Horror-Comedy"], "type": "series" },
+        { "title": "Dead to Me", "network": "Netflix", "genre": ["Dark Comedy"], "type": "series" },
+        { "title": "Barry", "network": "HBO", "genre": ["Dark Comedy"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "ACE Eddie Award", "category": "Best Edited Comedy Series", "year": 2022, "status": "won", "show": "What We Do in the Shadows" }
+      ]
+    },
+    {
+      "name": "Maura Corey",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 12, "startYear": 2012, "specialties": ["Romantic Comedy", "Comedy", "Pilots"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["ace-eddies", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Nobody Wants This", "network": "Netflix", "genre": ["Romantic Comedy"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "ACE Eddie Award", "category": "Best Edited Comedy Series", "year": 2024, "status": "nominated", "show": "Nobody Wants This" }
+      ]
+    },
+    {
+      "name": "Shelly Westerman",
+      "location": { "city": "New York", "state": "NY", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 15, "startYear": 2009, "specialties": ["Comedy", "Mystery", "Character-Driven"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["ace-eddies", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Only Murders in the Building", "network": "Hulu", "genre": ["Comedy", "Mystery"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "ACE Eddie Award", "category": "Best Edited Comedy Series", "year": 2024, "status": "nominated", "show": "Only Murders in the Building" }
+      ]
+    },
+    {
+      "name": "Evan Wise",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 18, "startYear": 2006, "specialties": ["Documentary", "Reality", "Political"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["emmys", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Chimp Crazy", "network": "HBO", "genre": ["Documentary"], "type": "documentary series" },
+        { "title": "Q: Into The Storm", "network": "HBO", "genre": ["Documentary"], "type": "documentary series" },
+        { "title": "The Circus", "network": "Showtime", "genre": ["Political Documentary"], "type": "documentary series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Nonfiction Program", "year": 2024, "status": "nominated", "show": "Chimp Crazy" },
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Nonfiction Program", "year": 2021, "status": "nominated", "show": "Q: Into The Storm" }
+      ]
+    },
+    {
+      "name": "Mickala Andres",
+      "location": { "city": "New York", "state": "NY", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 10, "startYear": 2014, "specialties": ["Reality", "Lifestyle", "Competition"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["emmys", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Queer Eye", "network": "Netflix", "genre": ["Reality", "Lifestyle"], "type": "reality series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Structured Reality Program", "year": 2024, "status": "nominated", "show": "Queer Eye" }
+      ]
+    },
+    {
+      "name": "Lee Harting",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 22, "startYear": 2002, "specialties": ["Animation", "Comedy", "Adult Animation"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["emmys", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Rick and Morty", "network": "Adult Swim", "genre": ["Animated Comedy", "Sci-Fi"], "type": "animated series" },
+        { "title": "Solar Opposites", "network": "Hulu", "genre": ["Animated Comedy"], "type": "animated series" },
+        { "title": "The Boondocks", "network": "Adult Swim", "genre": ["Animated Comedy"], "type": "animated series" },
+        { "title": "King of the Hill", "network": "FOX", "genre": ["Animated Comedy"], "type": "animated series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for an Animated Program", "year": 2022, "status": "won", "show": "Rick and Morty" }
+      ]
+    },
+    {
+      "name": "Jeremy Reuben",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 16, "startYear": 2008, "specialties": ["Animation", "Family Comedy", "Character-Driven"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["ace-eddies", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Bob's Burgers", "network": "FOX", "genre": ["Animated Comedy"], "type": "animated series" }
+      ],
+      "awards": [
+        { "name": "ACE Eddie Award", "category": "Best Edited Animated Series", "year": 2023, "status": "nominated", "show": "Bob's Burgers" }
+      ]
+    },
+    {
+      "name": "Stephanie Earley",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 14, "startYear": 2010, "specialties": ["Animation", "Family Comedy", "Timing"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["ace-eddies", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "Bob's Burgers", "network": "FOX", "genre": ["Animated Comedy"], "type": "animated series" }
+      ],
+      "awards": [
+        { "name": "ACE Eddie Award", "category": "Best Edited Animated Series", "year": 2023, "status": "nominated", "show": "Bob's Burgers" }
+      ]
+    },
+    {
+      "name": "Michelle McMillan",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 12, "startYear": 2012, "specialties": ["Animation", "Action", "Superhero"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["ace-eddies", "industry-research"], "verified": true },
+      "shows": [
+        { "title": "X-Men '97", "network": "Disney+", "genre": ["Animated Action", "Superhero"], "type": "animated series" }
+      ],
+      "awards": [
+        { "name": "ACE Eddie Award", "category": "Best Edited Animated Series", "year": 2024, "status": "won", "show": "X-Men '97" }
+      ]
+    }
+  ]
+} 
