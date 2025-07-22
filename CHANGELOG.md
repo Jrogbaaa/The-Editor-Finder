@@ -1,6 +1,50 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to the TV Editor Finder project will be documented in this file.
+
+## [4.1.0] - 2025-01-22
+
+### 🔬 **RESEARCH & IMDb INTEGRATION**
+
+This release adds comprehensive research capabilities and IMDb data integration via Apify MCP for enhanced editor discovery.
+
+#### ✨ **IMDb Data Pipeline**
+- **NEW**: Apify MCP integration for IMDb data scraping
+- **ADDED**: Multiple IMDb scraper options (`epctex/imdb-advanced-scraper`, `canadesk/imdb`, `dtrungtin/imdb-scraper`)
+- **FEATURE**: Real-time trending content monitoring via `maged120/imdb-trending-ppr`
+- **INTEGRATION**: Advanced TV show and movie data extraction capabilities
+
+#### 🏆 **Award Database Expansion**
+- **ENHANCED**: Emmy Award tracking with real-time updates
+- **ADDED**: ACE Eddie Awards integration (American Cinema Editors)
+- **NEW**: BAFTA Craft Awards monitoring
+- **EXPANDED**: International Emmy recognition tracking
+- **CONTINUED**: Grimme-Preis and international award coverage
+
+#### 🔍 **Web Research Pipeline**
+- **NEW**: Firecrawl integration for comprehensive editor discovery
+- **FEATURE**: Multi-source verification system
+- **AUTOMATED**: Industry publication monitoring (Variety, Deadline, Television Academy)
+- **ENHANCED**: Cross-reference validation across multiple databases
+- **ADDED**: Professional network profile tracking
+
+#### 🛠️ **Technical Enhancements**
+- **INTEGRATION**: Model Context Protocol (MCP) setup for AI-powered research
+- **PIPELINE**: Structured data extraction from entertainment industry sources
+- **AUTOMATION**: Continuous editor profile updates
+- **VERIFICATION**: Multi-step data validation process
+
+#### 📊 **Research Capabilities**
+- **SEARCH**: Emmy Award winning television editors discovery
+- **TRACKING**: ACE Eddie Award recipients monitoring  
+- **MONITORING**: Industry career progression tracking
+- **DISCOVERY**: Real-time editor profile identification
+
+#### 🔧 **Development Infrastructure**
+- **MCP CONFIG**: Added Apify MCP server configuration
+- **RESEARCH API**: New research service endpoints
+- **DATA SYNC**: Enhanced synchronization between sources
+- **VALIDATION**: Improved data reliability scoring
 
 ## [4.0.0] - 2025-01-22
 

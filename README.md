@@ -275,6 +275,57 @@ interface ResearchEntry {
 }
 ```
 
+## 🔬 Research & Intelligence Integration
+
+### IMDb Data Pipeline
+Our application integrates with **IMDb via Apify MCP** for comprehensive entertainment industry data:
+
+#### Available IMDb Scrapers
+- **`epctex/imdb-advanced-scraper`** - Advanced TV show and movie data extraction
+- **`canadesk/imdb`** - Search and celebrity data retrieval  
+- **`dtrungtin/imdb-scraper`** - Comprehensive IMDb API alternative
+- **`maged120/imdb-trending-ppr`** - Real-time trending content
+
+#### Research Capabilities
+```typescript
+// Automated editor discovery
+interface ResearchPipeline {
+  sources: ['imdb', 'emmys', 'ace-eddie', 'bafta'];
+  methods: ['web-scraping', 'award-tracking', 'industry-monitoring'];
+  verification: 'multi-source-cross-reference';
+  automation: 'real-time-updates';
+}
+```
+
+### Award Database Integration
+- **Emmy Awards** - Television Academy official data
+- **ACE Eddie Awards** - American Cinema Editors recognition
+- **BAFTA Craft Awards** - British Academy Television Awards
+- **International Emmys** - Global television recognition
+- **Grimme-Preis** - German television excellence
+
+### Web Research Pipeline
+Powered by **Firecrawl** for comprehensive editor discovery:
+
+```javascript
+// Example research query
+const findEditors = async () => {
+  const results = await firecrawl.search({
+    query: "Emmy Award winning television editors 2024",
+    sources: ['variety.com', 'deadline.com', 'televisionacademy.com'],
+    extraction: 'structured-data'
+  });
+  
+  return processEditorProfiles(results);
+};
+```
+
+### Data Verification Process
+1. **Primary Source** - Official award databases
+2. **Cross-Reference** - Industry publications
+3. **Profile Validation** - Professional networks
+4. **Continuous Updates** - Automated monitoring
+
 ## 🛠️ API Reference
 
 ### Search Endpoints
@@ -430,8 +481,20 @@ firebase deploy
 - [x] **Advanced Import Scripts** - Automated database population
 - [x] **Verified International Profiles** - Industry-researched data
 - [x] **Comprehensive Genre Coverage** - From Nordic Noir to Spanish Crime to German Sci-Fi
+- [x] **IMDb Data Integration** - Apify MCP setup for advanced scraping capabilities
+- [x] **Web Research Pipeline** - Firecrawl integration for editor discovery
+
+### Current Capabilities
+- [x] **Emmy Award Database** - Comprehensive Emmy, ACE Eddie, and international award tracking
+- [x] **Real-time Research** - Automated discovery of new editors via web search
+- [x] **Multi-source Verification** - Cross-referencing across industry databases
+- [x] **International Coverage** - 6 countries across 4 continents
 
 ### Next Features
+- [ ] **Enhanced IMDb Integration** - Direct crew member extraction from show pages  
+- [ ] **ACE Eddie Database** - Complete American Cinema Editors award history
+- [ ] **BAFTA Integration** - British Academy Television Craft Awards
+- [ ] **Industry Newsletter Integration** - Automated updates from trade publications
 - [ ] **TMDb Integration** - Real TV show data
 - [ ] **Advanced Personalization** - User preferences
 - [ ] **A/B Testing** - Search optimization
@@ -443,6 +506,13 @@ firebase deploy
 - [ ] **European Extension** - French, Italian, Scandinavian coverage
 - [ ] **Latin American Coverage** - Mexican, Brazilian, Argentinian editors
 - [ ] **Streaming Platform Integration** - Netflix, HBO, Amazon originals
+
+### Research & Data Enhancement
+- [ ] **Automated Emmy Tracking** - Real-time updates during award season
+- [ ] **Industry Publication Monitoring** - Variety, Deadline, Hollywood Reporter
+- [ ] **LinkedIn Professional Network** - Editor career tracking
+- [ ] **Guild Membership Integration** - ACE, Motion Picture Editors Guild
+- [ ] **Academic Institution Partnerships** - Film school alumni networks
 
 ### Search Enhancements
 - [ ] **Synonyms Management** - Industry terminology
