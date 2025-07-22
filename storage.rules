@@ -1,0 +1,47 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Editor profile photos - public read, admin write
+    match /editors/{editorId}/photos/{photoId} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                   request.auth.token.admin == true;
+    }
+    
+    // Editor portfolios and documents - public read, admin write
+    match /editors/{editorId}/documents/{documentId} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                   request.auth.token.admin == true;
+    }
+    
+    // Editor reels and demo videos - public read, admin write
+    match /editors/{editorId}/reels/{reelId} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                   request.auth.token.admin == true;
+    }
+    
+    // Research documents and notes - admin only
+    match /research/{editorId}/{documentId} {
+      allow read, write: if request.auth != null && 
+                          request.auth.token.admin == true;
+    }
+    
+    // Temporary uploads - authenticated users only
+    match /temp/{userId}/{fileName} {
+      allow read, write: if request.auth != null && 
+                          request.auth.uid == userId;
+      allow delete: if request.auth != null && 
+                    request.auth.uid == userId;
+    }
+    
+    // Public assets (logos, icons, etc.) - public read, admin write
+    match /public/{fileName} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                   request.auth.token.admin == true;
+    }
+  }
+} 

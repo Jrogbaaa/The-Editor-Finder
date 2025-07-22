@@ -1,0 +1,93 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Public read access to editors collection
+    // Write access restricted to authenticated admin users
+    match /editors/{editorId} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                   request.auth.token.admin == true;
+      
+      // Credits subcollection - public read, admin write
+      match /credits/{creditId} {
+        allow read: if true;
+        allow write: if request.auth != null && 
+                     request.auth.token.admin == true;
+      }
+      
+      // Awards subcollection - public read, admin write  
+      match /awards/{awardId} {
+        allow read: if true;
+        allow write: if request.auth != null && 
+                     request.auth.token.admin == true;
+      }
+    }
+    
+    // Search analytics - write-only for all users (no read access)
+    // Used for tracking search patterns and analytics
+    match /searches/{searchId} {
+      allow read: if false;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+    
+    // General analytics collection - admin only access
+    match /analytics/{document=**} {
+      allow read, write: if request.auth != null && 
+                          request.auth.token.admin == true;
+    }
+    
+    // User favorites and saved searches (future feature)
+    match /users/{userId} {
+      allow read, write: if request.auth != null && 
+                          request.auth.uid == userId;
+      
+      match /favorites/{favoriteId} {
+        allow read, write: if request.auth != null && 
+                            request.auth.uid == userId;
+      }
+      
+      match /savedSearches/{searchId} {
+        allow read, write: if request.auth != null && 
+                            request.auth.uid == userId;
+      }
+    }
+    
+    // Research and knowledge database - admin only
+    match /research/{researchId} {
+      allow read, write: if request.auth != null && 
+                          request.auth.token.admin == true;
+    }
+    
+    // Editor knowledge summaries - public read, admin write
+    match /editorKnowledge/{editorId} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                   request.auth.token.admin == true;
+    }
+    
+    // Research activities log - admin only
+    match /researchActivities/{activityId} {
+      allow read, write: if request.auth != null && 
+                          request.auth.token.admin == true;
+    }
+    
+    // Research templates - admin only
+    match /researchTemplates/{templateId} {
+      allow read, write: if request.auth != null && 
+                          request.auth.token.admin == true;
+    }
+    
+    // Data source synchronization logs - admin only
+    match /syncLogs/{logId} {
+      allow read, write: if request.auth != null && 
+                          request.auth.token.admin == true;
+    }
+    
+    // Rate limiting and API usage tracking - system only
+    match /rateLimits/{document=**} {
+      allow read, write: if false; // System service account only
+    }
+  }
+} 

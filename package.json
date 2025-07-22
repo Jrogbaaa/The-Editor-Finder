@@ -1,27 +1,39 @@
 {
   "name": "tv-editor-finder",
-  "version": "0.1.0",
+  "version": "2.0.0",
+  "description": "🌌 Premium TV Editor Discovery Platform with Northern Lights Design & AI Intelligence System",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "db:seed": "echo 'Database seeding script placeholder'",
+    "db:sync": "echo 'Data synchronization script placeholder'",
+    "db:backup": "echo 'Database backup script placeholder'"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.4",
+    "@heroicons/react": "^2.2.0",
+    "@next/font": "^14.2.15",
+    "algoliasearch": "^5.34.0",
+    "firebase": "^12.0.0",
+    "next": "15.4.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "next": "15.4.2"
+    "react-instantsearch": "^7.16.1"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.4.2",
-    "@eslint/eslintrc": "^3"
+    "tailwindcss": "^4",
+    "tsx": "^4.20.3",
+    "typescript": "^5"
   }
 }
