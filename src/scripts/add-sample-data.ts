@@ -3,9 +3,12 @@
  * Run with: npx tsx src/scripts/add-sample-data.ts
  */
 
+import 'dotenv/config';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { addEditor, addEditorCredit, addEditorAward } from '../lib/firestore-schema';
+
+console.log('🔥 Starting Firebase initialization...');
 
 // Initialize Firebase (you can use the same config from your .env file)
 const firebaseConfig = {
@@ -17,8 +20,22 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
+console.log('🔧 Firebase config loaded:', {
+  projectId: firebaseConfig.projectId,
+  authDomain: firebaseConfig.authDomain,
+  hasApiKey: !!firebaseConfig.apiKey
+});
+
+if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
+  console.error('❌ Missing required Firebase configuration in environment variables');
+  console.error('Make sure .env.local has all required NEXT_PUBLIC_FIREBASE_* variables');
+  process.exit(1);
+}
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+console.log('✅ Firebase initialized successfully');
 
 const sampleEditors = [
   {

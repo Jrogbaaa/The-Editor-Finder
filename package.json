@@ -1,6 +1,6 @@
 {
   "name": "tv-editor-finder",
-  "version": "2.0.0",
+  "version": "3.1.0",
   "description": "🌌 Premium TV Editor Discovery Platform with Northern Lights Design & AI Intelligence System",
   "private": true,
   "scripts": {
@@ -9,9 +9,23 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "db:seed": "echo 'Database seeding script placeholder'",
+    "test": "echo 'Test suite placeholder - add your tests here'",
+    "test:e2e": "echo 'End-to-end tests placeholder'",
+    "test:algolia": "echo 'Algolia connection test placeholder'",
+    "db:seed": "tsx src/scripts/add-sample-data.ts",
     "db:sync": "echo 'Data synchronization script placeholder'",
-    "db:backup": "echo 'Database backup script placeholder'"
+    "db:backup": "echo 'Database backup script placeholder'",
+    "deploy:vercel": "vercel --prod",
+    "deploy:firebase": "npm run build && firebase deploy",
+    "deploy:rules": "firebase deploy --only firestore:rules,storage",
+    "admin:setup": "node scripts/setup-admin.js",
+    "admin:list": "node scripts/setup-admin.js --list-users",
+    "sync:algolia": "node scripts/sync-algolia.js",
+    "sync:tmdb": "node scripts/tmdb-sync.js",
+    "seed:algolia": "node scripts/seed-algolia.js",
+    "seed:algolia-2025": "node scripts/seed-algolia-2025.js",
+    "test:performance": "echo 'Run performance tests with curl using curl-format.txt'",
+    "precommit": "npm run type-check && npm run lint"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
@@ -30,8 +44,10 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^16.4.5",
     "eslint": "^9",
     "eslint-config-next": "15.4.2",
+    "firebase-admin": "^12.7.0",
     "tailwindcss": "^4",
     "tsx": "^4.20.3",
     "typescript": "^5"

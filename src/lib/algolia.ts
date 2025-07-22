@@ -2,7 +2,10 @@ import { algoliasearch } from 'algoliasearch';
 import { SearchFilters, SearchResult, Editor } from '@/types';
 
 // Algolia client configuration
-const client = algoliasearch('V0KR3LXR6K', '9a28b30f46a25c06117cd4479a1b2514');
+const client = algoliasearch(
+  process.env.NEXT_PUBLIC_ALGOLIA_APP_ID || 'V0KR3LXR6K',
+  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY || 'c41b30a5664e8eb5d270a8261877c37e'
+);
 
 // Index names
 export const EDITORS_INDEX = 'editors_index';

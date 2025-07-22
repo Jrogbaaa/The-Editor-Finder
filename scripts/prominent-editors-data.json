@@ -1,0 +1,431 @@
+{
+  "editors": [
+    {
+      "name": "Kelley Dixon",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 20, "startYear": 2004, "specialties": ["Drama", "Crime", "Thriller"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "Breaking Bad", "network": "AMC", "genre": ["Drama", "Crime"], "type": "series" },
+        { "title": "Better Call Saul", "network": "AMC", "genre": ["Drama", "Crime"], "type": "series" },
+        { "title": "The Walking Dead", "network": "AMC", "genre": ["Drama", "Horror"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2013, "status": "won", "show": "Breaking Bad" }
+      ]
+    },
+    {
+      "name": "Skip Macdonald",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 18, "startYear": 2006, "specialties": ["Drama", "Crime", "Film"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research"], "verified": true },
+      "shows": [
+        { "title": "Breaking Bad", "network": "AMC", "genre": ["Drama", "Crime"], "type": "series" },
+        { "title": "Better Call Saul", "network": "AMC", "genre": ["Drama", "Crime"], "type": "series" },
+        { "title": "El Camino: A Breaking Bad Movie", "network": "Netflix", "genre": ["Drama", "Crime"], "type": "special" }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Lynne Willingham",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 25, "startYear": 1999, "specialties": ["Drama", "Sci-Fi", "Crime"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research"], "verified": true },
+      "shows": [
+        { "title": "The X-Files", "network": "FOX", "genre": ["Drama", "Sci-Fi"], "type": "series" },
+        { "title": "Breaking Bad", "network": "AMC", "genre": ["Drama", "Crime"], "type": "series" },
+        { "title": "Ray Donovan", "network": "Showtime", "genre": ["Drama", "Crime"], "type": "series" }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Chris G. Willingham",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 28, "startYear": 1996, "specialties": ["Drama", "Action", "Thriller"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "24", "network": "FOX", "genre": ["Drama", "Action"], "type": "series" },
+        { "title": "The X-Files", "network": "FOX", "genre": ["Drama", "Sci-Fi"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2002, "status": "won", "show": "24" },
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2003, "status": "won", "show": "24" },
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2004, "status": "won", "show": "24" }
+      ]
+    },
+    {
+      "name": "Stephen Semel",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 22, "startYear": 2002, "specialties": ["Drama", "Sci-Fi", "Mystery"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research"], "verified": true },
+      "shows": [
+        { "title": "Lost", "network": "ABC", "genre": ["Drama", "Mystery"], "type": "series" },
+        { "title": "Westworld", "network": "HBO", "genre": ["Drama", "Sci-Fi"], "type": "series" },
+        { "title": "Person of Interest", "network": "CBS", "genre": ["Drama", "Action"], "type": "series" }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Christopher Nelson",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 20, "startYear": 2004, "specialties": ["Drama", "Mystery", "Thriller"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "Lost", "network": "ABC", "genre": ["Drama", "Mystery"], "type": "series" },
+        { "title": "Bates Motel", "network": "A&E", "genre": ["Drama", "Thriller"], "type": "series" },
+        { "title": "The Greatest American Hero", "network": "ABC", "genre": ["Drama", "Action"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2010, "status": "won", "show": "Lost" }
+      ]
+    },
+    {
+      "name": "Tim Porter",
+      "location": { "city": "London", "state": "England", "country": "UK", "remote": true },
+      "experience": { "yearsActive": 25, "startYear": 1999, "specialties": ["Drama", "Fantasy", "Sci-Fi"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "Game of Thrones", "network": "HBO", "genre": ["Drama", "Fantasy"], "type": "series" },
+        { "title": "Doctor Who", "network": "BBC", "genre": ["Drama", "Sci-Fi"], "type": "series" },
+        { "title": "Shameless", "network": "Channel 4", "genre": ["Drama", "Comedy"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2015, "status": "won", "show": "Game of Thrones" }
+      ]
+    },
+    {
+      "name": "Katie Weiland",
+      "location": { "city": "London", "state": "England", "country": "UK", "remote": true },
+      "experience": { "yearsActive": 18, "startYear": 2006, "specialties": ["Drama", "Fantasy", "Action"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "Game of Thrones", "network": "HBO", "genre": ["Drama", "Fantasy"], "type": "series" },
+        { "title": "House of the Dragon", "network": "HBO", "genre": ["Drama", "Fantasy"], "type": "series" },
+        { "title": "Slow Horses", "network": "Apple TV+", "genre": ["Drama", "Thriller"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2016, "status": "won", "show": "Game of Thrones" }
+      ]
+    },
+    {
+      "name": "Gary Dollner",
+      "location": { "city": "London", "state": "England", "country": "UK", "remote": true },
+      "experience": { "yearsActive": 20, "startYear": 2004, "specialties": ["Comedy", "Drama", "Thriller"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "bafta"], "verified": true },
+      "shows": [
+        { "title": "Fleabag", "network": "BBC", "genre": ["Comedy", "Drama"], "type": "series" },
+        { "title": "Killing Eve", "network": "BBC", "genre": ["Drama", "Thriller"], "type": "series" },
+        { "title": "Veep", "network": "HBO", "genre": ["Comedy", "Political"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "BAFTA Craft Award", "category": "Best Editing", "year": 2019, "status": "won", "show": "Fleabag" }
+      ]
+    },
+    {
+      "name": "Yan Miles",
+      "location": { "city": "London", "state": "England", "country": "UK", "remote": true },
+      "experience": { "yearsActive": 22, "startYear": 2002, "specialties": ["Drama", "Historical", "Sci-Fi"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "The Crown", "network": "Netflix", "genre": ["Drama", "Historical"], "type": "series" },
+        { "title": "Sherlock", "network": "BBC", "genre": ["Drama", "Mystery"], "type": "series" },
+        { "title": "Andor", "network": "Disney+", "genre": ["Drama", "Sci-Fi"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2017, "status": "won", "show": "The Crown" },
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Miniseries", "year": 2014, "status": "won", "show": "Sherlock" }
+      ]
+    },
+    {
+      "name": "Wendy Hallam Martin",
+      "location": { "city": "Toronto", "state": "ON", "country": "Canada", "remote": true },
+      "experience": { "yearsActive": 24, "startYear": 2000, "specialties": ["Drama", "Historical", "Thriller"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "The Handmaid's Tale", "network": "Hulu", "genre": ["Drama", "Dystopian"], "type": "series" },
+        { "title": "Queer as Folk", "network": "Showtime", "genre": ["Drama", "LGBTQ+"], "type": "series" },
+        { "title": "The Tudors", "network": "Showtime", "genre": ["Drama", "Historical"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2018, "status": "won", "show": "The Handmaid's Tale" }
+      ]
+    },
+    {
+      "name": "Dean Zimmerman",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 16, "startYear": 2008, "specialties": ["Drama", "Horror", "Sci-Fi"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "Stranger Things", "network": "Netflix", "genre": ["Drama", "Horror"], "type": "series" },
+        { "title": "Dead to Me", "network": "Netflix", "genre": ["Comedy", "Drama"], "type": "series" },
+        { "title": "Shadow and Bone", "network": "Netflix", "genre": ["Drama", "Fantasy"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2020, "status": "won", "show": "Stranger Things" },
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2022, "status": "won", "show": "Stranger Things" }
+      ]
+    },
+    {
+      "name": "Cindy Mollo",
+      "location": { "city": "New York", "state": "NY", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 20, "startYear": 2004, "specialties": ["Drama", "Crime", "Political"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research"], "verified": true },
+      "shows": [
+        { "title": "Ozark", "network": "Netflix", "genre": ["Drama", "Crime"], "type": "series" },
+        { "title": "Mad Men", "network": "AMC", "genre": ["Drama", "Period"], "type": "series" },
+        { "title": "House of Cards", "network": "Netflix", "genre": ["Drama", "Political"], "type": "series" }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Ken Eluto",
+      "location": { "city": "New York", "state": "NY", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 22, "startYear": 2002, "specialties": ["Comedy", "Drama", "Satire"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "Succession", "network": "HBO", "genre": ["Drama", "Comedy"], "type": "series" },
+        { "title": "30 Rock", "network": "NBC", "genre": ["Comedy", "Workplace"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Comedy Series", "year": 2009, "status": "won", "show": "30 Rock" },
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2020, "status": "won", "show": "Succession" }
+      ]
+    },
+    {
+      "name": "Jane Rizzo",
+      "location": { "city": "New York", "state": "NY", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 18, "startYear": 2006, "specialties": ["Drama", "Comedy", "Satire"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "Succession", "network": "HBO", "genre": ["Drama", "Comedy"], "type": "series" },
+        { "title": "The Bear", "network": "FX", "genre": ["Comedy", "Drama"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2021, "status": "nominated", "show": "Succession" }
+      ]
+    },
+    {
+      "name": "Heather Persons",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 24, "startYear": 2000, "specialties": ["Drama", "Comedy", "Limited Series"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "The White Lotus", "network": "HBO", "genre": ["Drama", "Comedy"], "type": "miniseries" },
+        { "title": "Why Women Kill", "network": "CBS All Access", "genre": ["Drama", "Comedy"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Limited Series", "year": 2022, "status": "nominated", "show": "The White Lotus" }
+      ]
+    },
+    {
+      "name": "John M. Valerio",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 20, "startYear": 2004, "specialties": ["Drama", "Limited Series", "Action"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "The White Lotus", "network": "HBO", "genre": ["Drama", "Comedy"], "type": "miniseries" },
+        { "title": "Tom Clancy's Jack Ryan", "network": "Amazon Prime", "genre": ["Drama", "Action"], "type": "series" },
+        { "title": "The Old Man", "network": "FX", "genre": ["Drama", "Thriller"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Limited Series", "year": 2022, "status": "won", "show": "The White Lotus" }
+      ]
+    },
+    {
+      "name": "Erica Freed Marker",
+      "location": { "city": "New York", "state": "NY", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 18, "startYear": 2006, "specialties": ["Drama", "Thriller", "Historical"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "Severance", "network": "Apple TV+", "genre": ["Drama", "Thriller"], "type": "series" },
+        { "title": "Fosse/Verdon", "network": "FX", "genre": ["Drama", "Musical"], "type": "miniseries" },
+        { "title": "The Plot Against America", "network": "HBO", "genre": ["Drama", "Historical"], "type": "miniseries" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Drama Series", "year": 2022, "status": "nominated", "show": "Severance" }
+      ]
+    },
+    {
+      "name": "Geoffrey Richman",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 22, "startYear": 2002, "specialties": ["Drama", "Documentary", "Thriller"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research"], "verified": true },
+      "shows": [
+        { "title": "Severance", "network": "Apple TV+", "genre": ["Drama", "Thriller"], "type": "series" },
+        { "title": "Escape at Dannemora", "network": "Showtime", "genre": ["Drama", "Crime"], "type": "miniseries" },
+        { "title": "Tiger King", "network": "Netflix", "genre": ["Documentary", "Crime"], "type": "documentary" }
+      ],
+      "awards": []
+    },
+    {
+      "name": "A.J. Catoline",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 16, "startYear": 2008, "specialties": ["Comedy", "Musical", "Feel-good"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "Ted Lasso", "network": "Apple TV+", "genre": ["Comedy", "Sports"], "type": "series" },
+        { "title": "Crazy Ex-Girlfriend", "network": "The CW", "genre": ["Comedy", "Musical"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Comedy Series", "year": 2021, "status": "won", "show": "Ted Lasso" }
+      ]
+    },
+    {
+      "name": "Melissa McCoy",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 18, "startYear": 2006, "specialties": ["Comedy", "Drama", "Feel-good"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "Ted Lasso", "network": "Apple TV+", "genre": ["Comedy", "Sports"], "type": "series" },
+        { "title": "Whiskey Cavalier", "network": "ABC", "genre": ["Drama", "Action"], "type": "series" },
+        { "title": "Grace and Frankie", "network": "Netflix", "genre": ["Comedy", "Drama"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Comedy Series", "year": 2022, "status": "nominated", "show": "Ted Lasso" }
+      ]
+    },
+    {
+      "name": "Joanna Naugle",
+      "location": { "city": "Chicago", "state": "IL", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 14, "startYear": 2010, "specialties": ["Comedy", "Drama", "Kitchen/Food"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "The Bear", "network": "FX", "genre": ["Comedy", "Drama"], "type": "series" },
+        { "title": "Ramy", "network": "Hulu", "genre": ["Comedy", "Drama"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Comedy Series", "year": 2022, "status": "won", "show": "The Bear" },
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for a Comedy Series", "year": 2023, "status": "won", "show": "The Bear" }
+      ]
+    },
+    {
+      "name": "Adam Epstein",
+      "location": { "city": "Chicago", "state": "IL", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 12, "startYear": 2012, "specialties": ["Comedy", "Variety", "Kitchen/Food"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research"], "verified": true },
+      "shows": [
+        { "title": "The Bear", "network": "FX", "genre": ["Comedy", "Drama"], "type": "series" },
+        { "title": "Saturday Night Live", "network": "NBC", "genre": ["Comedy", "Variety"], "type": "series" }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Nam Na-yeong",
+      "location": { "city": "Seoul", "state": "Seoul", "country": "South Korea", "remote": false },
+      "experience": { "yearsActive": 16, "startYear": 2008, "specialties": ["Drama", "Thriller", "K-Drama"] },
+      "professional": { "unionStatus": "unknown", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research"], "verified": true },
+      "shows": [
+        { "title": "Squid Game", "network": "Netflix", "genre": ["Drama", "Thriller"], "type": "series" },
+        { "title": "Kingdom", "network": "Netflix", "genre": ["Drama", "Horror"], "type": "series" }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Aarti Bajaj",
+      "location": { "city": "Mumbai", "state": "Maharashtra", "country": "India", "remote": false },
+      "experience": { "yearsActive": 18, "startYear": 2006, "specialties": ["Drama", "Crime", "Bollywood"] },
+      "professional": { "unionStatus": "unknown", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research"], "verified": true },
+      "shows": [
+        { "title": "Sacred Games", "network": "Netflix", "genre": ["Drama", "Crime"], "type": "series" },
+        { "title": "Delhi Crime", "network": "Netflix", "genre": ["Drama", "Crime"], "type": "series" }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Raúl Mora",
+      "location": { "city": "Madrid", "state": "Madrid", "country": "Spain", "remote": true },
+      "experience": { "yearsActive": 20, "startYear": 2004, "specialties": ["Drama", "Thriller", "Spanish TV"] },
+      "professional": { "unionStatus": "unknown", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research"], "verified": true },
+      "shows": [
+        { "title": "La Casa de Papel", "network": "Netflix", "genre": ["Drama", "Thriller"], "type": "series" },
+        { "title": "Vis a Vis", "network": "Antena 3", "genre": ["Drama", "Thriller"], "type": "series" }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Dana Stein",
+      "location": { "city": "Berlin", "state": "Berlin", "country": "Germany", "remote": true },
+      "experience": { "yearsActive": 16, "startYear": 2008, "specialties": ["Drama", "Historical", "German TV"] },
+      "professional": { "unionStatus": "unknown", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research"], "verified": true },
+      "shows": [
+        { "title": "Babylon Berlin", "network": "Sky 1", "genre": ["Drama", "Historical"], "type": "series" },
+        { "title": "Tribes of Europa", "network": "Netflix", "genre": ["Drama", "Sci-Fi"], "type": "series" }
+      ],
+      "awards": []
+    },
+    {
+      "name": "Elen Pierce Lewis",
+      "location": { "city": "London", "state": "England", "country": "UK", "remote": true },
+      "experience": { "yearsActive": 20, "startYear": 2004, "specialties": ["Drama", "Crime", "Limited Series"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "bafta"], "verified": true },
+      "shows": [
+        { "title": "Giri/Haji", "network": "BBC", "genre": ["Drama", "Crime"], "type": "miniseries" },
+        { "title": "Landscapers", "network": "HBO", "genre": ["Drama", "Crime"], "type": "miniseries" },
+        { "title": "Broadchurch", "network": "ITV", "genre": ["Drama", "Crime"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "BAFTA Craft Award", "category": "Best Editing: Fiction", "year": 2014, "status": "won", "show": "Broadchurch" }
+      ]
+    },
+    {
+      "name": "Sarah Brewerton",
+      "location": { "city": "London", "state": "England", "country": "UK", "remote": true },
+      "experience": { "yearsActive": 18, "startYear": 2006, "specialties": ["Drama", "Historical", "LGBTQ+"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "bafta"], "verified": true },
+      "shows": [
+        { "title": "It's a Sin", "network": "Channel 4", "genre": ["Drama", "Historical"], "type": "miniseries" },
+        { "title": "Doctor Who", "network": "BBC", "genre": ["Drama", "Sci-Fi"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "BAFTA Craft Award", "category": "Best Editing: Fiction", "year": 2022, "status": "won", "show": "It's a Sin" }
+      ]
+    },
+    {
+      "name": "Eric Beetner",
+      "location": { "city": "Los Angeles", "state": "CA", "country": "USA", "remote": true },
+      "experience": { "yearsActive": 20, "startYear": 2004, "specialties": ["Reality TV", "Competition", "Romance"] },
+      "professional": { "unionStatus": "guild", "availability": "available" },
+      "metadata": { "dataSource": ["industry-research", "emmys"], "verified": true },
+      "shows": [
+        { "title": "The Amazing Race", "network": "CBS", "genre": ["Reality", "Competition"], "type": "series" },
+        { "title": "The Bachelor", "network": "ABC", "genre": ["Reality", "Romance"], "type": "series" }
+      ],
+      "awards": [
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for Reality Programming", "year": 2012, "status": "nominated", "show": "The Amazing Race" },
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for Reality Programming", "year": 2013, "status": "nominated", "show": "The Amazing Race" },
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for Reality Programming", "year": 2014, "status": "nominated", "show": "The Amazing Race" },
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for Reality Programming", "year": 2015, "status": "nominated", "show": "The Amazing Race" },
+        { "name": "Emmy Award", "category": "Outstanding Picture Editing for Reality Programming", "year": 2016, "status": "nominated", "show": "The Amazing Race" }
+      ]
+    }
+  ]
+} 

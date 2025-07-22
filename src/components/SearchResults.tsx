@@ -147,8 +147,9 @@ const SearchResults = ({ results, loading, filters, onFiltersChange, onExport }:
          <EditorCard 
            key={editor.id} 
            editor={editor}
-           credits={[]}
-           awards={[]}
+           credits={(editor as any).credits || []}
+           awards={(editor as any).awards || []}
+           showDetails={true}
          />
        ))}
       </div>
