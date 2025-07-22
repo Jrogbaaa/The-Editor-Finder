@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { dataSyncService, SyncResult } from '@/lib/data-sync';
+import { realEmmyService } from '@/lib/real-emmy-service';
 import { ApiResponse } from '@/types';
 
 export async function POST(request: NextRequest) {
@@ -40,29 +41,62 @@ export async function POST(request: NextRequest) {
         break;
       
       case 'emmy':
-        // TODO: Implement Emmy sync
-        syncResult = {
-          success: false,
-          editorsProcessed: 0,
-          editorsAdded: 0,
-          editorsUpdated: 0,
-          creditsAdded: 0,
-          errors: ['Emmy sync not yet implemented']
-        };
+        try {
+          const emmyResult = await realEmmyService.initializeRealEmmyDatabase();
+          syncResult = {
+            success: emmyResult.success,
+            editorsProcessed: emmyResult.count,
+            editorsAdded: 0, // Emmy data goes to separate collection
+            editorsUpdated: 0,
+            creditsAdded: emmyResult.count,
+            errors: emmyResult.success ? [] : [emmyResult.message]
+          };
+        } catch (error) {
+          syncResult = {
+            success: false,
+            editorsProcessed: 0,
+            editorsAdded: 0,
+            editorsUpdated: 0,
+            creditsAdded: 0,
+            errors: [`Emmy sync failed: ${error instanceof Error ? error.message : 'Unknown error'}`]
+          };
+        }
         break;
       
       case 'all':
         // Run all sync operations sequentially
         const tmdbResult = await dataSyncService.syncFromTMDb(maxItems);
         
-        // Combine results (for now just TMDb, will add others later)
+        let emmyResult;
+        try {
+          const emmyInit = await realEmmyService.initializeRealEmmyDatabase();
+          emmyResult = {
+            success: emmyInit.success,
+            editorsProcessed: emmyInit.count,
+            editorsAdded: 0,
+            editorsUpdated: 0,
+            creditsAdded: emmyInit.count,
+            errors: emmyInit.success ? [] : [emmyInit.message]
+          };
+        } catch (error) {
+          emmyResult = {
+            success: false,
+            editorsProcessed: 0,
+            editorsAdded: 0,
+            editorsUpdated: 0,
+            creditsAdded: 0,
+            errors: [`Emmy sync failed: ${error instanceof Error ? error.message : 'Unknown error'}`]
+          };
+        }
+        
+        // Combine results
         syncResult = {
-          success: tmdbResult.success,
-          editorsProcessed: tmdbResult.editorsProcessed,
-          editorsAdded: tmdbResult.editorsAdded,
-          editorsUpdated: tmdbResult.editorsUpdated,
-          creditsAdded: tmdbResult.creditsAdded,
-          errors: [...tmdbResult.errors]
+          success: tmdbResult.success && emmyResult.success,
+          editorsProcessed: tmdbResult.editorsProcessed + emmyResult.editorsProcessed,
+          editorsAdded: tmdbResult.editorsAdded + emmyResult.editorsAdded,
+          editorsUpdated: tmdbResult.editorsUpdated + emmyResult.editorsUpdated,
+          creditsAdded: tmdbResult.creditsAdded + emmyResult.creditsAdded,
+          errors: [...tmdbResult.errors, ...emmyResult.errors]
         };
         break;
       

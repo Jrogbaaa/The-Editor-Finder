@@ -26,8 +26,9 @@ interface ResearchApiResponse extends ApiResponse<any> {
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { editorId: string } }
+  { params }: { params: Promise<{ editorId: string }> }
 ): Promise<NextResponse<ResearchApiResponse>> {
+  const { editorId } = await params;
   try {
     const { searchParams } = new URL(request.url);
     const type = searchParams.get('type') as ResearchType | null;
@@ -37,7 +38,7 @@ export async function GET(
     // Build query
     let q = query(
       collection(db, 'research'),
-      where('editorId', '==', params.editorId)
+      where('editorId', '==', editorId)
     );
 
     if (type) {

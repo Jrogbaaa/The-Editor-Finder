@@ -2,115 +2,61 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/firebase';
 import { collection, query, where, orderBy, limit, getDocs, startAfter } from 'firebase/firestore';
 import { SearchFilters, Editor, ApiResponse, SearchResult } from '@/types';
+import { realEmmyService } from '@/lib/real-emmy-service';
+
+// Temporarily disable Algolia due to import issues
+// TODO: Re-enable Algolia once import issues are resolved
+// let algoliaSearchEditors: ((filters: SearchFilters) => Promise<SearchResult>) | null = null;
+// let isAlgoliaConfigured: (() => boolean) | null = null;
+
+// try {
+//   const algoliaModule = require('@/lib/algolia');
+//   algoliaSearchEditors = algoliaModule.searchEditors;
+//   isAlgoliaConfigured = algoliaModule.isAlgoliaConfigured;
+// } catch (error) {
+//   console.log('Algolia not available, using Firebase search only');
+// }
 
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     
-    // Parse query parameters
-    const searchQuery = searchParams.get('q') || '';
-    const genres = searchParams.get('genres')?.split(',').filter(Boolean) || [];
-    const networks = searchParams.get('networks')?.split(',').filter(Boolean) || [];
-    const minExperience = parseInt(searchParams.get('minExperience') || '0');
-    const maxExperience = parseInt(searchParams.get('maxExperience') || '25');
-    const unionStatus = searchParams.get('unionStatus')?.split(',').filter(Boolean) || [];
-    const awardWinners = searchParams.get('awardWinners') === 'true';
-    const remoteOnly = searchParams.get('remoteOnly') === 'true';
+    // Parse query parameters into SearchFilters
+    const filters: SearchFilters = {
+      query: searchParams.get('q') || '',
+      genres: searchParams.get('genres')?.split(',').filter(Boolean) || [],
+      networks: searchParams.get('networks')?.split(',').filter(Boolean) || [],
+      experienceRange: {
+        min: parseInt(searchParams.get('minExperience') || '0'),
+        max: parseInt(searchParams.get('maxExperience') || '25')
+      },
+      location: {
+        cities: [],
+        states: [],
+        remoteOnly: searchParams.get('remoteOnly') === 'true'
+      },
+      unionStatus: searchParams.get('unionStatus')?.split(',').filter(Boolean) as ('guild' | 'non-union')[] || [],
+      awardWinners: searchParams.get('awardWinners') === 'true',
+      showTypes: [],
+      availability: []
+    };
+
     const pageSize = parseInt(searchParams.get('limit') || '20');
-    const cursor = searchParams.get('cursor');
+    
+    // Use Firebase search for now
+    console.log('🔍 Using Firebase search');
+    const result = await searchWithFirebase(filters, pageSize);
 
-    // Build Firestore query
-    let editorsQuery = query(collection(db, 'editors'));
-
-    // Add filters
-    if (unionStatus.length > 0) {
-      editorsQuery = query(editorsQuery, where('professional.unionStatus', 'in', unionStatus));
+    // If no editors found, try to initialize with Emmy data
+    if (result.editors.length === 0) {
+      console.log('📊 No editors found, checking Emmy database...');
+      try {
+        await realEmmyService.initializeRealEmmyDatabase();
+        console.log('✅ Emmy database initialized');
+      } catch (error) {
+        console.log('ℹ️ Emmy database already initialized or failed:', error);
+      }
     }
-
-    if (remoteOnly) {
-      editorsQuery = query(editorsQuery, where('location.remote', '==', true));
-    }
-
-    if (minExperience > 0 || maxExperience < 25) {
-      editorsQuery = query(
-        editorsQuery,
-        where('experience.yearsActive', '>=', minExperience),
-        where('experience.yearsActive', '<=', maxExperience)
-      );
-    }
-
-    // Add ordering and pagination
-    editorsQuery = query(editorsQuery, orderBy('metadata.updatedAt', 'desc'), limit(pageSize));
-
-    if (cursor) {
-      // TODO: Implement cursor-based pagination
-    }
-
-    // Execute query
-    const snapshot = await getDocs(editorsQuery);
-    const editors: Editor[] = [];
-
-    snapshot.forEach((doc) => {
-      const data = doc.data();
-      editors.push({
-        id: doc.id,
-        ...data,
-        metadata: {
-          ...data.metadata,
-          createdAt: data.metadata.createdAt?.toDate(),
-          updatedAt: data.metadata.updatedAt?.toDate(),
-        }
-      } as Editor);
-    });
-
-    // Filter by genres if specified (since Firestore doesn't support array-contains-any with other where clauses)
-    let filteredEditors = editors;
-    if (genres.length > 0) {
-      // This would require getting credits and filtering - simplified for now
-      filteredEditors = editors; // TODO: Implement genre filtering through credits subcollection
-    }
-
-    // Filter by networks if specified
-    if (networks.length > 0) {
-      // This would require getting credits and filtering - simplified for now
-      filteredEditors = filteredEditors; // TODO: Implement network filtering through credits subcollection
-    }
-
-    // Filter by search query if provided
-    if (searchQuery) {
-      filteredEditors = filteredEditors.filter(editor =>
-        editor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        editor.experience.specialties.some(specialty =>
-          specialty.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      );
-    }
-
-    // Calculate facets for filtered results
-    const facets = {
-      genres: {} as { [key: string]: number },
-      networks: {} as { [key: string]: number },
-      locations: {} as { [key: string]: number },
-      experience: {} as { [key: string]: number }
-    };
-
-    // Build facets
-    filteredEditors.forEach(editor => {
-      // Location facets
-      const locationKey = `${editor.location.city}, ${editor.location.state}`;
-      facets.locations[locationKey] = (facets.locations[locationKey] || 0) + 1;
-
-      // Experience facets
-      const expRange = editor.experience.yearsActive < 5 ? '0-5 years' :
-                     editor.experience.yearsActive < 10 ? '5-10 years' : '10+ years';
-      facets.experience[expRange] = (facets.experience[expRange] || 0) + 1;
-    });
-
-    const result: SearchResult = {
-      editors: filteredEditors,
-      totalCount: filteredEditors.length,
-      facets
-    };
 
     const response: ApiResponse<SearchResult> = {
       data: result,
@@ -131,6 +77,105 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(response, { status: 500 });
   }
+}
+
+/**
+ * Firebase-based search implementation
+ */
+async function searchWithFirebase(filters: SearchFilters, pageSize: number): Promise<SearchResult> {
+  let editorsQuery = query(collection(db, 'editors'));
+
+  // Add filters
+  if (filters.unionStatus.length > 0) {
+    editorsQuery = query(editorsQuery, where('professional.unionStatus', 'in', filters.unionStatus));
+  }
+
+  if (filters.location.remoteOnly) {
+    editorsQuery = query(editorsQuery, where('location.remote', '==', true));
+  }
+
+  if (filters.experienceRange.min > 0 || filters.experienceRange.max < 25) {
+    editorsQuery = query(
+      editorsQuery,
+      where('experience.yearsActive', '>=', filters.experienceRange.min),
+      where('experience.yearsActive', '<=', filters.experienceRange.max)
+    );
+  }
+
+  // Add ordering and pagination
+  editorsQuery = query(editorsQuery, orderBy('metadata.updatedAt', 'desc'), limit(pageSize));
+
+  // Execute query
+  const snapshot = await getDocs(editorsQuery);
+  const editors: Editor[] = [];
+
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    editors.push({
+      id: doc.id,
+      ...data,
+      metadata: {
+        ...data.metadata,
+        createdAt: data.metadata.createdAt?.toDate() || new Date(),
+        updatedAt: data.metadata.updatedAt?.toDate() || new Date(),
+      }
+    } as Editor);
+  });
+
+  // Filter by text search if provided
+  let filteredEditors = editors;
+  if (filters.query) {
+    const searchQuery = filters.query.toLowerCase();
+    filteredEditors = editors.filter(editor =>
+      editor.name.toLowerCase().includes(searchQuery) ||
+      (editor.experience?.specialties || []).some(specialty =>
+        specialty.toLowerCase().includes(searchQuery)
+      )
+    );
+  }
+
+  // Filter by genres (specialties)
+  if (filters.genres.length > 0) {
+    filteredEditors = filteredEditors.filter(editor =>
+      filters.genres.some(genre =>
+        (editor.experience?.specialties || []).includes(genre)
+      )
+    );
+  }
+
+  // Calculate facets for filtered results
+  const facets = {
+    genres: {} as { [key: string]: number },
+    networks: {} as { [key: string]: number },
+    locations: {} as { [key: string]: number },
+    experience: {} as { [key: string]: number }
+  };
+
+  // Build facets
+  filteredEditors.forEach(editor => {
+    // Genre facets (from specialties)
+    (editor.experience?.specialties || []).forEach(specialty => {
+      facets.genres[specialty] = (facets.genres[specialty] || 0) + 1;
+    });
+
+    // Location facets
+    if (editor.location) {
+      const locationKey = `${editor.location.city}, ${editor.location.state}`;
+      facets.locations[locationKey] = (facets.locations[locationKey] || 0) + 1;
+    }
+
+    // Experience facets
+    const yearsActive = editor.experience?.yearsActive || 0;
+    const expRange = yearsActive < 5 ? '0-5 years' :
+                   yearsActive < 10 ? '5-10 years' : '10+ years';
+    facets.experience[expRange] = (facets.experience[expRange] || 0) + 1;
+  });
+
+  return {
+    editors: filteredEditors,
+    totalCount: filteredEditors.length,
+    facets
+  };
 }
 
 export async function POST(request: NextRequest) {

@@ -18,7 +18,7 @@ const initialFilters: SearchFilters = {
   availability: []
 };
 
-const mockResults: SearchResult = {
+const emptyResults: SearchResult = {
   editors: [],
   totalCount: 0,
   facets: {
@@ -31,11 +31,13 @@ const mockResults: SearchResult = {
 
 export default function HomePage() {
   const [filters, setFilters] = useState<SearchFilters>(initialFilters);
-  const [results, setResults] = useState<SearchResult>(mockResults);
+  const [results, setResults] = useState<SearchResult>(emptyResults);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSearch = async (newFilters: SearchFilters) => {
     setLoading(true);
+    setError(null);
     setFilters(newFilters);
     
     try {
@@ -50,23 +52,32 @@ export default function HomePage() {
       params.append('maxExperience', newFilters.experienceRange.max.toString());
 
       const response = await fetch(`/api/editors?${params.toString()}`);
+      
+      if (!response.ok) {
+        throw new Error(`Search failed: ${response.status} ${response.statusText}`);
+      }
+      
       const data = await response.json();
       
       if (data.success) {
         setResults(data.data);
       } else {
-        console.error('Search failed:', data.error);
-        setResults(mockResults);
+        throw new Error(data.error || 'Search request failed');
       }
     } catch (error) {
       console.error('Search failed:', error);
-      setResults(mockResults);
+      setError(error instanceof Error ? error.message : 'An unexpected error occurred during search. Please try again.');
+      setResults(emptyResults);
     } finally {
       setLoading(false);
     }
   };
 
   const handleExport = () => {
+    if (results.editors.length === 0) {
+      alert('No results to export. Please perform a search first.');
+      return;
+    }
     console.log('Exporting results...');
   };
 
@@ -91,12 +102,12 @@ export default function HomePage() {
               <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                  <span>10,000+ Verified Editors</span>
+                  <span>Real Emmy Data</span>
                 </div>
                 <div className="w-1 h-4 bg-border" />
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-secondary rounded-full animate-pulse" />
-                  <span>Live Availability</span>
+                  <span>Verified Professionals</span>
                 </div>
                 <div className="w-1 h-4 bg-border" />
                 <div className="flex items-center gap-2">
@@ -120,6 +131,22 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+
+        {/* Error Display */}
+        {error && (
+          <div className="container mx-auto px-4 py-8">
+            <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-6 text-center">
+              <h3 className="text-lg font-semibold text-destructive mb-2">Search Error</h3>
+              <p className="text-destructive/80">{error}</p>
+              <button 
+                onClick={() => handleSearch(filters)}
+                className="mt-4 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+              >
+                Retry Search
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Search Results */}
         <div className="container mx-auto px-4 py-16">

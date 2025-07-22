@@ -39,6 +39,34 @@ const EDITOR_KNOWLEDGE_COLLECTION = 'editorKnowledge';
 const RESEARCH_ACTIVITIES_COLLECTION = 'researchActivities';
 const RESEARCH_TEMPLATES_COLLECTION = 'researchTemplates';
 
+// Constants for ResearchPanel
+export const RESEARCH_TYPES = [
+  'credits',
+  'awards',
+  'performance',
+  'biography',
+  'client_feedback',
+  'industry_news',
+  'projects',
+  'skills',
+  'contact_info',
+  'other'
+] as const;
+
+export const CONFIDENCE_LEVELS = [
+  { value: 'high', label: 'High (95-100%)', color: 'text-green-600' },
+  { value: 'medium', label: 'Medium (70-94%)', color: 'text-yellow-600' },
+  { value: 'low', label: 'Low (50-69%)', color: 'text-orange-600' },
+  { value: 'unverified', label: 'Unverified (<50%)', color: 'text-red-600' }
+] as const;
+
+export const PRIORITY_LEVELS = [
+  { value: 'critical', label: 'Critical', color: 'text-red-600' },
+  { value: 'high', label: 'High', color: 'text-orange-600' },
+  { value: 'medium', label: 'Medium', color: 'text-yellow-600' },
+  { value: 'low', label: 'Low', color: 'text-blue-600' }
+] as const;
+
 /**
  * Research Entry Management
  */
@@ -567,7 +595,8 @@ export const createResearchTemplate = async (
   }
 };
 
-export default {
+// Create research service instance
+export const researchService = {
   addResearchEntry,
   getResearchEntries,
   updateResearchEntry,
@@ -577,4 +606,6 @@ export default {
   getResearchActivities,
   getResearchTemplates,
   createResearchTemplate
-}; 
+};
+
+export default researchService; 

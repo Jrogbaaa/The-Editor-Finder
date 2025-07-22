@@ -14,10 +14,11 @@ interface KnowledgeApiResponse extends ApiResponse<any> {
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { editorId: string } }
+  { params }: { params: Promise<{ editorId: string }> }
 ): Promise<NextResponse<KnowledgeApiResponse>> {
+  const { editorId } = await params;
   try {
-    const knowledgeRef = doc(db, 'editorKnowledge', params.editorId);
+    const knowledgeRef = doc(db, 'editorKnowledge', editorId);
     const knowledgeDoc = await getDoc(knowledgeRef);
 
     if (!knowledgeDoc.exists()) {
@@ -75,7 +76,7 @@ export async function GET(
 
       const response: KnowledgeApiResponse = {
         data: {
-          editorId: params.editorId,
+          editorId: editorId,
           ...initialKnowledge
         },
         success: true,
@@ -87,7 +88,7 @@ export async function GET(
 
     const knowledgeData = knowledgeDoc.data() as Omit<EditorKnowledge, 'editorId'>;
     const knowledge: EditorKnowledge = {
-      editorId: params.editorId,
+      editorId: editorId,
       ...knowledgeData
     };
 
@@ -118,8 +119,9 @@ export async function GET(
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { editorId: string } }
+  { params }: { params: Promise<{ editorId: string }> }
 ): Promise<NextResponse<KnowledgeApiResponse>> {
+  const { editorId } = await params;
   try {
     const body = await request.json();
     const { action = 'update' } = body;
@@ -142,7 +144,7 @@ export async function POST(
       delete updates.action;
       delete updates.editorId;
 
-      const knowledgeRef = doc(db, 'editorKnowledge', params.editorId);
+      const knowledgeRef = doc(db, 'editorKnowledge', editorId);
       await updateDoc(knowledgeRef, {
         ...updates,
         lastUpdated: serverTimestamp()
