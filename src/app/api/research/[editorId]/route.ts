@@ -4,8 +4,6 @@ import {
   doc, 
   addDoc, 
   updateDoc, 
-  deleteDoc, 
-  getDoc, 
   getDocs, 
   query, 
   where, 
@@ -16,7 +14,7 @@ import { db } from '@/lib/firebase';
 import { ResearchEntry, ResearchType } from '@/types/research';
 import { ApiResponse } from '@/types';
 
-interface ResearchApiResponse extends ApiResponse<any> {
+interface ResearchApiResponse extends ApiResponse<ResearchEntry[] | { message: string }> {
   data: ResearchEntry[] | { message: string };
 }
 

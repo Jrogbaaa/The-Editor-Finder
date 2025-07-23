@@ -12,7 +12,7 @@ interface SyncStatus {
 const AdminDashboard = () => {
   const [syncResults, setSyncResults] = useState<{ [key: string]: SyncResult }>({});
   const [loading, setLoading] = useState<{ [key: string]: boolean }>({});
-  const [syncStatus, setSyncStatus] = useState<SyncStatus[]>([]);
+  const [, setSyncStatus] = useState<SyncStatus[]>([]);
 
   useEffect(() => {
     loadSyncStatus();
@@ -221,7 +221,7 @@ const AdminDashboard = () => {
             Getting Started
           </h3>
           <ul className="text-blue-800 space-y-2">
-            <li>• Click "Start Sync" for TMDb to import popular TV show editors</li>
+            <li>• Click &quot;Start Sync&quot; for TMDb to import popular TV show editors</li>
             <li>• Monitor sync progress and results in real-time</li>
             <li>• Check for errors and adjust settings as needed</li>
             <li>• IMDb and Emmy integrations are coming soon</li>

@@ -232,7 +232,7 @@ const EditorCard = ({
                     </div>
                     <div className="text-muted-foreground">{award.award.category}</div>
                     {award.show && (
-                      <div className="text-muted-foreground/80">for "{award.show.title}"</div>
+                      <div className="text-muted-foreground/80">for &quot;{award.show.title}&quot;</div>
                     )}
                   </div>
                 ))}

@@ -1,39 +1,23 @@
 'use client';
 
 import React, { useState } from 'react';
-import { SearchResult, SearchFilters, Editor } from '@/types';
+import { SearchResult, SearchFilters } from '@/types';
 import EditorCard from './EditorCard';
 
 interface SearchResultsProps {
   results: SearchResult;
   loading: boolean;
   filters: SearchFilters;
-  onFiltersChange: (filters: SearchFilters) => void;
+  onFiltersChange?: (filters: SearchFilters) => void;
   onExport: () => void;
 }
 
-const SearchResults = ({ results, loading, filters, onFiltersChange, onExport }: SearchResultsProps) => {
+const SearchResults = ({ results, loading, filters, onExport }: SearchResultsProps) => {
   const [sortBy, setSortBy] = useState<'relevance' | 'experience' | 'recent' | 'awards'>('relevance');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   const handleSortChange = (newSort: typeof sortBy) => {
     setSortBy(newSort);
-    
-    // Sort the results based on the selected criteria
-    const sortedEditors = [...results.editors].sort((a, b) => {
-      switch (newSort) {
-        case 'experience':
-          return b.experience.yearsActive - a.experience.yearsActive;
-        case 'recent':
-          return new Date(b.metadata.updatedAt).getTime() - new Date(a.metadata.updatedAt).getTime();
-        case 'awards':
-          // This would require fetching award data - simplified for now
-          return 0;
-        case 'relevance':
-        default:
-          return 0;
-      }
-    });
     
     // Note: In a real implementation, this would trigger a re-fetch with sort parameters
     console.log('Sorting results by:', newSort);

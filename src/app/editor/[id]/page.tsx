@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import { Editor, Credit, Award } from '@/types';
 import { getEditor, getEditorCredits, getEditorAwards } from '@/lib/firestore-schema';
 import EditorCard from '@/components/EditorCard';
@@ -21,6 +22,7 @@ export default function EditorProfilePage() {
     if (editorId) {
       loadEditorData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editorId]);
 
   const loadEditorData = async () => {
@@ -87,14 +89,14 @@ export default function EditorProfilePage() {
           <div className="text-6xl mb-4">🔍</div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Editor Not Found</h1>
           <p className="text-gray-600 mb-6">
-            The editor you're looking for doesn't exist or has been removed.
+            The editor you&apos;re looking for doesn&apos;t exist or has been removed.
           </p>
-          <a
+          <Link
             href="/"
             className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             ← Back to Search
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -283,7 +285,7 @@ export default function EditorProfilePage() {
                         </div>
                         <div className="text-sm text-gray-600">{award.award.category} ({award.award.year})</div>
                         {award.show && (
-                          <div className="text-sm text-gray-500">for "{award.show.title}"</div>
+                          <div className="text-sm text-gray-500">for &quot;{award.show.title}&quot;</div>
                         )}
                       </div>
                     ))}

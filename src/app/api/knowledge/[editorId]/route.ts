@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { doc, getDoc, setDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { EditorKnowledge, KnowledgeSummary } from '@/types/research';
+import { EditorKnowledge } from '@/types/research';
 import { ApiResponse } from '@/types';
 
-interface KnowledgeApiResponse extends ApiResponse<any> {
+interface KnowledgeApiResponse extends ApiResponse<EditorKnowledge | { message: string }> {
   data: EditorKnowledge | { message: string };
 }
 
