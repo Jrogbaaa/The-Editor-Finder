@@ -92,31 +92,10 @@ const Header = () => {
               <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary transition-all group-hover:w-full" />
             </Link>
             <Link 
-              href="/browse" 
-              className="relative text-foreground/80 hover:text-foreground transition-colors group"
-            >
-              <span>Browse</span>
-              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary transition-all group-hover:w-full" />
-            </Link>
-            <Link 
               href="/admin" 
               className="relative text-foreground/80 hover:text-foreground transition-colors group"
             >
               <span>Admin</span>
-              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary transition-all group-hover:w-full" />
-            </Link>
-            <Link 
-              href="/about" 
-              className="relative text-foreground/80 hover:text-foreground transition-colors group"
-            >
-              <span>About</span>
-              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary transition-all group-hover:w-full" />
-            </Link>
-            <Link 
-              href="/contact" 
-              className="relative text-foreground/80 hover:text-foreground transition-colors group"
-            >
-              <span>Contact</span>
               <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary transition-all group-hover:w-full" />
             </Link>
           </nav>
@@ -125,10 +104,10 @@ const Header = () => {
           <div className="flex items-center gap-4">
             {/* CTA Button - Hidden on mobile */}
             <Link
-              href="/contact"
+              href="/admin"
               className="hidden md:inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary to-secondary text-primary-foreground font-medium rounded-full hover:shadow-lg hover:shadow-primary/25 transition-all transform hover:scale-105"
             >
-              Get Started
+              Admin Panel
             </Link>
 
             {/* Mobile Menu Button */}
@@ -159,7 +138,7 @@ const Header = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-border/50">
-            <div className="flex flex-col space-y-4">
+            <nav className="flex flex-col space-y-1">
               <Link 
                 href="/" 
                 className="flex items-center px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-accent/10 rounded-lg transition-colors"
@@ -168,45 +147,13 @@ const Header = () => {
                 Search
               </Link>
               <Link 
-                href="/browse" 
-                className="flex items-center px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-accent/10 rounded-lg transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Browse
-              </Link>
-              <Link 
                 href="/admin" 
                 className="flex items-center px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-accent/10 rounded-lg transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Admin
               </Link>
-              <Link 
-                href="/about" 
-                className="flex items-center px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-accent/10 rounded-lg transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About
-              </Link>
-              <Link 
-                href="/contact" 
-                className="flex items-center px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-accent/10 rounded-lg transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contact
-              </Link>
-              
-              {/* Mobile CTA */}
-              <div className="px-4 pt-4 border-t border-border/50">
-                <Link
-                  href="/contact"
-                  className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-primary to-secondary text-primary-foreground font-medium rounded-full"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Get Started
-                </Link>
-              </div>
-            </div>
+            </nav>
           </div>
         )}
       </div>

@@ -88,14 +88,11 @@ const SearchInterface = ({ filters, onSearch, loading }: SearchInterfaceProps) =
             onChange={(e) => handleInputChange('query', e.target.value)}
             className="w-full pl-12 pr-20 py-4 bg-background border border-border rounded-xl text-lg placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
           />
-          {/* Algolia Logo */}
+          {/* Search powered by Apify */}
           <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
             <div className="flex items-center gap-1 text-xs text-muted-foreground/60">
-              <span>Powered by</span>
-              <svg className="w-4 h-4" viewBox="0 0 448 512" fill="currentColor">
-                <path d="M229.3 182.6c-49.3 0-89.2 39.9-89.2 89.2 0 49.3 39.9 89.2 89.2 89.2s89.2-39.9 89.2-89.2c0-49.3-39.9-89.2-89.2-89.2zm62.7 56.6l-58.9 58.9c-6.1 6.1-16 6.1-22.1 0l-36.3-36.3c-6.1-6.1-6.1-16 0-22.1l7.1-7.1c6.1-6.1 16-6.1 22.1 0l22.1 22.1 44.8-44.8c6.1-6.1 16-6.1 22.1 0l7.1 7.1c6.1 6.1 6.1 16 0 22.1l-.9 1.1zm-62.7-179.3c-132.4 0-240 107.6-240 240s107.6 240 240 240 240-107.6 240-240-107.6-240-240-240zm0 448c-114.9 0-208-93.1-208-208s93.1-208 208-208 208 93.1 208 208-93.1 208-208 208z"/>
-              </svg>
-              <span className="font-medium text-blue-600">algolia</span>
+              <span>Web search powered by</span>
+              <span className="font-medium text-orange-600">Apify</span>
             </div>
           </div>
         </div>
