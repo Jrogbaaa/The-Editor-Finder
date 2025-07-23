@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/firebase';
-import { collection, query, where, orderBy, limit, getDocs, startAfter } from 'firebase/firestore';
-import { SearchFilters, Editor, ApiResponse, SearchResult } from '@/types';
-import { realEmmyService } from '@/lib/real-emmy-service';
-import { searchEditors, isAlgoliaConfigured } from '@/lib/algolia';
+import { SearchFilters, ApiResponse, SearchResult } from '@/types';
+import { searchService } from '@/lib/search-service';
 
 export async function GET(request: NextRequest) {
   try {
@@ -29,40 +26,10 @@ export async function GET(request: NextRequest) {
       availability: []
     };
 
-    const pageSize = parseInt(searchParams.get('limit') || '20');
+    console.log('🔍 API Search request:', filters);
     
-    // Try Algolia first if configured
-    if (isAlgoliaConfigured()) {
-      console.log('🚀 Using Algolia search');
-      try {
-        const result = await searchEditors(filters);
-        
-        const response: ApiResponse<SearchResult> = {
-          data: result,
-          success: true,
-          timestamp: new Date()
-        };
-        
-        return NextResponse.json(response);
-      } catch (algoliaError) {
-        console.warn('⚠️ Algolia search failed, falling back to Firebase:', algoliaError);
-      }
-    }
-
-    // Fallback to Firebase search
-    console.log('🔍 Using Firebase search (Algolia fallback)');
-    const result = await searchWithFirebase(filters, pageSize);
-
-    // If no editors found, try to initialize with Emmy data
-    if (result.editors.length === 0) {
-      console.log('📊 No editors found, checking Emmy database...');
-      try {
-        await realEmmyService.initializeRealEmmyDatabase();
-        console.log('✅ Emmy database initialized');
-      } catch (error) {
-        console.log('ℹ️ Emmy database already initialized or failed:', error);
-      }
-    }
+    // Use the new hybrid search service (Firebase + Apify web search)
+    const result = await searchService.searchEditors(filters);
 
     const response: ApiResponse<SearchResult> = {
       data: result,
@@ -72,12 +39,12 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(response);
   } catch (error) {
-    console.error('Search error:', error);
+    console.error('❌ Search API error:', error);
     
     const response: ApiResponse<null> = {
       data: null,
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error occurred',
+      error: error instanceof Error ? error.message : 'Search failed',
       timestamp: new Date()
     };
 
@@ -85,104 +52,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-/**
- * Firebase-based search implementation
- */
-async function searchWithFirebase(filters: SearchFilters, pageSize: number): Promise<SearchResult> {
-  let editorsQuery = query(collection(db, 'editors'));
 
-  // Add filters
-  if (filters.unionStatus.length > 0) {
-    editorsQuery = query(editorsQuery, where('professional.unionStatus', 'in', filters.unionStatus));
-  }
-
-  if (filters.location.remoteOnly) {
-    editorsQuery = query(editorsQuery, where('location.remote', '==', true));
-  }
-
-  if (filters.experienceRange.min > 0 || filters.experienceRange.max < 25) {
-    editorsQuery = query(
-      editorsQuery,
-      where('experience.yearsActive', '>=', filters.experienceRange.min),
-      where('experience.yearsActive', '<=', filters.experienceRange.max)
-    );
-  }
-
-  // Add ordering and pagination
-  editorsQuery = query(editorsQuery, orderBy('metadata.updatedAt', 'desc'), limit(pageSize));
-
-  // Execute query
-  const snapshot = await getDocs(editorsQuery);
-  const editors: Editor[] = [];
-
-  snapshot.forEach((doc) => {
-    const data = doc.data();
-    editors.push({
-      id: doc.id,
-      ...data,
-      metadata: {
-        ...data.metadata,
-        createdAt: data.metadata.createdAt?.toDate() || new Date(),
-        updatedAt: data.metadata.updatedAt?.toDate() || new Date(),
-      }
-    } as Editor);
-  });
-
-  // Filter by text search if provided
-  let filteredEditors = editors;
-  if (filters.query) {
-    const searchQuery = filters.query.toLowerCase();
-    filteredEditors = editors.filter(editor =>
-      editor.name.toLowerCase().includes(searchQuery) ||
-      (editor.experience?.specialties || []).some(specialty =>
-        specialty.toLowerCase().includes(searchQuery)
-      )
-    );
-  }
-
-  // Filter by genres (specialties)
-  if (filters.genres.length > 0) {
-    filteredEditors = filteredEditors.filter(editor =>
-      filters.genres.some(genre =>
-        (editor.experience?.specialties || []).includes(genre)
-      )
-    );
-  }
-
-  // Calculate facets for filtered results
-  const facets = {
-    genres: {} as { [key: string]: number },
-    networks: {} as { [key: string]: number },
-    locations: {} as { [key: string]: number },
-    experience: {} as { [key: string]: number }
-  };
-
-  // Build facets
-  filteredEditors.forEach(editor => {
-    // Genre facets (from specialties)
-    (editor.experience?.specialties || []).forEach(specialty => {
-      facets.genres[specialty] = (facets.genres[specialty] || 0) + 1;
-    });
-
-    // Location facets
-    if (editor.location) {
-      const locationKey = `${editor.location.city}, ${editor.location.state}`;
-      facets.locations[locationKey] = (facets.locations[locationKey] || 0) + 1;
-    }
-
-    // Experience facets
-    const yearsActive = editor.experience?.yearsActive || 0;
-    const expRange = yearsActive < 5 ? '0-5 years' :
-                   yearsActive < 10 ? '5-10 years' : '10+ years';
-    facets.experience[expRange] = (facets.experience[expRange] || 0) + 1;
-  });
-
-  return {
-    editors: filteredEditors,
-    totalCount: filteredEditors.length,
-    facets
-  };
-}
 
 export async function POST(request: NextRequest) {
   try {

@@ -2,62 +2,59 @@
 
 ## Required API Keys
 
-### 📱 **Frontend Keys (Public - Safe to Expose)**
+### 🌐 **Apify Configuration (Required for Web Search)**
 Add these to your `.env.local`:
 
 ```env
-# Algolia Frontend Configuration
-NEXT_PUBLIC_ALGOLIA_APP_ID=V0KR3LXR6K
-NEXT_PUBLIC_ALGOLIA_SEARCH_KEY=c41b30a5664e8eb5d270a8261877c37e
+# Apify API Token (Required)
+APIFY_API_TOKEN=your_apify_api_token_here
 ```
 
-### 🔒 **Backend Keys (Private - NEVER Expose to Client)**
-Add these to your `.env.local`:
+Get your token from [Apify Console](https://console.apify.com/settings/integrations):
+1. Sign up at apify.com
+2. Go to Settings > Integrations > API tokens
+3. Create a new token with full access
+4. Copy your API token
 
+### 🔥 **Firebase Configuration (Required)**
 ```env
-# Algolia Backend Configuration (for seeding scripts)
-ALGOLIA_APP_ID=V0KR3LXR6K
-ALGOLIA_ADMIN_KEY=9a28b30f46a25c06117cd4479a1b2514
-
-# Alternative: Use Write Key instead of Admin Key
-# ALGOLIA_WRITE_KEY=efb30d8bb71e6c4cf3a0d8eca69afd80
+# Firebase Project Configuration
+NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 ```
 
-### 🎬 **TMDb API (for IMDB-like TV show data)**
+### 🎬 **TMDb API (Optional - for additional TV show data)**
 ```env
 TMDB_API_KEY=your_tmdb_api_key_here
 ```
 
-### 📊 **Optional Analytics Keys (NOT Required)**
-These are for advanced analytics and monitoring:
-
+### 🕸️ **Firecrawl Integration (Optional - alternative web scraping)**
 ```env
-# Optional - Only needed for usage analytics
-ALGOLIA_USAGE_KEY=8f25d3e21edbe9bae380a05b1086194a
-ALGOLIA_MONITORING_KEY=dc0b8f9ea0d1a0a6ab3953b4c21d1241
+FIRECRAWL_API_KEY=your_firecrawl_key_for_advanced_scraping
 ```
 
 ## 🔑 **API Key Summary**
 
-| Key Type | Purpose | Required? | Where Used |
-|----------|---------|-----------|------------|
-| **Application ID** | Identifies your Algolia app | ✅ Yes | Frontend + Backend |
-| **Search Key** | Public search queries | ✅ Yes | Frontend only |
-| **Admin Key** | Full write/read access | ✅ Yes | Backend scripts |
-| **Write Key** | Write-only access | 🔄 Alternative | Backend scripts |
-| **Usage Key** | Analytics data | ❌ No | Analytics |
-| **Monitoring Key** | Performance metrics | ❌ No | Monitoring |
+| Service | Purpose | Required? | Cost |
+|---------|---------|-----------|------|
+| **Apify** | Web scraping & Google search | ✅ Yes | $2/1000 pages |
+| **Firebase** | Database & hosting | ✅ Yes | Free tier available |
+| **TMDb** | Additional TV show metadata | ❌ No | Free |
+| **Firecrawl** | Advanced web scraping | ❌ No | $2/1000 pages |
 
-## 🎯 **Which Keys Do You Need?**
+## 🎯 **Minimum Setup Required**
 
 For **basic functionality**:
-- ✅ Application ID
-- ✅ Search Key (frontend)
-- ✅ Admin Key OR Write Key (backend)
+- ✅ `APIFY_API_TOKEN` (web search)
+- ✅ Firebase configuration (database)
 
-For **advanced features**:
-- 📊 Usage Key (search analytics)
-- 📈 Monitoring Key (performance tracking)
+For **enhanced features**:
+- 📺 `TMDB_API_KEY` (richer TV show data)
+- 🕸️ `FIRECRAWL_API_KEY` (alternative scraping)
 
 ## 🚀 **Complete .env.local Example**
 

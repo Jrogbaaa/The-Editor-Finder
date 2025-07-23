@@ -1,14 +1,16 @@
 # 🎬 TV Editor Finder
 
-A Next.js application for discovering and connecting with professional TV editors worldwide. Built with **Algolia-powered search**, Firebase, and modern web technologies.
+A Next.js application for discovering and connecting with professional TV editors worldwide. Built with **Apify web search**, Firebase, and modern web technologies.
+
+**🌐 Live Demo**: [tv-editor-finder.vercel.app](https://tv-editor-finder.vercel.app)
 
 ## ✨ Features
 
-### 🔍 **Advanced Search & Discovery**
-- **⚡ Lightning-fast search** powered by [Algolia](https://www.algolia.com/doc/)
+### 🔍 **Hybrid Search & Discovery**
+- **🌐 Web search integration** powered by [Apify](https://console.apify.com) for comprehensive coverage
+- **🔄 Hybrid search** combining local database and live web scraping
 - **🎯 Smart filtering** by specialties, union status, location, and experience
-- **📊 Real-time faceted search** with dynamic result counts
-- **🌐 Geographic search** with remote work options
+- **📊 Auto-storage** of web results in Firebase for future searches
 - **🏆 Award-winner highlighting** for verified editors
 
 ### 🧠 **AI-Powered Intelligence**
@@ -27,7 +29,7 @@ A Next.js application for discovering and connecting with professional TV editor
 ### 🏗️ **Modern Architecture**
 - **⚡ Next.js 15** with App Router and Turbopack
 - **🔥 Firebase Firestore** for real-time data
-- **🔍 Algolia Search** for instant results
+- **🌐 Apify Web Search** for unlimited coverage
 - **🎨 TailwindCSS** for modern UI
 - **📱 Responsive design** for all devices
 
@@ -37,7 +39,7 @@ A Next.js application for discovering and connecting with professional TV editor
 
 - Node.js 18+ and npm
 - Firebase project with Firestore
-- Algolia account (free tier available)
+- Apify account (free tier: $10 credit)
 
 ### Installation
 
@@ -49,8 +51,35 @@ cd tv-editor-finder
 # Install dependencies
 npm install
 
-# Set up environment variables (see Environment Configuration below)
+# Configure environment (see ENVIRONMENT_SETUP.md)
+cp .env.example .env.local
+# Add your Apify API token and Firebase config
+
+# Run development server
+npm run dev
+
+# Visit http://localhost:3000
 ```
+
+### 🚀 **Deploy to Production**
+
+```bash
+# Deploy to Vercel (automatic with GitHub integration)
+git add .
+git commit -m "Production ready: Apify web search system"
+git push origin main
+
+# Manual deployment
+npm run deploy
+```
+
+### Test Your Live Site
+
+Try these searches on your production site:
+- **"The Simpsons"** → Animation editors
+- **"Breaking Bad"** → Drama editors  
+- **"comedy editors"** → Genre specialists
+- **"Stranger Things"** → Modern show editors
 
 ### 🎬 **Instant Global Professional Database**
 
@@ -143,46 +172,33 @@ npm run build
 npm start
 ```
 
-## 🔍 Algolia Search Integration
+## 🔍 Hybrid Search System
 
-Our search is powered by **Algolia v5** with advanced configuration following [Algolia best practices](https://www.algolia.com/doc/guides/getting-started/what-is-algolia/):
+Our search combines **local database** and **web scraping** for comprehensive coverage:
 
-### Index Configuration
+### Search Flow
 
-```javascript
-// Searchable attributes for text matching
-searchableAttributes: [
-  'name',                    // Editor names
-  'experience.specialties',  // Genre specialties
-  'location.city',          // Geographic locations
-  'location.state'
-]
-
-// Faceted filtering capabilities
-attributesForFaceting: [
-  'experience.specialties',     // Drama, Action, Comedy, etc.
-  'professional.unionStatus',   // Guild vs non-union
-  'location.state',            // Geographic filtering
-  'location.remote',           // Remote work availability
-  'metadata.verified'          // Award winners
-]
-
-// Custom ranking for relevance
-customRanking: [
-  'desc(experience.yearsActive)',  // Experience level
-  'desc(metadata.verified)'       // Award winners first
-]
+```
+User Query → Local Firebase Search → If <3 results → Web Search → Store Results
 ```
 
-### Search Features
+### Web Search Integration
+
+**Powered by [Apify Web Scraping API](https://console.apify.com/actors/dCWf2xghxeZgpcrsQ)**:
+- **Google Search**: Finds relevant editor pages across the web
+- **Smart Scraping**: Extracts editor names, roles, and credits from IMDB, industry sites
+- **Auto-Storage**: Saves web-found editors to Firebase for future searches
+- **Deduplication**: Removes duplicates across local and web results
+
+### API Endpoints
 
 #### Text Search
 ```bash
-# Search editor names
+# Search editor names (local + web)
 GET /api/editors?q=Maria
 
-# Search by specialty
-GET /api/editors?q=Drama
+# Search by TV show (triggers web search)
+GET /api/editors?q=The+Office
 ```
 
 #### Advanced Filtering
@@ -200,21 +216,22 @@ GET /api/editors?minExperience=5&maxExperience=15
 GET /api/editors?awardWinners=true
 ```
 
-#### Faceted Search
+#### Complex Searches
 ```bash
 # Search with genre facets
 GET /api/editors?genres=Drama,Action
 
 # Complex multi-filter search
-GET /api/editors?q=Emmy&unionStatus=guild&genres=Drama&remoteOnly=true
+GET /api/editors?q=comedy+editors&unionStatus=guild&remoteOnly=true
 ```
 
-### Fallback Strategy
+### Search Features
 
-The application implements **intelligent fallback**:
-1. **Primary**: Algolia search (sub-100ms response)
-2. **Fallback**: Firebase Firestore search (if Algolia unavailable)
-3. **Auto-retry**: Automatic error recovery
+1. **Local Database Search** - Fast retrieval from Firebase (17+ curated editors)
+2. **Web Search Fallback** - Searches IMDB, industry sites when local results are insufficient
+3. **Auto-Storage** - Web-found editors automatically saved to database
+4. **Smart Queries** - Enhanced search terms for better web discovery
+5. **Result Combination** - Merges local and web results intelligently
 
 ## 🗄️ Data Architecture
 
