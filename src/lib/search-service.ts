@@ -299,20 +299,20 @@ export class SearchService {
     const isShowQuery = this.looksLikeTVShow(baseQuery);
     
     if (isShowQuery) {
-      // TV show specific searches
-      queries.push(`"${query}" TV series editors credits IMDB`);
-      queries.push(`"${query}" television show editor Emmy`);
-      queries.push(`"${query}" post production editor crew`);
+      // TV show specific searches - focus on actual editors, not actors
+      queries.push(`"${query}" editors film crew IMDB editing department`);
+      queries.push(`"${query}" post-production editors Emmy nominees`);
+      queries.push(`"${query}" TV series picture editor film editor`);
     } else if (this.isGenreQuery(baseQuery)) {
       // Genre specific searches
-      queries.push(`${query} TV show editors Emmy awards`);
-      queries.push(`television ${query} editors Guild members`);
-      queries.push(`${query} series editors Hollywood professionals`);
+      queries.push(`${query} TV editors Emmy awards picture editor`);
+      queries.push(`television ${query} editors film editing professionals`);
+      queries.push(`${query} series picture editors post-production`);
     } else {
       // General keyword search
-      queries.push(`"${query}" television editors IMDB credits`);
-      queries.push(`TV editors "${query}" Emmy nominated`);
-      queries.push(`television editor "${query}" professional`);
+      queries.push(`"${query}" television picture editors IMDB crew`);
+      queries.push(`TV film editors "${query}" Emmy nominated`);
+      queries.push(`television picture editor "${query}" professional`);
     }
 
     return queries.slice(0, 3); // Limit to 3 queries to avoid excessive API calls

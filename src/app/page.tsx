@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { SearchFilters, SearchResult, Editor } from '@/types';
 import SearchInterface from '@/components/SearchInterface';
 import SearchResults from '@/components/SearchResults';
@@ -14,8 +14,7 @@ const initialFilters: SearchFilters = {
   location: { cities: [], states: [], remoteOnly: false },
   unionStatus: [],
   awardWinners: false,
-  showTypes: [],
-  availability: []
+  showTypes: []
 };
 
 const emptyResults: SearchResult = {
@@ -34,6 +33,21 @@ export default function HomePage() {
   const [results, setResults] = useState<SearchResult>(emptyResults);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to results when search completes
+  useEffect(() => {
+    if (results.editors.length > 0 && !loading && resultsRef.current) {
+      // Small delay to ensure DOM is updated
+      setTimeout(() => {
+        resultsRef.current?.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start',
+          inline: 'nearest'
+        });
+      }, 100);
+    }
+  }, [results.editors.length, loading]);
 
   const handleSearch = async (newFilters: SearchFilters) => {
     setLoading(true);
@@ -149,7 +163,7 @@ export default function HomePage() {
         )}
 
         {/* Search Results */}
-        <div className="container mx-auto px-4 py-16">
+        <div ref={resultsRef} className="container mx-auto px-4 py-16">
           <SearchResults 
             results={results} 
             loading={loading} 
