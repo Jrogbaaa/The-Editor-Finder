@@ -32,7 +32,15 @@ export class SearchService {
       console.log(`📊 Local database found: ${localResults.editors.length} editors`);
 
       // Step 2: If we have good local results or no query, return them
-      if (localResults.editors.length >= 2 || !filters.query?.trim()) {
+      // Special case: For animation shows like The Simpsons, be more strict about local matches
+      const searchQuery = filters.query?.toLowerCase() || '';
+      const isAnimationShow = ['simpsons', 'south park', 'family guy', 'rick and morty', 'bob\'s burgers'].some(show => 
+        searchQuery.includes(show)
+      );
+      
+      const minLocalResults = isAnimationShow ? 0 : 2; // Force web search for animation shows
+      
+      if (localResults.editors.length >= minLocalResults || !filters.query?.trim()) {
         return localResults;
       }
 
