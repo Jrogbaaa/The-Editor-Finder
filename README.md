@@ -1,35 +1,41 @@
 # 🎬 TV Editor Finder
 
-A Next.js application for discovering and connecting with professional TV editors worldwide. Built with **Apify web search**, Firebase, and modern web technologies.
+A Next.js application for discovering and connecting with professional TV editors worldwide. Built with **intelligent keyword search**, Firebase, and modern web technologies.
 
 **🌐 Live Demo**: [tv-editor-finder.vercel.app](https://tv-editor-finder.vercel.app)
 
 ## ✨ Features
 
-### 🔍 **Hybrid Search & Discovery**
-- **🌐 Web search integration** powered by [Apify](https://console.apify.com) for comprehensive coverage
-- **🔄 Hybrid search** combining local database and live web scraping
-- **🎯 Smart filtering** by specialties, union status, location, and experience
-- **📊 Auto-storage** of web results in Firebase for future searches
-- **🏆 Award-winner highlighting** for verified editors
+### 🔍 **Intelligent Search & Discovery**
+- **🎯 Keyword/TV Show Search** - Search by show titles, genres, or any keywords
+- **🔄 Hybrid search** combining Firebase database and live web scraping
+- **📺 Show-to-Editor Matching** - Find editors by typing "Breaking Bad", "Succession", etc.
+- **🎭 Genre Searches** - Discover editors by searching "comedy", "drama", "thriller"
+- **🏆 Award-winner discovery** with Emmy, BAFTA, and international recognition
+- **📊 Auto-expanding database** - web results permanently saved for future searches
 
-### 🧠 **AI-Powered Intelligence**
-- **📈 Research automation** for editor backgrounds
-- **🔗 Credit aggregation** from multiple sources
-- **📝 Knowledge management** with confidence scoring
-- **🎭 Emmy database integration** for award verification
+### 🧠 **Smart Matching Technology**
+- **📈 TV show credit matching** from comprehensive subcollections
+- **🔗 Multi-field search** across names, specialties, awards, and locations  
+- **📝 Genre expertise matching** with specialty categorization
+- **🎭 Award verification** with years and categories
 
-### 🌍 **Global Professional Editor Database**
-- **🎬 75+ acclaimed TV editors** from comprehensive industry research
-- **🏆 Emmy, BAFTA & International Award winners** from top shows
-- **🌍 True international coverage** across 7 countries and 4 continents
-- **✅ Verified profiles** with complete filmographies
-- **📊 Award tracking** with years and categories
+### 🌍 **Comprehensive Professional Editor Database**
+- **🎬 100+ acclaimed TV editors** from industry research and web discovery
+- **🏆 Emmy, BAFTA & International Award winners** from top shows including:
+  - **Breaking Bad** (Kelley Dixon, Lynne Willingham, Skip Macdonald)
+  - **Game of Thrones** (Katie Weiland, Tim Porter)
+  - **Succession** (Jane Rizzo, Ken Eluto)
+  - **Stranger Things** (Dean Zimmerman)
+  - **The Bear** (Adam Epstein, Joanna Naugle)
+- **🌍 True international coverage** across USA, UK, Spain, Germany, Korea, India, and more
+- **✅ Verified profiles** with complete filmographies and award histories
+- **📊 Credits tracking** with show titles and years
 
 ### 🏗️ **Modern Architecture**
 - **⚡ Next.js 15** with App Router and Turbopack
-- **🔥 Firebase Firestore** for real-time data
-- **🌐 Apify Web Search** for unlimited coverage
+- **🔥 Firebase Firestore** for real-time data with subcollections for credits
+- **🌐 Apify Web Search** for unlimited coverage when database doesn't have matches
 - **🎨 TailwindCSS** for modern UI
 - **📱 Responsive design** for all devices
 
@@ -39,7 +45,7 @@ A Next.js application for discovering and connecting with professional TV editor
 
 - Node.js 18+ and npm
 - Firebase project with Firestore
-- Apify account (free tier: $10 credit)
+- Apify account (free tier available)
 
 ### Installation
 

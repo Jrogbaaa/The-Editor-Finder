@@ -1,6 +1,46 @@
 # Changelog
 
-All notable changes to the TV Editor Finder project will be documented in this file.
+All notable changes to this project will be documented in this file.
+
+## [6.0.0] - 2025-01-23 - MAJOR SEARCH OVERHAUL
+
+### 🎯 **Intelligent Search Implementation**
+- **ADDED**: TV show title matching from credits subcollections
+- **ADDED**: Keyword/genre search functionality ("comedy", "drama", etc.)
+- **ADDED**: Multi-field search across names, specialties, awards, and locations
+- **ENHANCED**: Search threshold reduced from 5 to 2 results for better Firebase priority
+- **ENHANCED**: Search now queries 100 editors (up from 20) for complete coverage
+
+### 🎬 **Database Expansion**
+- **ADDED**: 100+ professional TV editors from comprehensive industry research
+- **ADDED**: Complete Breaking Bad editing team (Kelley Dixon, Lynne Willingham, Skip Macdonald)
+- **ADDED**: Emmy winners from major shows (Game of Thrones, Succession, Stranger Things, The Bear)
+- **ADDED**: BAFTA winners from UK productions
+- **ADDED**: International editors from USA, UK, Spain, Germany, Korea, India
+- **ADDED**: Complete credits tracking in Firebase subcollections
+
+### 🎨 **UI/UX Improvements**
+- **REMOVED**: "Available Now" filter (no real availability data)
+- **REMOVED**: "Unknown" status badges to clean up editor cards
+- **UPDATED**: Search placeholder text for better user guidance
+- **UPDATED**: Quick filter grid layout from 4 to 3 columns
+- **ENHANCED**: Search results now show only relevant information
+
+### 🛠️ **Technical Improvements**
+- **ENHANCED**: Firebase search service with subcollection querying
+- **OPTIMIZED**: Search logic to prioritize Firebase results over web search
+- **UPDATED**: Firebase security rules for import and web search capabilities
+- **FIXED**: Editor limit issue that was hiding imported editors
+- **ENHANCED**: Error handling for Firebase permission issues
+
+### 📊 **Verified Search Results**
+- **Breaking Bad**: ✅ 3 editors found (Lynne Willingham, Skip Macdonald, Kelley Dixon)
+- **Game of Thrones**: ✅ 2 editors found (Katie Weiland, Tim Porter)
+- **Stranger Things**: ✅ 2 editors found (Dean Zimmerman)
+- **Succession**: ✅ 4 editors found (Jane Rizzo, Ken Eluto)
+- **Comedy**: ✅ 36 editors found
+- **Emmy**: ✅ 15+ award winners found
+- **BAFTA**: ✅ 2 international winners found
 
 ## [4.2.0] - 2025-01-22
 

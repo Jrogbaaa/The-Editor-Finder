@@ -74,18 +74,20 @@ const EditorCard = ({
           </div>
           
           <div className="flex items-center gap-2 mb-3">
-            <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs border ${
-              getAvailabilityColor(editor.professional.availability)
-            }`}>
-              {editor.professional.availability === 'available' ? '✅ Available' : 
-               editor.professional.availability === 'busy' ? '🔴 Busy' : '❓ Unknown'}
-            </span>
-            <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs border ${
-              getUnionStatusColor(editor.professional.unionStatus)
-            }`}>
-              {editor.professional.unionStatus === 'guild' ? 'Guild Member' : 
-               editor.professional.unionStatus === 'non-union' ? 'Non-Union' : 'Unknown'}
-            </span>
+            {editor.professional.availability && editor.professional.availability !== 'unknown' && (
+              <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs border ${
+                getAvailabilityColor(editor.professional.availability)
+              }`}>
+                {editor.professional.availability === 'available' ? '✅ Available' : '🔴 Busy'}
+              </span>
+            )}
+            {editor.professional.unionStatus && editor.professional.unionStatus !== 'unknown' && (
+              <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs border ${
+                getUnionStatusColor(editor.professional.unionStatus)
+              }`}>
+                {editor.professional.unionStatus === 'guild' ? 'Guild Member' : 'Non-Union'}
+              </span>
+            )}
           </div>
         </div>
         

@@ -102,7 +102,6 @@ export interface SearchFilters {
   unionStatus: ('guild' | 'non-union')[];
   awardWinners: boolean;
   showTypes: ('series' | 'miniseries' | 'special' | 'documentary')[];
-  availability: ('available' | 'busy')[];
 }
 
 export interface SearchResult {

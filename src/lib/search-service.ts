@@ -32,7 +32,7 @@ export class SearchService {
       console.log(`📊 Local database found: ${localResults.editors.length} editors`);
 
       // Step 2: If we have good local results or no query, return them
-      if (localResults.editors.length >= 3 || !filters.query?.trim()) {
+      if (localResults.editors.length >= 2 || !filters.query?.trim()) {
         return localResults;
       }
 
@@ -86,7 +86,7 @@ export class SearchService {
       }
 
       // Add ordering and pagination
-      editorsQuery = query(editorsQuery, orderBy('metadata.updatedAt', 'desc'), limit(20));
+      editorsQuery = query(editorsQuery, orderBy('metadata.updatedAt', 'desc'), limit(100));
 
       // Execute query
       const snapshot = await getDocs(editorsQuery);
@@ -105,18 +105,10 @@ export class SearchService {
         } as Editor);
       });
 
-      // Filter by text search if provided
+      // Enhanced text search with show matching if provided
       let filteredEditors = editors;
       if (filters.query) {
-        const searchQuery = filters.query.toLowerCase();
-        filteredEditors = editors.filter(editor =>
-          editor.name.toLowerCase().includes(searchQuery) ||
-          (editor.experience?.specialties || []).some(specialty =>
-            specialty.toLowerCase().includes(searchQuery)
-          ) ||
-          // Search in any associated show titles (if available)
-          this.searchInCredits(editor, searchQuery)
-        );
+        filteredEditors = await this.searchEditorsWithShowMatching(editors, filters.query);
       }
 
       // Filter by genres (specialties)
@@ -145,12 +137,91 @@ export class SearchService {
   }
 
   /**
-   * Search credits/shows associated with an editor
+   * Enhanced search that includes TV show matching from credits subcollections
    */
-  private searchInCredits(editor: Editor, searchQuery: string): boolean {
-    // This could be expanded to search actual credits collections
-    // For now, just a placeholder that returns false
-    return false;
+  private async searchEditorsWithShowMatching(editors: Editor[], queryString: string): Promise<Editor[]> {
+    const searchQuery = queryString.toLowerCase().trim();
+    const searchTerms = searchQuery.split(' ').filter(term => term.length > 2);
+    
+    const matchedEditors: Editor[] = [];
+    
+    for (const editor of editors) {
+      // First check editor fields (name, specialties, location, etc.)
+      const editorText = [
+        editor.name,
+        ...(editor.experience?.specialties || []),
+        editor.location?.city || '',
+        editor.location?.state || '',
+        editor.location?.country || '',
+        ...(editor.metadata?.dataSource || []),
+        editor.professional?.unionStatus || '',
+        // Add common award-related terms if this editor has awards/Emmy background
+        ...(editor.metadata?.dataSource?.includes('emmys') ? ['emmy', 'award', 'winner'] : []),
+        ...(editor.metadata?.dataSource?.includes('bafta') ? ['bafta', 'award', 'winner'] : []),
+        ...(editor.metadata?.verified ? ['verified', 'professional'] : [])
+      ].join(' ').toLowerCase();
+
+      // Check if editor fields match
+      let matchesEditor = false;
+      if (editorText.includes(searchQuery)) {
+        matchesEditor = true;
+      } else if (searchTerms.some(term => editorText.includes(term))) {
+        matchesEditor = true;
+      }
+
+      // Check if any of their TV shows match
+      let matchesShows = false;
+      try {
+        matchesShows = await this.searchInCredits(editor, searchQuery);
+      } catch (error) {
+        console.warn(`Failed to search credits for ${editor.name}:`, error);
+      }
+
+      if (matchesEditor || matchesShows) {
+        matchedEditors.push(editor);
+      }
+    }
+    
+    return matchedEditors;
+  }
+
+  /**
+   * Search credits/shows associated with an editor in Firestore subcollections
+   */
+  private async searchInCredits(editor: Editor, searchQuery: string): Promise<boolean> {
+    try {
+      // Query the credits subcollection for this editor
+      const creditsRef = collection(db, 'editors', editor.id, 'credits');
+      const creditsSnapshot = await getDocs(creditsRef);
+      
+      if (creditsSnapshot.empty) {
+        return false;
+      }
+
+      // Check if any credits match the search query
+      for (const creditDoc of creditsSnapshot.docs) {
+        const creditData = creditDoc.data();
+        const showTitle = creditData.show?.title || creditData.title || '';
+        const network = creditData.show?.network || creditData.network || '';
+        const genres = creditData.show?.genre || creditData.genre || [];
+        
+        const showText = [
+          showTitle,
+          network,
+          ...(Array.isArray(genres) ? genres : [])
+        ].join(' ').toLowerCase();
+
+        if (showText.includes(searchQuery)) {
+          console.log(`🎯 Found show match: ${showTitle} for editor ${editor.name}`);
+          return true;
+        }
+      }
+      
+      return false;
+    } catch (error) {
+      console.error(`Error searching credits for ${editor.name}:`, error);
+      return false;
+    }
   }
 
   /**
@@ -213,36 +284,68 @@ export class SearchService {
    * Build enhanced search queries for finding TV editors
    */
   private buildWebSearchQueries(query: string): string[] {
-    const baseQuery = query.toLowerCase();
+    const baseQuery = query.toLowerCase().trim();
     const queries: string[] = [];
 
-    // Direct show search
-    if (baseQuery.includes('simpsons')) {
-      queries.push('The Simpsons TV show editors credits IMDB');
-      queries.push('The Simpsons animation editors Emmy awards');
-      queries.push('The Simpsons post-production team');
-    } else if (baseQuery.includes('friends')) {
-      queries.push('Friends TV show editors credits IMDB');
-      queries.push('Friends sitcom editors film crew');
-    } else if (baseQuery.includes('comedy')) {
-      queries.push('comedy TV show editors Emmy winners');
-      queries.push('television comedy editors Guild members');
-      queries.push('sitcom editors Hollywood professionals');
-    } else if (baseQuery.includes('drama')) {
-      queries.push('drama TV series editors Emmy awards');
-      queries.push('television drama editors credits');
+    // Check if it's a known TV show
+    const isShowQuery = this.looksLikeTVShow(baseQuery);
+    
+    if (isShowQuery) {
+      // TV show specific searches
+      queries.push(`"${query}" TV series editors credits IMDB`);
+      queries.push(`"${query}" television show editor Emmy`);
+      queries.push(`"${query}" post production editor crew`);
+    } else if (this.isGenreQuery(baseQuery)) {
+      // Genre specific searches
+      queries.push(`${query} TV show editors Emmy awards`);
+      queries.push(`television ${query} editors Guild members`);
+      queries.push(`${query} series editors Hollywood professionals`);
     } else {
-      // Generic TV show search
-      queries.push(`"${query}" TV show editors credits`);
-      queries.push(`"${query}" television editors IMDB`);
-      queries.push(`"${query}" post-production editors`);
+      // General keyword search
+      queries.push(`"${query}" television editors IMDB credits`);
+      queries.push(`TV editors "${query}" Emmy nominated`);
+      queries.push(`television editor "${query}" professional`);
     }
 
-    // Add general editor search
-    queries.push(`television editors "${query}" credits`);
-    queries.push(`TV editors "${query}" Emmy Guild`);
-
     return queries.slice(0, 3); // Limit to 3 queries to avoid excessive API calls
+  }
+
+  /**
+   * Check if query looks like a TV show title
+   */
+  private looksLikeTVShow(query: string): boolean {
+    const showPatterns = [
+      'game of thrones', 'breaking bad', 'the wire', 'friends', 'the office',
+      'stranger things', 'the crown', 'house of cards', 'lost', 'the simpsons',
+      'south park', 'family guy', 'the mandalorian', 'wandavision', 'loki',
+      'the boys', 'euphoria', 'succession', 'westworld', 'the handmaids tale'
+    ];
+    
+    const lowerQuery = query.toLowerCase();
+    
+    // Check against known shows
+    if (showPatterns.some(show => lowerQuery.includes(show))) {
+      return true;
+    }
+
+    // Check if it looks like a show title (multiple words, proper capitalization hints)
+    const words = query.split(' ');
+    return words.length >= 2 && words.length <= 6 && 
+           !this.isGenreQuery(lowerQuery) && 
+           !lowerQuery.includes('editor');
+  }
+
+  /**
+   * Check if query is a genre/category
+   */
+  private isGenreQuery(query: string): boolean {
+    const genres = [
+      'drama', 'comedy', 'reality', 'documentary', 'news', 'sports',
+      'children', 'talk show', 'game show', 'variety', 'horror', 'sci-fi',
+      'crime', 'action', 'romance', 'thriller', 'musical', 'animation'
+    ];
+    
+    return genres.some(genre => query.includes(genre));
   }
 
   /**

@@ -64,8 +64,7 @@ const SearchInterface = ({ filters, onSearch, loading }: SearchInterfaceProps) =
       location: { cities: [], states: [], remoteOnly: false },
       unionStatus: [],
       awardWinners: false,
-      showTypes: [],
-      availability: []
+      showTypes: []
     };
     setLocalFilters(resetFilters);
     onSearch(resetFilters);
@@ -83,7 +82,7 @@ const SearchInterface = ({ filters, onSearch, loading }: SearchInterfaceProps) =
           </div>
           <input
             type="text"
-            placeholder="Search for editors, shows, networks, or keywords..."
+            placeholder="Search TV shows, genres, keywords... (e.g., 'Game of Thrones', 'comedy', 'drama')"
             value={localFilters.query || ''}
             onChange={(e) => handleInputChange('query', e.target.value)}
             className="w-full pl-12 pr-20 py-4 bg-background border border-border rounded-xl text-lg placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
@@ -99,7 +98,7 @@ const SearchInterface = ({ filters, onSearch, loading }: SearchInterfaceProps) =
       </div>
 
       {/* Quick Filters */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {/* Award Winners Toggle */}
         <button
           type="button"
@@ -154,21 +153,24 @@ const SearchInterface = ({ filters, onSearch, loading }: SearchInterfaceProps) =
           <span className="text-xs text-muted-foreground">Union professionals</span>
         </button>
 
-        {/* Available Now */}
+        {/* Experience Level Quick Filter */}
         <button
           type="button"
-          onClick={() => handleArrayToggle('availability', 'available')}
+          onClick={() => handleInputChange('experienceRange', { 
+            min: localFilters.experienceRange.min, 
+            max: localFilters.experienceRange.max === 25 ? 15 : 25 
+          })}
           className={`p-4 rounded-xl border transition-all text-left ${
-            localFilters.availability.includes('available')
+            localFilters.experienceRange.max < 25
               ? 'bg-green-500/10 border-green-500 text-green-500'
               : 'bg-card border-border hover:border-border/80 text-card-foreground'
           }`}
         >
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-lg">✅</span>
-            <span className="font-medium">Available Now</span>
+            <span className="text-lg">⭐</span>
+            <span className="font-medium">Experienced</span>
           </div>
-          <span className="text-xs text-muted-foreground">Ready to start</span>
+          <span className="text-xs text-muted-foreground">15+ years experience</span>
         </button>
       </div>
 
