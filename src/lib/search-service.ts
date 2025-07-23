@@ -575,12 +575,32 @@ export class SearchService {
     const invalidNames = [
       'the simpsons', 'tv show', 'emmy award', 'academy award',
       'post production', 'film editor', 'television', 'animation',
-      'director', 'producer', 'writer', 'creator'
+      'director', 'producer', 'writer', 'creator', 'warner home video',
+      'lucasfilm press', 'din djarin', 'netflix', 'hbo', 'disney',
+      'amazon prime', 'apple tv', 'paramount', 'showtime', 'fx networks',
+      'actors', 'actress', 'star', 'celebrity', 'cast member'
     ];
 
-    return !invalidNames.some(invalid => 
-      name.toLowerCase().includes(invalid)
-    ) && name.split(' ').length >= 2 && name.length < 50;
+    // Known actors/celebrities to filter out
+    const knownActors = [
+      'claire foy', 'alicia vikander', 'eva green', 'matthew perry',
+      'jennifer aniston', 'courteney cox', 'lisa kudrow', 'matt leblanc',
+      'david schwimmer', 'brian baumgartner'
+    ];
+
+    const lowerName = name.toLowerCase();
+    
+    // Check for invalid names and actors
+    const hasInvalidName = invalidNames.some(invalid => lowerName.includes(invalid));
+    const isKnownActor = knownActors.some(actor => lowerName.includes(actor));
+    
+    // Must have at least 2 words, be under 50 chars, and not be invalid
+    return !hasInvalidName && 
+           !isKnownActor && 
+           name.split(' ').length >= 2 && 
+           name.length < 50 &&
+           !name.toLowerCase().includes('video') &&
+           !name.toLowerCase().includes('press');
   }
 
   private guessSpecialtyFromQuery(query: string): string {

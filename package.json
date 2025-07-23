@@ -24,6 +24,7 @@
     "sync:apify": "echo 'Apify web search sync placeholder'",
     "sync:tmdb": "node scripts/tmdb-sync.js",
     "seed:classic": "node scripts/add-classic-shows.js",
+    "cleanup:database": "node scripts/cleanup-and-seed.js",
     "test:performance": "echo 'Run performance tests with curl using curl-format.txt'",
     "precommit": "npm run type-check && npm run lint"
   },
