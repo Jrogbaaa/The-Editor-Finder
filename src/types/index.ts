@@ -99,7 +99,7 @@ export interface SearchFilters {
     states: string[];
     remoteOnly: boolean;
   };
-  unionStatus: ('guild' | 'non-union')[];
+  unionStatus: ('guild' | 'non-union' | 'unknown')[];
   awardWinners: boolean;
   showTypes: ('series' | 'miniseries' | 'special' | 'documentary')[];
 }

@@ -20,10 +20,9 @@ export async function GET(request: NextRequest) {
         states: [],
         remoteOnly: searchParams.get('remoteOnly') === 'true'
       },
-      unionStatus: searchParams.get('unionStatus')?.split(',').filter(Boolean) as ('guild' | 'non-union')[] || [],
+      unionStatus: searchParams.get('unionStatus')?.split(',').filter(Boolean) as ('guild' | 'non-union' | 'unknown')[] || [],
       awardWinners: searchParams.get('awardWinners') === 'true',
-      showTypes: [],
-      availability: []
+      showTypes: []
     };
 
     console.log('🔍 API Search request:', filters);

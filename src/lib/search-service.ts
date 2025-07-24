@@ -34,7 +34,7 @@ export class SearchService {
       const localResults = await this.searchLocalDatabase(processedFilters);
       console.log(`📊 Local database found: ${localResults.editors.length} editors`);
 
-      // Step 3: If we have good local results or no query, return them
+      // Step 3: Decide if web search is needed
       // Special case: For animation shows like The Simpsons, be more strict about local matches
       const searchQuery = processedFilters.query?.toLowerCase() || '';
       const isAnimationShow = ['simpsons', 'south park', 'family guy', 'rick and morty', 'bob\'s burgers'].some(show => 
@@ -43,21 +43,30 @@ export class SearchService {
       
       const minLocalResults = isAnimationShow ? 0 : 2; // Force web search for animation shows
       
-      // Don't do web search for pure genre queries
-      const isPureGenreQuery = !processedFilters.query && processedFilters.genres.length > 0;
+      // ENHANCED: Trigger web search when there are 0 results, even for filter-only searches
+      const hasFilters = processedFilters.genres.length > 0 || 
+                        processedFilters.networks.length > 0 || 
+                        processedFilters.unionStatus.length > 0 ||
+                        processedFilters.location.cities.length > 0;
       
-      if (localResults.editors.length >= minLocalResults || !processedFilters.query?.trim() || isPureGenreQuery) {
+      const shouldSearchWeb = localResults.editors.length === 0 || 
+                             (localResults.editors.length < minLocalResults && processedFilters.query?.trim());
+      
+      if (!shouldSearchWeb) {
         return localResults;
       }
 
       // Step 4: Search the web for additional editors
       console.log('🌐 Searching web for additional editors...');
-      const webResults = await this.searchWebForEditors(processedFilters.query, processedFilters);
+      
+      // Build web search query from filters if no text query provided
+      const webSearchQuery = processedFilters.query?.trim() || this.buildQueryFromFilters(processedFilters);
+      const webResults = await this.searchWebForEditors(webSearchQuery, processedFilters);
       
       // Step 5: Store web results in database for future searches
       let finalWebEditors = webResults.editors;
       if (webResults.editors.length > 0) {
-        finalWebEditors = await this.storeWebResultsInDatabase(webResults.editors, processedFilters.query);
+        finalWebEditors = await this.storeWebResultsInDatabase(webResults.editors, webSearchQuery);
       }
 
       // Step 6: Combine and return results with real database IDs
@@ -73,6 +82,32 @@ export class SearchService {
       // Fallback to local database only
       return await this.searchLocalDatabase(filters);
     }
+  }
+
+  /**
+   * Build web search query from filters when no text query is provided
+   */
+  private buildQueryFromFilters(filters: SearchFilters): string {
+    const parts: string[] = [];
+    
+    // Add networks to query
+    if (filters.networks.length > 0) {
+      parts.push(filters.networks.join(' '));
+    }
+    
+    // Add genres to query  
+    if (filters.genres.length > 0) {
+      parts.push(filters.genres.join(' '));
+    }
+    
+    // Add base terms
+    parts.push('TV editor', 'television editor');
+    
+    // Join with the first network/genre as primary
+    const query = parts.slice(0, 3).join(' ');
+    console.log(`🔍 Built web search query from filters: "${query}"`);
+    
+    return query || 'television editor';
   }
 
   /**
@@ -117,40 +152,27 @@ export class SearchService {
 
   /**
    * Search the local Firebase database
+   * ENHANCED: Uses simple queries with in-memory filtering to avoid Firebase index issues
    */
   private async searchLocalDatabase(filters: SearchFilters): Promise<SearchResult> {
     console.log('🔍 Searching local Firebase database...');
     
     try {
-      let editorsQuery = query(collection(db, 'editors'));
+      // FIXED: Use simple query to avoid composite index requirements
+      // Do complex filtering in memory instead
+      let editorsQuery = query(
+        collection(db, 'editors'),
+        orderBy('metadata.updatedAt', 'desc'),
+        limit(100)
+      );
 
-      // Apply filters
-      if (filters.unionStatus.length > 0) {
-        editorsQuery = query(editorsQuery, where('professional.unionStatus', 'in', filters.unionStatus));
-      }
-
-      if (filters.location.remoteOnly) {
-        editorsQuery = query(editorsQuery, where('location.remote', '==', true));
-      }
-
-      if (filters.experienceRange.min > 0 || filters.experienceRange.max < 25) {
-        editorsQuery = query(
-          editorsQuery,
-          where('experience.yearsActive', '>=', filters.experienceRange.min),
-          where('experience.yearsActive', '<=', filters.experienceRange.max)
-        );
-      }
-
-      // Add ordering and pagination
-      editorsQuery = query(editorsQuery, orderBy('metadata.updatedAt', 'desc'), limit(100));
-
-      // Execute query
+      // Execute simple query
       const snapshot = await getDocs(editorsQuery);
-      const editors: Editor[] = [];
+      const allEditors: Editor[] = [];
 
       snapshot.forEach((doc) => {
         const data = doc.data();
-        editors.push({
+        allEditors.push({
           id: doc.id,
           ...data,
           metadata: {
@@ -161,16 +183,46 @@ export class SearchService {
         } as Editor);
       });
 
+      // ENHANCED: Apply all filters in memory to avoid Firebase index issues
+      let filteredEditors = allEditors;
+
+      // Apply union status filter
+      if (filters.unionStatus.length > 0) {
+        filteredEditors = filteredEditors.filter((editor: Editor) => 
+          filters.unionStatus.includes(editor.professional?.unionStatus || 'unknown')
+        );
+      }
+
+      // Apply remote work filter
+      if (filters.location.remoteOnly) {
+        filteredEditors = filteredEditors.filter((editor: Editor) => 
+          editor.location?.remote === true
+        );
+      }
+
+      // Apply experience range filter
+      if (filters.experienceRange.min > 0 || filters.experienceRange.max < 25) {
+        filteredEditors = filteredEditors.filter((editor: Editor) => {
+          const yearsActive = editor.experience?.yearsActive || 0;
+          return yearsActive >= filters.experienceRange.min && yearsActive <= filters.experienceRange.max;
+        });
+      }
+
+      // Apply network filter (check credits for network matches)
+      if (filters.networks.length > 0) {
+        // Note: This would require querying subcollections, implement as needed
+        console.log(`🔍 Network filtering not yet implemented for: ${filters.networks.join(', ')}`);
+      }
+
       // Enhanced text search with show matching if provided
-      let filteredEditors = editors;
       if (filters.query) {
-        filteredEditors = await this.searchEditorsWithShowMatching(editors, filters.query);
+        filteredEditors = await this.searchEditorsWithShowMatching(filteredEditors, filters.query);
       }
 
       // Filter by genres (specialties) - prioritize editor specialties
       if (filters.genres.length > 0) {
         console.log(`🎭 Filtering by genres: ${filters.genres.join(', ')}`);
-        filteredEditors = filteredEditors.filter(editor => {
+        filteredEditors = filteredEditors.filter((editor: Editor) => {
           const editorSpecialties = editor.experience?.specialties || [];
           const hasMatchingSpecialty = filters.genres.some(genre =>
             editorSpecialties.includes(genre)
