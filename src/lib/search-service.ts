@@ -27,33 +27,39 @@ export class SearchService {
     console.log('🔍 Starting hybrid search:', filters);
     
     try {
-      // Step 1: Search local Firebase database first
-      const localResults = await this.searchLocalDatabase(filters);
+      // Step 1: Check if query is a genre - if so, convert to genre filter
+      const processedFilters = this.processQueryAsGenre(filters);
+      
+      // Step 2: Search local Firebase database first
+      const localResults = await this.searchLocalDatabase(processedFilters);
       console.log(`📊 Local database found: ${localResults.editors.length} editors`);
 
-      // Step 2: If we have good local results or no query, return them
+      // Step 3: If we have good local results or no query, return them
       // Special case: For animation shows like The Simpsons, be more strict about local matches
-      const searchQuery = filters.query?.toLowerCase() || '';
+      const searchQuery = processedFilters.query?.toLowerCase() || '';
       const isAnimationShow = ['simpsons', 'south park', 'family guy', 'rick and morty', 'bob\'s burgers'].some(show => 
         searchQuery.includes(show)
       );
       
       const minLocalResults = isAnimationShow ? 0 : 2; // Force web search for animation shows
       
-      if (localResults.editors.length >= minLocalResults || !filters.query?.trim()) {
+      // Don't do web search for pure genre queries
+      const isPureGenreQuery = !processedFilters.query && processedFilters.genres.length > 0;
+      
+      if (localResults.editors.length >= minLocalResults || !processedFilters.query?.trim() || isPureGenreQuery) {
         return localResults;
       }
 
-      // Step 3: Search the web for additional editors
+      // Step 4: Search the web for additional editors
       console.log('🌐 Searching web for additional editors...');
-      const webResults = await this.searchWebForEditors(filters.query, filters);
+      const webResults = await this.searchWebForEditors(processedFilters.query, processedFilters);
       
-      // Step 4: Store web results in database for future searches
+      // Step 5: Store web results in database for future searches
       if (webResults.editors.length > 0) {
-        await this.storeWebResultsInDatabase(webResults.editors, filters.query);
+        await this.storeWebResultsInDatabase(webResults.editors, processedFilters.query);
       }
 
-      // Step 5: Combine and return results
+      // Step 6: Combine and return results
       const combinedResults = this.combineResults(localResults, webResults);
       console.log(`✅ Combined search found: ${combinedResults.editors.length} total editors`);
       
@@ -65,6 +71,46 @@ export class SearchService {
       // Fallback to local database only
       return await this.searchLocalDatabase(filters);
     }
+  }
+
+  /**
+   * Process query to detect genre keywords and convert them to genre filters
+   */
+  private processQueryAsGenre(filters: SearchFilters): SearchFilters {
+    if (!filters.query?.trim()) {
+      return filters;
+    }
+
+    const query = filters.query.toLowerCase().trim();
+    const genreKeywords = {
+      'comedy': 'Comedy',
+      'drama': 'Drama', 
+      'reality': 'Reality',
+      'documentary': 'Documentary',
+      'news': 'News',
+      'sports': 'Sports',
+      'animation': 'Animation',
+      'horror': 'Horror',
+      'sci-fi': 'Sci-Fi',
+      'crime': 'Crime',
+      'action': 'Action',
+      'romance': 'Romance',
+      'thriller': 'Thriller',
+      'musical': 'Musical'
+    };
+
+    // Check if query is a pure genre keyword
+    const genreMatch = genreKeywords[query as keyof typeof genreKeywords];
+    if (genreMatch) {
+      console.log(`🎭 Converting query "${query}" to genre filter: ${genreMatch}`);
+      return {
+        ...filters,
+        query: '', // Clear the query
+        genres: [...filters.genres, genreMatch] // Add to genres array
+      };
+    }
+
+    return filters;
   }
 
   /**
@@ -119,13 +165,21 @@ export class SearchService {
         filteredEditors = await this.searchEditorsWithShowMatching(editors, filters.query);
       }
 
-      // Filter by genres (specialties)
+      // Filter by genres (specialties) - prioritize editor specialties
       if (filters.genres.length > 0) {
-        filteredEditors = filteredEditors.filter(editor =>
-          filters.genres.some(genre =>
-            (editor.experience?.specialties || []).includes(genre)
-          )
-        );
+        console.log(`🎭 Filtering by genres: ${filters.genres.join(', ')}`);
+        filteredEditors = filteredEditors.filter(editor => {
+          const editorSpecialties = editor.experience?.specialties || [];
+          const hasMatchingSpecialty = filters.genres.some(genre =>
+            editorSpecialties.includes(genre)
+          );
+          
+          if (hasMatchingSpecialty) {
+            console.log(`✅ Editor ${editor.name} matches specialty: ${editorSpecialties.join(', ')}`);
+          }
+          
+          return hasMatchingSpecialty;
+        });
       }
 
       return {
@@ -300,19 +354,19 @@ export class SearchService {
     
     if (isShowQuery) {
       // TV show specific searches - focus on actual editors, not actors
-      queries.push(`"${query}" editors film crew IMDB editing department`);
-      queries.push(`"${query}" post-production editors Emmy nominees`);
-      queries.push(`"${query}" TV series picture editor film editor`);
+      queries.push(`"${query}" film editor picture editor crew IMDB -actor -voice -cast`);
+      queries.push(`"${query}" post-production editing department Emmy -actor -star`);
+      queries.push(`"${query}" television editor ACE Eddie award -voice -actor`);
     } else if (this.isGenreQuery(baseQuery)) {
       // Genre specific searches
-      queries.push(`${query} TV editors Emmy awards picture editor`);
-      queries.push(`television ${query} editors film editing professionals`);
-      queries.push(`${query} series picture editors post-production`);
+      queries.push(`${query} television film editor ACE Eddie award -actor -voice`);
+      queries.push(`${query} TV series picture editor Emmy -cast -actor`);
+      queries.push(`${query} post-production editor professional -voice -star`);
     } else {
       // General keyword search
-      queries.push(`"${query}" television picture editors IMDB crew`);
-      queries.push(`TV film editors "${query}" Emmy nominated`);
-      queries.push(`television picture editor "${query}" professional`);
+      queries.push(`"${query}" television picture editor IMDB crew -actor -voice`);
+      queries.push(`TV film editor "${query}" Emmy -actor -cast`);
+      queries.push(`television editor "${query}" ACE Eddie -voice -star`);
     }
 
     return queries.slice(0, 3); // Limit to 3 queries to avoid excessive API calls
@@ -696,7 +750,11 @@ export class SearchService {
     const knownActors = [
       'claire foy', 'alicia vikander', 'eva green', 'matthew perry',
       'jennifer aniston', 'courteney cox', 'lisa kudrow', 'matt leblanc',
-      'david schwimmer', 'brian baumgartner'
+      'david schwimmer', 'brian baumgartner', 'kelsey grammer', 'dan castellaneta',
+      'nancy cartwright', 'hank azaria', 'julie kavner', 'matt groening',
+      'yeardley smith', 'harry shearer', 'trey parker', 'matt stone',
+      'seth macfarlane', 'alex borstein', 'seth green', 'mila kunis',
+      'justin roiland', 'chris parnell', 'spencer grammer', 'sarah chalke'
     ];
 
     const lowerName = name.toLowerCase();
