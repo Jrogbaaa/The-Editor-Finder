@@ -15,14 +15,13 @@
  *   - Firebase config (automatically loaded from .env.local)
  */
 
-// Load environment variables from .env.local
-import { config } from 'dotenv';
-config({ path: '.env.local' });
-
-import '../src/lib/firebase'; // Initialize Firebase
-import { autoResearchService } from '../src/lib/auto-research-service';
+// IMPORTANT: Load environment variables FIRST before any other imports
+require('dotenv').config({ path: '.env.local' });
 
 async function main() {
+  // Import modules after env vars are loaded
+  await import('../src/lib/firebase'); // Initialize Firebase
+  const { autoResearchService } = await import('../src/lib/auto-research-service');
   console.log('🎬 TV Editor Research Data Gathering');
   console.log('=====================================');
   
