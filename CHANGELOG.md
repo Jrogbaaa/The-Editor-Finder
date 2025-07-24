@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [6.3.1] - 2025-01-24 - MOCK EDITOR CLEANUP
+
+### 🗑️ **Major Database Cleanup**
+- **REMOVED**: 121 mock editors causing "Editor Not Found" errors
+- **ELIMINATED**: John Smith, Jane Doe, and other placeholder editors
+- **REMOVED**: All web-generated IDs (web-credit-*) from failed web searches
+- **FILTERED**: Actors incorrectly appearing as editors (Travis Fimmel, Mickey Rourke, Matthew Modine)
+- **CLEANED**: All "Unknown, Unknown" location entries from web scraping
+
+### 🔧 **Enhanced Search Validation**
+- **IMPROVED**: isValidEditorName function to prevent mock editor creation
+- **ADDED**: Comprehensive mock name detection (placeholder names, common test data)
+- **ENHANCED**: Web search filtering to block actors and generic names
+- **CREATED**: /api/cleanup-mock endpoint for future database maintenance
+
+### ✅ **Search Quality Improvements**
+- **VERIFIED**: "drama" search now shows real editors (Sarah Brewerton, Elen Pierce Lewis)
+- **VERIFIED**: "comedy" search shows actual editors (Adam Epstein, Joanna Naugle)
+- **ELIMINATED**: All "Editor Not Found" click-through errors
+- **IMPROVED**: Search result reliability and user experience
+
 ## [6.3.0] - 2025-01-24 - SIMPLIFIED EDITOR PROFILES
 
 ### 🎯 **Major UI Simplification**
