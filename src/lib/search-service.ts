@@ -795,6 +795,15 @@ export class SearchService {
       'actors', 'actress', 'star', 'celebrity', 'cast member'
     ];
 
+    // Common mock/placeholder names to filter out
+    const mockNames = [
+      'john smith', 'jane doe', 'john doe', 'jane smith',
+      'test editor', 'sample editor', 'example editor',
+      'lorem ipsum', 'placeholder', 'dummy editor',
+      'not specified', 'unknown editor', 'default editor',
+      'sarah martinez', 'michael chen', 'emily rodriguez', 'david kim'
+    ];
+
     // Known actors/celebrities to filter out
     const knownActors = [
       'claire foy', 'alicia vikander', 'eva green', 'matthew perry',
@@ -808,13 +817,15 @@ export class SearchService {
 
     const lowerName = name.toLowerCase();
     
-    // Check for invalid names and actors
+    // Check for invalid names, actors, and mock names
     const hasInvalidName = invalidNames.some(invalid => lowerName.includes(invalid));
     const isKnownActor = knownActors.some(actor => lowerName.includes(actor));
+    const isMockName = mockNames.some(mock => lowerName === mock || lowerName.includes(mock));
     
-    // Must have at least 2 words, be under 50 chars, and not be invalid
+    // Must have at least 2 words, be under 50 chars, and not be invalid/mock/actor
     return !hasInvalidName && 
            !isKnownActor && 
+           !isMockName &&
            name.split(' ').length >= 2 && 
            name.length < 50 &&
            !name.toLowerCase().includes('video') &&
