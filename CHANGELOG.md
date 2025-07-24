@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [6.3.0] - 2025-01-24 - SIMPLIFIED EDITOR PROFILES
+
+### 🎯 **Major UI Simplification**
+- **REMOVED**: Research & Intelligence tab completely
+- **ELIMINATED**: ResearchPanel component and all related TypeError crashes
+- **FOCUSED**: Editor profiles now show only essential information: Profile & Credits
+- **STREAMLINED**: Direct display of TV shows and projects editors worked on
+- **IMPROVED**: User experience focused on core value - finding editors' work history
+
+### 🔧 **Technical Cleanup**
+- **REMOVED**: Complex research data loading and Firebase index dependencies
+- **SIMPLIFIED**: Editor profile page structure without tab navigation complexity
+- **ELIMINATED**: TypeError: Cannot read properties of undefined (reading 'length')
+- **REDUCED**: Bundle size and loading complexity
+
+### 💡 **User Experience Focus**
+- **CORE VALUE**: Show TV shows, networks, and project history
+- **SIMPLIFIED**: Clean, focused interface without overwhelming research details
+- **FASTER**: Immediate loading of editor credits and awards
+- **RELIABLE**: No more crashes when viewing editor profiles
+
 ## [6.2.0] - 2025-01-24 - AUTOMATED RESEARCH SYSTEM
 
 ### 🤖 **Major Feature: Automated Research Data Gathering**
