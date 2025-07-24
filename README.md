@@ -7,12 +7,14 @@ A Next.js application for discovering and connecting with professional TV editor
 ## ✨ Features
 
 ### 🔍 **Intelligent Search & Discovery**
-- **🎯 Keyword/TV Show Search** - Search by show titles, genres, or any keywords
-- **🔄 Hybrid search** combining Firebase database and live web scraping
+- **🎯 Advanced Search** - Text queries, genre filters, network filters, union status, and experience ranges
+- **🔄 Hybrid search** combining Firebase database and live web scraping with Apify
 - **📺 Show-to-Editor Matching** - Find editors by typing "Breaking Bad", "Succession", etc.
-- **🎭 Genre Searches** - Discover editors by searching "comedy", "drama", "thriller"
+- **🎭 Genre & Filter Searches** - "CBS Talk Show editors", "Netflix Drama", "Comedy specialists"
+- **🌐 Smart Web Search** - Auto-triggers when local database has 0 results for specific filters
 - **🏆 Award-winner discovery** with Emmy, BAFTA, and international recognition
 - **📊 Auto-expanding database** - web results permanently saved for future searches
+- **🔧 Zero Firebase index errors** - Optimized queries with in-memory filtering
 
 ### 🧠 **Smart Matching Technology**
 - **📈 TV show credit matching** from comprehensive subcollections
@@ -21,16 +23,19 @@ A Next.js application for discovering and connecting with professional TV editor
 - **🎭 Award verification** with years and categories
 
 ### 🌍 **Comprehensive Professional Editor Database**
-- **🎬 100+ acclaimed TV editors** from industry research and web discovery
-- **🏆 Emmy, BAFTA & International Award winners** from top shows including:
+- **🎬 280+ verified TV editors** from industry research, reports, and web discovery
+- **🏆 Academy Award & Emmy winners** including Margaret Sixel (Mad Max: Fury Road)
+- **📺 Major show editors** from top series including:
   - **Breaking Bad** (Kelley Dixon, Lynne Willingham, Skip Macdonald)
   - **Game of Thrones** (Katie Weiland, Tim Porter)
   - **Succession** (Jane Rizzo, Ken Eluto)
   - **Stranger Things** (Dean Zimmerman)
   - **The Bear** (Adam Epstein, Joanna Naugle)
+  - **Mad Max: Fury Road** (Margaret Sixel - Academy Award Winner)
 - **🌍 True international coverage** across USA, UK, Spain, Germany, Korea, India, and more
-- **✅ Verified profiles** with complete filmographies and award histories
-- **📊 Credits tracking** with show titles and years
+- **✅ Verified profiles** with complete filmographies and award histories  
+- **📊 Credits tracking** with show titles, years, and network information
+- **🧹 Clean data** - All mock/sample editors removed, only legitimate professionals
 
 ### 🏗️ **Modern Architecture**
 - **⚡ Next.js 15** with App Router and Turbopack
