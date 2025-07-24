@@ -49,8 +49,12 @@ export class SearchService {
                         processedFilters.unionStatus.length > 0 ||
                         processedFilters.location.cities.length > 0;
       
-      const shouldSearchWeb = localResults.editors.length === 0 || 
-                             (localResults.editors.length < minLocalResults && processedFilters.query?.trim());
+      const hasTextQuery = !!processedFilters.query?.trim();
+      
+      const shouldSearchWeb = (localResults.editors.length === 0 && (hasTextQuery || hasFilters)) || 
+                             (localResults.editors.length < minLocalResults && hasTextQuery);
+      
+      console.log(`🤔 Should search web? ${shouldSearchWeb} (local: ${localResults.editors.length}, hasFilters: ${hasFilters}, hasQuery: ${hasTextQuery})`);
       
       if (!shouldSearchWeb) {
         return localResults;
