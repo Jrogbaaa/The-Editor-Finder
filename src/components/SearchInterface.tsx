@@ -85,15 +85,8 @@ const SearchInterface = ({ filters, onSearch, loading }: SearchInterfaceProps) =
             placeholder="Search TV shows, genres, keywords... (e.g., 'Game of Thrones', 'comedy', 'drama')"
             value={localFilters.query || ''}
             onChange={(e) => handleInputChange('query', e.target.value)}
-            className="w-full pl-12 pr-20 py-4 bg-background border border-border rounded-xl text-lg placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+            className="w-full pl-12 pr-4 py-4 bg-background border border-border rounded-xl text-lg placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
           />
-          {/* Search powered by Apify */}
-          <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-            <div className="flex items-center gap-1 text-xs text-muted-foreground/60">
-              <span>Web search powered by</span>
-              <span className="font-medium text-orange-600">Apify</span>
-            </div>
-          </div>
         </div>
       </div>
 

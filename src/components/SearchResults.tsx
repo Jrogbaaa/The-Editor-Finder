@@ -59,11 +59,11 @@ const SearchResults = ({ results, loading, filters, onExport }: SearchResultsPro
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8" data-testid="search-results">
       {/* Results Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold">
+          <h2 className="text-2xl font-bold" data-testid="results-count">
             {results.totalCount} Editor{results.totalCount !== 1 ? 's' : ''} Found
           </h2>
           <p className="text-muted-foreground">

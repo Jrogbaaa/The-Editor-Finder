@@ -45,7 +45,9 @@ const EditorCard = ({
   };
 
   return (
-    <div className={`group bg-card/80 backdrop-blur-sm border border-border/50 rounded-xl hover:border-border transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 ${
+    <div 
+      data-testid="editor-card"
+      className={`group bg-card/80 backdrop-blur-sm border border-border/50 rounded-xl hover:border-border transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 ${
       showDetails ? 'p-6' : 'p-5'
     }`}>
       {/* Header */}
@@ -75,18 +77,18 @@ const EditorCard = ({
           
           <div className="flex items-center gap-2 mb-3">
             {editor.professional.availability && editor.professional.availability !== 'unknown' && (
-              <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs border ${
-                getAvailabilityColor(editor.professional.availability)
-              }`}>
+            <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs border ${
+              getAvailabilityColor(editor.professional.availability)
+            }`}>
                 {editor.professional.availability === 'available' ? '✅ Available' : '🔴 Busy'}
-              </span>
+            </span>
             )}
             {editor.professional.unionStatus && editor.professional.unionStatus !== 'unknown' && (
-              <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs border ${
-                getUnionStatusColor(editor.professional.unionStatus)
-              }`}>
+            <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs border ${
+              getUnionStatusColor(editor.professional.unionStatus)
+            }`}>
                 {editor.professional.unionStatus === 'guild' ? 'Guild Member' : 'Non-Union'}
-              </span>
+            </span>
             )}
           </div>
         </div>
