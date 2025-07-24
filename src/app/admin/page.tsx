@@ -40,6 +40,32 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleResearchGathering = async () => {
+    setLoading(prev => ({ ...prev, research: true }));
+    
+    try {
+      const response = await fetch('/api/research/auto-gather', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        alert('✅ Research data gathering completed successfully!\n\nAll editors now have research entries and knowledge documents.');
+      } else {
+        alert('❌ Research gathering failed: ' + (data.error || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Research gathering error:', error);
+      alert('❌ Research gathering failed: ' + (error instanceof Error ? error.message : 'Unknown error'));
+    } finally {
+      setLoading(prev => ({ ...prev, research: false }));
+    }
+  };
+
   const handleSync = async (source: string, maxItems = 20) => {
     setLoading(prev => ({ ...prev, [source]: true }));
     
@@ -144,7 +170,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           {[
             { source: 'tmdb', name: 'TMDb', color: 'blue', available: true },
             { source: 'imdb', name: 'IMDb', color: 'yellow', available: false },
@@ -182,6 +208,30 @@ const AdminDashboard = () => {
               )}
             </div>
           ))}
+          
+          {/* Research Gathering Button */}
+          <div className="bg-white p-6 rounded-lg shadow border">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Research Data</h3>
+            
+            <button
+              onClick={handleResearchGathering}
+              disabled={loading.research}
+              className="w-full px-4 py-2 rounded-lg font-medium transition-colors bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50"
+            >
+              {loading.research ? (
+                <div className="flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  Gathering...
+                </div>
+              ) : (
+                'Gather Research'
+              )}
+            </button>
+
+            <p className="text-xs text-gray-500 mt-2 text-center">
+              Uses Apify to research all editors
+            </p>
+          </div>
         </div>
 
         {/* Sync Results */}

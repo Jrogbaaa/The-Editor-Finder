@@ -135,36 +135,49 @@ export const getResearchEntries = async (
   } = {}
 ): Promise<ResearchEntry[]> => {
   try {
-    let q = query(
+    // Simplified query to avoid index requirements
+    const q = query(
       collection(db, RESEARCH_COLLECTION),
-      where('editorId', '==', editorId)
+      where('editorId', '==', editorId),
+      limit(options.limit || 50)
     );
     
-    if (options.type) {
-      q = query(q, where('type', '==', options.type));
-    }
-    
-    if (options.status) {
-      q = query(q, where('status', '==', options.status));
-    }
-    
-    // Default to active entries only
-    if (!options.status) {
-      q = query(q, where('status', '==', 'active'));
-    }
-    
-    const orderField = options.orderBy || 'updatedAt';
-    q = query(q, orderBy(`metadata.${orderField}`, 'desc'));
-    
-    if (options.limit) {
-      q = query(q, limit(options.limit));
-    }
-    
     const snapshot = await getDocs(q);
-    return snapshot.docs.map(doc => ({
+    let entries = snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
     }) as ResearchEntry);
+    
+    // Filter and sort in memory to avoid complex indexes
+    if (options.type) {
+      entries = entries.filter(entry => entry.type === options.type);
+    }
+    
+    if (options.status) {
+      entries = entries.filter(entry => entry.status === options.status);
+    } else {
+      // Default to active entries only
+      entries = entries.filter(entry => entry.status === 'active');
+    }
+    
+    // Sort in memory
+    const orderField = options.orderBy || 'updatedAt';
+    entries.sort((a, b) => {
+      if (orderField === 'priority') {
+        // Sort by priority (assuming it's stored in the entry itself)
+        const aPriority = (a as any).priority || 'medium';
+        const bPriority = (b as any).priority || 'medium';
+        const priorityOrder = { critical: 4, high: 3, medium: 2, low: 1 };
+        return (priorityOrder[bPriority as keyof typeof priorityOrder] || 2) - 
+               (priorityOrder[aPriority as keyof typeof priorityOrder] || 2);
+      } else {
+        const aDate = a.metadata?.[orderField as 'createdAt' | 'updatedAt'] || new Date(0);
+        const bDate = b.metadata?.[orderField as 'createdAt' | 'updatedAt'] || new Date(0);
+        return new Date(bDate).getTime() - new Date(aDate).getTime();
+      }
+    });
+    
+    return entries;
   } catch (error) {
     console.error('Error fetching research entries:', error);
     return [];
