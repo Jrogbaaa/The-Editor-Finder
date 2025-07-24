@@ -55,12 +55,14 @@ export class SearchService {
       const webResults = await this.searchWebForEditors(processedFilters.query, processedFilters);
       
       // Step 5: Store web results in database for future searches
+      let finalWebEditors = webResults.editors;
       if (webResults.editors.length > 0) {
-        await this.storeWebResultsInDatabase(webResults.editors, processedFilters.query);
+        finalWebEditors = await this.storeWebResultsInDatabase(webResults.editors, processedFilters.query);
       }
 
-      // Step 6: Combine and return results
-      const combinedResults = this.combineResults(localResults, webResults);
+      // Step 6: Combine and return results with real database IDs
+      const updatedWebResults = { ...webResults, editors: finalWebEditors };
+      const combinedResults = this.combineResults(localResults, updatedWebResults);
       console.log(`✅ Combined search found: ${combinedResults.editors.length} total editors`);
       
       return combinedResults;
@@ -632,8 +634,9 @@ export class SearchService {
   /**
    * Store web search results in Firebase database for future searches
    */
-  private async storeWebResultsInDatabase(editors: Editor[], searchQuery: string): Promise<void> {
+  private async storeWebResultsInDatabase(editors: Editor[], searchQuery: string): Promise<Editor[]> {
     console.log(`💾 Storing ${editors.length} web-found editors in database...`);
+    const updatedEditors: Editor[] = [];
     
     try {
       for (const editor of editors) {
@@ -646,8 +649,8 @@ export class SearchService {
         const existingSnapshot = await getDocs(existingQuery);
         
         if (existingSnapshot.empty) {
-          // Add new editor
-          await addDoc(collection(db, 'editors'), {
+          // Add new editor and get the real ID
+          const docRef = await addDoc(collection(db, 'editors'), {
             ...editor,
             metadata: {
               ...editor.metadata,
@@ -655,7 +658,11 @@ export class SearchService {
               addedViaWebSearch: true
             }
           });
-          console.log(`✅ Added new editor: ${editor.name}`);
+          
+          // Update the editor with the real database ID
+          const savedEditor = { ...editor, id: docRef.id };
+          updatedEditors.push(savedEditor);
+          console.log(`✅ Added new editor: ${editor.name} (ID: ${docRef.id})`);
         } else {
           // Update existing editor with web search metadata
           const existingDoc = existingSnapshot.docs[0];
@@ -663,11 +670,22 @@ export class SearchService {
             'metadata.lastWebSearchDate': new Date(),
             'metadata.webSearchQueries': searchQuery
           });
-          console.log(`🔄 Updated existing editor: ${editor.name}`);
+          
+          // Use the existing editor with real ID
+          const existingEditor = { 
+            ...editor, 
+            id: existingDoc.id,
+            ...existingDoc.data()
+          } as Editor;
+          updatedEditors.push(existingEditor);
+          console.log(`🔄 Updated existing editor: ${editor.name} (ID: ${existingDoc.id})`);
         }
       }
+      
+      return updatedEditors;
     } catch (error) {
       console.error('❌ Failed to store web results:', error);
+      return editors; // Return original editors if saving fails
     }
   }
 

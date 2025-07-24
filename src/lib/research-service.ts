@@ -599,8 +599,10 @@ export const createResearchTemplate = async (
 export const researchService = {
   addResearchEntry,
   getResearchEntries,
+  getEditorResearch: getResearchEntries, // Alias for compatibility
   updateResearchEntry,
   getEditorKnowledge,
+  getEditorActivities: getResearchActivities, // Alias for compatibility
   updateEditorKnowledge,
   logResearchActivity,
   getResearchActivities,
