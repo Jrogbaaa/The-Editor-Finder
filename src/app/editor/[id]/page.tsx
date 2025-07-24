@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { Editor, Credit, Award } from '@/types';
 import { getEditor, getEditorCredits, getEditorAwards } from '@/lib/firestore-schema';
 import EditorCard from '@/components/EditorCard';
-import ResearchPanel from '@/components/ResearchPanel';
 
 export default function EditorProfilePage() {
   const params = useParams();
@@ -16,7 +15,6 @@ export default function EditorProfilePage() {
   const [credits, setCredits] = useState<Credit[]>([]);
   const [awards, setAwards] = useState<Award[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'profile' | 'research'>('profile');
 
   useEffect(() => {
     if (editorId) {
@@ -44,10 +42,7 @@ export default function EditorProfilePage() {
     }
   };
 
-  const handleResearchUpdate = () => {
-    // Reload editor data when research is updated
-    loadEditorData();
-  };
+
 
   if (loading) {
     return (
@@ -137,36 +132,13 @@ export default function EditorProfilePage() {
             </div>
           </div>
 
-          {/* Tab Navigation */}
-          <div className="flex space-x-1 mt-6">
-            <button
-              onClick={() => setActiveTab('profile')}
-              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
-                activeTab === 'profile'
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              Profile & Credits
-            </button>
-            <button
-              onClick={() => setActiveTab('research')}
-              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
-                activeTab === 'research'
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              Research & Intelligence
-            </button>
-          </div>
+
         </div>
       </div>
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {activeTab === 'profile' ? (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Profile */}
             <div className="lg:col-span-2">
               <EditorCard 
@@ -294,13 +266,6 @@ export default function EditorProfilePage() {
               )}
             </div>
           </div>
-        ) : (
-          /* Research Tab */
-          <ResearchPanel 
-            editorId={editorId}
-            onUpdate={handleResearchUpdate}
-          />
-        )}
       </div>
     </div>
   );
