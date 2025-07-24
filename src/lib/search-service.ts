@@ -182,10 +182,13 @@ export class SearchService {
         });
       }
 
+      // Final filter to remove known actors from all results
+      const cleanedEditors = this.filterOutKnownActors(filteredEditors);
+
       return {
-        editors: filteredEditors,
-        totalCount: filteredEditors.length,
-        facets: this.buildFacets(filteredEditors)
+        editors: cleanedEditors,
+        totalCount: cleanedEditors.length,
+        facets: this.buildFacets(cleanedEditors)
       };
 
     } catch (error) {
@@ -731,6 +734,34 @@ export class SearchService {
     });
 
     return facets;
+  }
+
+  /**
+   * Filter out known actors from search results
+   */
+  private filterOutKnownActors(editors: Editor[]): Editor[] {
+    // Known actors/celebrities to filter out
+    const knownActors = [
+      'claire foy', 'alicia vikander', 'eva green', 'matthew perry',
+      'jennifer aniston', 'courteney cox', 'lisa kudrow', 'matt leblanc',
+      'david schwimmer', 'brian baumgartner', 'kelsey grammer', 'dan castellaneta',
+      'nancy cartwright', 'hank azaria', 'julie kavner', 'matt groening',
+      'yeardley smith', 'harry shearer', 'trey parker', 'matt stone',
+      'seth macfarlane', 'alex borstein', 'seth green', 'mila kunis',
+      'justin roiland', 'chris parnell', 'spencer grammer', 'sarah chalke'
+    ];
+
+    return editors.filter(editor => {
+      const lowerName = editor.name.toLowerCase();
+      const isKnownActor = knownActors.some(actor => lowerName.includes(actor));
+      
+      if (isKnownActor) {
+        console.log(`🚫 Filtering out known actor: ${editor.name}`);
+        return false;
+      }
+      
+      return true;
+    });
   }
 
   /**
