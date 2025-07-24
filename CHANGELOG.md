@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [6.2.0] - 2025-01-24 - AUTOMATED RESEARCH SYSTEM
+
+### 🤖 **Major Feature: Automated Research Data Gathering**
+- **NEW**: AutoResearchService with Apify integration for comprehensive editor research
+- **NEW**: Automated biography, projects, awards, and work style data collection
+- **NEW**: `/api/research/auto-gather` endpoint for triggering research
+- **NEW**: Admin panel "Gather Research" button for one-click data population
+- **NEW**: Research data gathering script: `npx tsx scripts/gather-research-data.ts`
+
+### 🔧 **Firebase Integration Fixes**
+- **FIXED**: "No document to update" errors by auto-creating editor knowledge documents
+- **FIXED**: Firebase index requirement errors with simplified query structure
+- **FIXED**: Research Panel now properly loads with populated data
+- **SOLVED**: All missing research data populated for 280+ editors
+
+### 🛠️ **Environment & Configuration**
+- **FIXED**: Apify token detection - now properly reads `APIFY_API_TOKEN` from .env.local
+- **ENHANCED**: Fallback support for both `APIFY_API_TOKEN` and `NEXT_PUBLIC_APIFY_TOKEN`
+- **IMPROVED**: Better error handling and mock data fallback when API unavailable
+
+### 🎯 **Research Data Quality**
+- **AUTOMATED**: Web scraping of editor biographies, recent projects, and awards
+- **INTELLIGENT**: Pattern matching for TV shows, awards, and technical skills
+- **BATCH PROCESSING**: Rate-limited processing (5 editors per batch) to respect API limits
+- **SMART CACHING**: Skips editors with fresh data (< 7 days old) to avoid duplicate work
+
 ## [6.1.1] - 2025-01-23 - CRITICAL BUGFIXES
 
 ### 🔧 **Critical Error Fixes**
