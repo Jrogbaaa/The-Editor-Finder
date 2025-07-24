@@ -124,8 +124,8 @@ const ResearchPanel = ({ editorId, onUpdate }: ResearchPanelProps) => {
         <div className="flex space-x-1 mt-4">
           {[
             { id: 'overview', label: 'Overview' },
-            { id: 'research', label: `Research (${research.length})` },
-            { id: 'insights', label: `Insights (${knowledge?.insights.length || 0})` },
+            { id: 'research', label: `Research (${research?.length || 0})` },
+            { id: 'insights', label: `Insights (${knowledge?.insights?.length || 0})` },
             { id: 'activity', label: 'Activity' }
           ].map(tab => (
             <button
@@ -227,7 +227,7 @@ const ResearchPanel = ({ editorId, onUpdate }: ResearchPanelProps) => {
 
         {activeTab === 'research' && (
           <div className="space-y-4">
-            {research.length === 0 ? (
+                            {(research?.length || 0) === 0 ? (
               <div className="text-center py-8 text-gray-500">
                 <div className="text-4xl mb-2">📋</div>
                 <div>No research entries yet</div>
@@ -308,7 +308,7 @@ const ResearchPanel = ({ editorId, onUpdate }: ResearchPanelProps) => {
 
         {activeTab === 'activity' && (
           <div className="space-y-3">
-            {activities.length === 0 ? (
+                            {(activities?.length || 0) === 0 ? (
               <div className="text-center py-8 text-gray-500">
                 <div className="text-4xl mb-2">📈</div>
                 <div>No activity yet</div>

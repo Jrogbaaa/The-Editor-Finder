@@ -391,18 +391,27 @@ export const getResearchActivities = async (
   limitCount = 50
 ): Promise<ResearchActivity[]> => {
   try {
+    // Simplified query without orderBy to avoid index requirements
     const q = query(
       collection(db, RESEARCH_ACTIVITIES_COLLECTION),
       where('editorId', '==', editorId),
-      orderBy('timestamp', 'desc'),
       limit(limitCount)
     );
     
     const snapshot = await getDocs(q);
-    return snapshot.docs.map(doc => ({
+    let activities = snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
     }) as ResearchActivity);
+    
+    // Sort in memory by timestamp (desc)
+    activities.sort((a, b) => {
+      const aTime = a.timestamp ? new Date(a.timestamp).getTime() : 0;
+      const bTime = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+      return bTime - aTime;
+    });
+    
+    return activities;
   } catch (error) {
     console.error('Error fetching research activities:', error);
     return [];
