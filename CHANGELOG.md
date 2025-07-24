@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [6.1.1] - 2025-01-23 - CRITICAL BUGFIXES
+
+### 🔧 **Critical Error Fixes**
+- **FIXED**: Research Panel TypeError - added missing `getEditorResearch` and `getEditorActivities` methods
+- **FIXED**: "Editor Not Found" errors when clicking search results
+- **FIXED**: Web-scraped editors now get proper Firebase document IDs instead of temporary IDs
+- **ENHANCED**: Click-through from search results to editor profiles now works seamlessly
+
+### 🛠️ **Technical Improvements**
+- **UPDATED**: `storeWebResultsInDatabase` now returns editors with real database IDs
+- **ADDED**: Method aliases in research service for component compatibility
+- **IMPROVED**: Search flow ensures all editors have valid, clickable profile links
+
 ## [6.1.0] - 2025-01-23 - GENRE SEARCH PERFECTION
 
 ### 🎭 **Critical Search Accuracy Fixes**
