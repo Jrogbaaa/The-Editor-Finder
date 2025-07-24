@@ -11,9 +11,13 @@
  *   npx tsx scripts/gather-research-data.ts
  * 
  * Environment Variables Required:
- *   - NEXT_PUBLIC_APIFY_TOKEN: Your Apify API token
+ *   - APIFY_API_TOKEN: Your Apify API token
  *   - Firebase config (automatically loaded from .env.local)
  */
+
+// Load environment variables from .env.local
+import { config } from 'dotenv';
+config({ path: '.env.local' });
 
 import '../src/lib/firebase'; // Initialize Firebase
 import { autoResearchService } from '../src/lib/auto-research-service';
@@ -24,8 +28,8 @@ async function main() {
   
   try {
     // Check if Apify token is configured
-    if (!process.env.NEXT_PUBLIC_APIFY_TOKEN) {
-      console.log('⚠️  Warning: NEXT_PUBLIC_APIFY_TOKEN not found');
+    if (!process.env.APIFY_API_TOKEN && !process.env.NEXT_PUBLIC_APIFY_TOKEN) {
+      console.log('⚠️  Warning: APIFY_API_TOKEN not found');
       console.log('   Research will use mock data instead of real web scraping');
       console.log('   To use real data, add your Apify token to .env.local');
       console.log('');

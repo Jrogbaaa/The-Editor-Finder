@@ -21,7 +21,7 @@ interface EditorResearchData {
 }
 
 class AutoResearchService {
-  private readonly apifyToken = process.env.NEXT_PUBLIC_APIFY_TOKEN;
+  private readonly apifyToken = process.env.APIFY_API_TOKEN || process.env.NEXT_PUBLIC_APIFY_TOKEN;
 
   /**
    * Gather research data for all editors in the database
