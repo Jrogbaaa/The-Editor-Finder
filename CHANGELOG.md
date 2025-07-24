@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [6.1.0] - 2025-01-23 - GENRE SEARCH PERFECTION
+
+### 🎭 **Critical Search Accuracy Fixes**
+- **FIXED**: Genre searches now match editor specialties, not show genres
+- **FIXED**: "Comedy" search returns comedy editors (Adam Epstein, Joanna Naugle), not drama editors
+- **FIXED**: "Drama" search returns drama editors (John M. Valerio), not comedy editors  
+- **REMOVED**: Known actors (Kelsey Grammer, Dan Castellaneta) from all search results
+- **ENHANCED**: Web search queries with ACE Eddie terms and negative keywords (-actor -voice -cast)
+
+### 🚀 **UX Improvements**
+- **ADDED**: Auto-scroll to results when search completes
+- **ENHANCED**: Smooth scroll animation with proper timing
+- **IMPROVED**: Search intent recognition (genre vs. show vs. keyword)
+
+### 🎯 **Search Examples That Now Work Perfectly**
+- **"comedy"** → Adam Epstein (The Bear, SNL), Joanna Naugle (The Bear, Ramy), Melissa McCoy (Ted Lasso)
+- **"drama"** → John M. Valerio (The White Lotus), Sarah Brewerton (It's a Sin, Doctor Who)
+- **"The Simpsons"** → Don Barrozo, Michael Bridge (actual editors, not voice actors)
+
 ## [6.0.0] - 2025-01-23 - MAJOR SEARCH OVERHAUL
 
 ### 🎯 **Intelligent Search Implementation**
