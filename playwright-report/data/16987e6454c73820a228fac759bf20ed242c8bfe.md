@@ -1,0 +1,42 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - link "Editor Finder Television":
+    - /url: /
+    - img
+    - text: Editor Finder Television
+  - navigation:
+    - link "Search":
+      - /url: /
+    - link "Admin":
+      - /url: /admin
+  - link "Admin Panel":
+    - /url: /admin
+- main:
+  - heading "Find Your Perfect TV Editor" [level=1]
+  - paragraph: Connect with professional television editors worldwide. Search by genre, experience, awards, and availability.
+  - text: Real Emmy Data Verified Professionals Industry Intelligence
+  - img
+  - textbox "Search TV shows, genres, keywords... (e.g., 'Game of Thrones', 'comedy', 'drama')"
+  - button "🏆 Award Winners Emmy & Critics Choice"
+  - button "🌐 Remote Work Work from anywhere"
+  - button "⚖️ Guild Member Union professionals"
+  - button "⭐ Experienced 15+ years experience"
+  - button "Advanced Filters":
+    - text: Advanced Filters
+    - img
+  - button "Search Editors"
+  - button "Reset"
+  - text: 🔍
+  - heading "No Editors Found" [level=3]
+  - paragraph: No editors match your current filters. Try broadening your search criteria.
+  - paragraph:
+    - text: 💡
+    - strong: "Suggestions:"
+  - list:
+    - listitem: • Try searching for specific shows, networks, or genres
+    - listitem: • Expand your experience range or location filters
+    - listitem: • Search for Emmy-winning editors to see verified professionals
+- alert
+```

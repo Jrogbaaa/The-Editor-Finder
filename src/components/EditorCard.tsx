@@ -47,7 +47,7 @@ const EditorCard = ({
   return (
     <div 
       data-testid="editor-card"
-      className={`group bg-card/80 backdrop-blur-sm border border-border/50 rounded-xl hover:border-border transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 ${
+      className={`group bg-card border border-border rounded-xl hover:border-border/70 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 ${
       showDetails ? 'p-6' : 'p-5'
     }`}>
       {/* Header */}
@@ -61,7 +61,7 @@ const EditorCard = ({
               {editor.name}
             </Link>
             {/* Research indicator */}
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-accent/20 text-accent border border-accent/30">
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-accent/20 text-accent border border-accent/40">
               🧠 Intel
             </span>
           </div>
@@ -69,7 +69,7 @@ const EditorCard = ({
           <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
             <span>📍 {editor.location.city}, {editor.location.state}</span>
             {editor.location.remote && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-secondary/20 text-secondary border border-secondary/30">
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-secondary/20 text-secondary border border-secondary/40">
                 Remote OK
               </span>
             )}
@@ -96,7 +96,7 @@ const EditorCard = ({
         {/* Verified Badge */}
         {editor.metadata.verified && (
           <div className="flex-shrink-0">
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary/20 text-primary border border-primary/30">
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary/20 text-primary border border-primary/40">
               ✓ Verified
             </span>
           </div>
@@ -119,13 +119,13 @@ const EditorCard = ({
           {editor.experience.specialties.slice(0, 3).map((specialty, index) => (
             <span
               key={index}
-              className="inline-flex items-center px-2 py-1 rounded-lg text-xs bg-muted/50 text-muted-foreground border border-muted"
+              className="inline-flex items-center px-2 py-1 rounded-lg text-xs bg-muted text-muted-foreground border border-border"
             >
               {specialty}
             </span>
           ))}
           {editor.experience.specialties.length > 3 && (
-            <span className="inline-flex items-center px-2 py-1 rounded-lg text-xs bg-muted/30 text-muted-foreground">
+            <span className="inline-flex items-center px-2 py-1 rounded-lg text-xs bg-muted/70 text-muted-foreground border border-border">
               +{editor.experience.specialties.length - 3} more
             </span>
           )}
@@ -134,10 +134,10 @@ const EditorCard = ({
 
       {/* Awards Summary */}
       {awards.length > 0 && (
-        <div className="mb-4 p-3 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/20 rounded-lg">
+        <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
           <div className="flex items-center gap-2 text-sm">
             <span className="text-yellow-600">🏆</span>
-            <span className="text-foreground/80">
+            <span className="text-yellow-800">
               {awards.filter(a => a.award.status === 'won').length} awards won, {' '}
               {awards.filter(a => a.award.status === 'nominated').length} nominations
             </span>
@@ -172,12 +172,12 @@ const EditorCard = ({
       )}
 
       {/* Knowledge Insights Preview */}
-      <div className="mb-4 p-3 bg-gradient-to-r from-accent/10 to-secondary/10 border border-accent/20 rounded-lg">
+      <div className="mb-4 p-3 bg-accent/10 border border-accent/30 rounded-lg">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-accent">🧠</span>
-          <span className="text-sm font-medium text-foreground">Intelligence Summary</span>
+          <span className="text-sm font-medium text-accent-foreground">Intelligence Summary</span>
         </div>
-        <div className="text-xs text-muted-foreground">
+        <div className="text-xs text-accent-foreground/80">
           Research database contains insights about work style, rates, and industry connections.
         </div>
         <Link 
@@ -251,18 +251,18 @@ const EditorCard = ({
                 href={`https://www.imdb.com/name/${editor.professional.imdbId}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-3 py-1 text-xs bg-yellow-500/20 text-yellow-700 border border-yellow-500/30 rounded-lg hover:bg-yellow-500/30 transition-colors"
+                className="inline-flex items-center px-3 py-1 text-xs bg-yellow-100 text-yellow-700 border border-yellow-300 rounded-lg hover:bg-yellow-200 transition-colors"
               >
                 IMDb Profile
               </a>
             )}
             <Link
               href={`/editor/${editor.id}`}
-              className="inline-flex items-center px-3 py-1 text-xs bg-primary/20 text-primary border border-primary/30 rounded-lg hover:bg-primary/30 transition-colors"
+              className="inline-flex items-center px-3 py-1 text-xs bg-primary/20 text-primary border border-primary/40 rounded-lg hover:bg-primary/30 transition-colors"
             >
               Full Profile
             </Link>
-            <button className="inline-flex items-center px-3 py-1 text-xs bg-muted/50 text-muted-foreground border border-muted hover:bg-muted/70 rounded-lg transition-colors">
+            <button className="inline-flex items-center px-3 py-1 text-xs bg-muted text-muted-foreground border border-border hover:bg-muted/80 rounded-lg transition-colors">
               Save
             </button>
           </div>
